@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.lix.entity.Xt_zy_cz" table="xt_zy_cz" schema="xxxt">
+        <id name="skey" column="skey"/>
+        <property name="parentkey" column="parentkey"/>
+        <property name="name" column="name"/>
+        <property name="action" column="action"/>
+        <property name="icon" column="icon"/>
+        <property name="seq" column="seq"/>
+        <property name="style" column="style"/>
+    </class>
+</hibernate-mapping>

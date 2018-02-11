@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+    <appender name="Console" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH\:mm\:ss,SSS} [%p] [%t\:%r] %l -%m %n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="error"></param>
+        </filter>
+    </appender>
+    <!-- file out config -->
+    <appender class="org.apache.log4j.DailyRollingFileAppender" name="RollingFile">
+        <!-- 每天产生一个日志文件 -->
+        <param name="DatePattern" value=".yyyy-MM-dd"/>
+        <!-- 每月产生一个日志文件 -->
+        <!-- <param name="DatePattern" value=".yyyy-MM"/> -->
+        <!-- <param name="File" value="${jboss.server.log.dir}/jcxxcjpt/jcxxcjpt_error.log" /> -->
+        <param name="File" value="${catalina.home}/logs/homeWork/homeWork_error.log" />
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH\:mm\:ss,SSS} [%p] [%t\:%r] %l -%m %n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="ERROR"></param>
+        </filter>
+    </appender>
+
+    <category name="org.hibernate" additivity="false">
+        <priority value="off" />
+    </category>
+    <category name="net.sf" additivity="false">
+        <priority value="off" />
+        <appender-ref ref="Console" />
+    </category>
+    <category name="org.apache" additivity="false">
+        <priority value="off" />
+        <appender-ref ref="Console" />
+    </category>
+    <category name="org.springframework" additivity="false">
+        <priority value="off" />
+        <appender-ref ref="Console" />
+    </category>
+    <root>
+        <appender-ref ref="Console"/>
+        <appender-ref ref="RollingFile"/>
+    </root>
+
+</log4j:configuration>

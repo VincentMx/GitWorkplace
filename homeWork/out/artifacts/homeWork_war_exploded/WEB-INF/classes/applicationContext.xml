@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util.xsd
+     http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd"  default-autowire="byName">
+
+    <context:component-scan base-package="com.lix">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <context:property-placeholder location="classpath:jdbc.properties"></context:property-placeholder>
+
+    <!--jdbc数据源-->
+    <bean id="xxxtdataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <property name="driverClassName" value="${xxxtjdbc.dao.driverClass}"/>
+    <property name="url" value="${xxxtjdbc.dao.url}"/>
+    <property name="username" value="${xxxtjdbc.dao.username}"/>
+    <property name="password" value="${xxxtjdbc.dao.password}"/>
+    <property name="initialSize" value="5"/>
+    <property name="maxActive" value="10"/>
+    <property name="maxIdle" value="10"/>
+    <property name="minIdle" value="5"/>
+    <property name="maxWait" value="1000"/>
+
+
+    </bean>
+
+
+
+    <!-- 数据源 -->
+    <bean id="dataSource" destroy-method="close" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driverClass}" />
+        <property name="jdbcUrl" value="${jdbc.url}" />
+        <property name="user" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+    </bean>
+
+
+    <!-- 添加sessionFactory bane ，注意，该类是Spring提供的 -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <!-- 把数据源 bean 注入到sessionFactory的dataSource属性 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- hibernate的基本配置，如:方言，是否显示sql等 -->
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <!--<prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/xxxt</prop>-->
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/xxxt?useUnicode=true&amp;characterEncoding=utf-8</prop>
+
+
+            </props>
+        </property>
+        <!-- 引入映射文件，如果有多个可以继续添加 <value> -->
+        <property name="mappingResources">
+            <list>
+                <value>com/lix/entity/XtCs.hbm.xml</value>
+                <value>com/lix/entity/XtCsLx.hbm.xml</value>
+                <value>com/lix/entity/XtDw.hbm.xml</value>
+                <value>com/lix/entity/XtJs.hbm.xml</value>
+                <value>com/lix/entity/XtRzCz.hbm.xml</value>
+                <value>com/lix/entity/XtRzDl.hbm.xml</value>
+                <value>com/lix/entity/XtYh.hbm.xml</value>
+                <value>com/lix/entity/XtYhJs.hbm.xml</value>
+                <value>com/lix/entity/XtZy.hbm.xml</value>
+                <value>com/lix/entity/XtZyCz.hbm.xml</value>
+                <value>com/lix/entity/XtZyYh.hbm.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--配置事务管理器-->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager"
+          p:sessionFactory-ref="sessionFactory"
+          p:dataSource-ref="dataSource"/>
+    <!--声明事务配置-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="load*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="list*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="find*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config expose-proxy="true">
+        <aop:pointcut id="txPoint" expression="execution(* com.lix.service*..*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
+    </aop:config>
+    <bean id="jdbcTemplateXxxt" class="org.springframework.jdbc.core.JdbcTemplate">
+    <property name="dataSource" ref="xxxtdataSource"></property>
+    </bean>
+</beans>

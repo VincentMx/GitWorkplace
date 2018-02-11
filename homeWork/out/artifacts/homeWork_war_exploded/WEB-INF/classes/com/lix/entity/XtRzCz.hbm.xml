@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.lix.entity.XtRzCz" table="xt_rz_cz" schema="xxxt">
+        <id name="skey" column="skey"/>
+        <property name="regId" column="reg_id"/>
+        <property name="userId" column="user_id"/>
+        <property name="unitName" column="unit_name"/>
+        <property name="unitKey" column="unit_key"/>
+        <property name="userName" column="user_name"/>
+        <property name="operateTime" column="operate_time"/>
+        <property name="operateType" column="operate_type"/>
+        <property name="operateResult" column="operate_result"/>
+        <property name="errorCode" column="error_code"/>
+        <property name="operateName" column="operate_name"/>
+        <property name="operateCondition" column="operate_condition"/>
+        <property name="yxzt" column="yxzt"/>
+    </class>
+</hibernate-mapping>

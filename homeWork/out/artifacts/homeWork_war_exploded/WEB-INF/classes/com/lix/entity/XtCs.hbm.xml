@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.lix.entity.XtCs" table="xt_cs" schema="xxxt">
+        <id name="skey" column="skey"/>
+        <property name="name" column="name"/>
+        <property name="typecode" column="typecode"/>
+        <property name="creattime" column="creattime"/>
+        <property name="value" column="value"/>
+        <property name="seq" column="seq"/>
+        <property name="filed1" column="filed_1"/>
+        <property name="filed2" column="filed_2"/>
+        <property name="filed3" column="filed_3"/>
+        <property name="filed4" column="filed_4"/>
+        <property name="yxzt" column="yxzt"/>
+    </class>
+</hibernate-mapping>

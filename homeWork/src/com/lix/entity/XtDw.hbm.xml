@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.lix.entity.XtDw" table="xt_dw" schema="xxxt">
+        <id name="skey" column="skey"/>
+        <property name="code" column="code"/>
+        <property name="name" column="name"/>
+        <property name="shortname" column="shortname"/>
+        <property name="parentkey" column="parentkey"/>
+        <property name="yxzt" column="yxzt"/>
+        <property name="unitlevel" column="unitlevel"/>
+        <property name="yxdate" column="yxdate"/>
+        <property name="seq" column="seq"/>
+    </class>
+</hibernate-mapping>

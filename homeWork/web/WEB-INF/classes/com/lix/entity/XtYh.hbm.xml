@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.lix.entity.Xt_yh" table="xt_yh" schema="xxxt">
+        <id name="skey" column="skey"/>
+        <property name="id" column="id"/>
+        <property name="name" column="name"/>
+        <property name="sex" column="sex"/>
+        <property name="unit" column="unit"/>
+        <property name="password" column="password"/>
+        <property name="phone" column="phone"/>
+        <property name="address" column="address"/>
+        <property name="email" column="email"/>
+        <property name="flag" column="flag"/>
+        <property name="lasttime" column="lasttime"/>
+        <property name="lastip" column="lastip"/>
+        <property name="bz" column="bz"/>
+        <property name="mobile" column="mobile"/>
+        <property name="regtime" column="regtime"/>
+    </class>
+</hibernate-mapping>

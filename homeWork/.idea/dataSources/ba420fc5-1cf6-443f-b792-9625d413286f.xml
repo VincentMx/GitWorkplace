@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="xxxt@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="xxxt">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <schema id="6" parent="1" name="test"/>
+    <table id="7" parent="2" name="student"/>
+    <table id="8" parent="2" name="xt_cs"/>
+    <table id="9" parent="2" name="xt_cs_lx"/>
+    <table id="10" parent="2" name="xt_dw"/>
+    <table id="11" parent="2" name="xt_js"/>
+    <table id="12" parent="2" name="xt_rz_cz"/>
+    <table id="13" parent="2" name="xt_rz_dl"/>
+    <table id="14" parent="2" name="xt_yh"/>
+    <table id="15" parent="2" name="xt_yh_js"/>
+    <table id="16" parent="2" name="xt_zy"/>
+    <table id="17" parent="2" name="xt_zy_cz"/>
+    <table id="18" parent="2" name="xt_zy_yh"/>
+    <column id="19" parent="7" name="sid">
+      <Position>1</Position>
+      <DataType>int(32)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="20" parent="7" name="sname">
+      <Position>2</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="21" parent="7" name="spassword">
+      <Position>3</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <key id="22" parent="7" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>sid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="23" parent="8" name="name">
+      <Position>1</Position>
+      <Comment>名称</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="24" parent="8" name="typecode">
+      <Position>2</Position>
+      <Comment>参数类型</Comment>
+      <DataType>varchar(31)|0</DataType>
+    </column>
+    <column id="25" parent="8" name="creattime">
+      <Position>3</Position>
+      <Comment>创建时间</Comment>
+      <DataType>varchar(19)|0</DataType>
+    </column>
+    <column id="26" parent="8" name="value">
+      <Position>4</Position>
+      <Comment>值</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="27" parent="8" name="seq">
+      <Position>5</Position>
+      <Comment>排序</Comment>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="28" parent="8" name="filed_1">
+      <Position>6</Position>
+      <Comment>备注</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="29" parent="8" name="filed_2">
+      <Position>7</Position>
+      <Comment>备注</Comment>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="30" parent="8" name="filed_3">
+      <Position>8</Position>
+      <Comment>备注</Comment>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="31" parent="8" name="filed_4">
+      <Position>9</Position>
+      <Comment>备注</Comment>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="32" parent="8" name="yxzt">
+      <Position>10</Position>
+      <Comment>有效状态</Comment>
+      <DataType>varchar(2)|0</DataType>
+    </column>
+    <column id="33" parent="8" name="skey">
+      <Position>11</Position>
+      <Comment>主键</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <index id="34" parent="8" name="index_xt_cs">
+      <ColNames>value</ColNames>
+    </index>
+    <key id="35" parent="8" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>skey</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="36" parent="9" name="name">
+      <Position>1</Position>
+      <Comment>名称</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="37" parent="9" name="code">
+      <Position>2</Position>
+      <Comment>编码</Comment>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="38" parent="9" name="yxzt">
+      <Position>3</Position>
+      <Comment>有效状态</Comment>
+      <DataType>varchar(1)|0</DataType>
+    </column>
+    <column id="39" parent="9" name="descr">
+      <Position>4</Position>
+      <Comment>描述</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="40" parent="9" name="skey">
+      <Position>5</Position>
+      <Comment>主键</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="41" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>skey</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="42" parent="10" name="code">
+      <Position>1</Position>
+      <Comment>机构代码</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="43" parent="10" name="name">
+      <Position>2</Position>
+      <Comment>名称</Comment>
+      <DataType>varchar(128)|0</DataType>
+    </column>
+    <column id="44" parent="10" name="shortname">
+      <Position>3</Position>
+      <Comment>简称</Comment>
+      <DataType>varchar(128)|0</DataType>
+    </column>
+    <column id="45" parent="10" name="parentkey">
+      <Position>4</Position>
+      <Comment>上级key</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="46" parent="10" name="yxzt">
+      <Position>5</Position>
+      <Comment>有效状态</Comment>
+      <DataType>varchar(1)|0</DataType>
+    </column>
+    <column id="47" parent="10" name="unitlevel">
+      <Position>6</Position>
+      <Comment>单位级别</Comment>
+      <DataType>varchar(4)|0</DataType>
+    </column>
+    <column id="48" parent="10" name="yxdate">
+      <Position>7</Position>
+      <Comment>有效时间</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="49" parent="10" name="seq">
+      <Position>8</Position>
+      <Comment>排序</Comment>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="50" parent="10" name="skey">
+      <Position>9</Position>
+      <Comment>主键</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="51" parent="10" name="index_xt_dw">
+      <ColNames>code</ColNames>
+    </index>
+    <key id="52" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>skey</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="53" parent="11" name="name">
+      <Position>1</Position>
+      <Comment>称名</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="54" parent="11" name="flag">
+      <Position>2</Position>
+      <Comment>志标</Comment>
+      <DataType>varchar(2)|0</DataType>
+    </column>
+    <column id="55" parent="11" name="desc">
+      <Position>3</Position>
+      <DataType>varchar(80)|0</DataType>
+    </column>
+    <column id="56" parent="11" name="skey">
+      <Position>4</Position>
+      <Comment>主键</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <key id="57" parent="11" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>skey</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="58" parent="12" name="skey">
+      <Position>1</Position>
+      <Comment>主键</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="59" parent="12" name="reg_id">
+      <Position>2</Position>
+      <Comment>应用系统标识</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="60" parent="12" name="user_id">
+      <Position>3</Position>
+      <Comment>用户id</Comment>
+      <DataType>varchar(18)|0</DataType>
+    </column>
+    <column id="61" parent="12" name="unit_name">
+      <Position>4</Position>
+      <Comment>用户所属单位名称</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="62" parent="12" name="unit_key">
+      <Position>5</Position>
+      <Comment>用户所属单位代码</Comment>
+      <DataType>varchar(12)|0</DataType>
+    </column>
+    <column id="63" parent="12" name="user_name">
+      <Position>6</Position>
+      <Comment>用户名称</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="64" parent="12" name="operate_time">
+      <Position>7</Position>
+      <Comment>操作时间</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="65" parent="12" name="operate_type">
+      <Position>8</Position>
+      <Comment>作操类型</Comment>
+      <DataType>varchar(1)|0</DataType>
+    </column>
+    <column id="66" parent="12" name="operate_result">
+      <Position>9</Position>
+      <Comment>操作结果，包括成功1失败0</Comment>
+      <DataType>varchar(1)|0</DataType>
+    </column>
+    <column id="67" parent="12" name="error_code">
+      <Position>10</Position>
+      <Comment>错误代码</Comment>
+      <DataType>varchar(4)|0</DataType>
+    </column>
+    <column id="68" parent="12" name="operate_name">
+      <Position>11</Position>
+      <Comment>操作功能名称</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="69" parent="12" name="operate_condition">
+      <Position>12</Position>
+      <Comment>操作类型为0-登录，为其他类型时可记录用户操作的数据删选条件，填写sql的where字句内容，如：name=&apos;88&apos;</Comment>
+      <DataType>varchar(200)|0</DataType>
+    </column>
+    <column id="70" parent="12" name="yxzt">
+      <Position>13</Position>
+      <Comment>有效状态</Comment>
+      <DataType>varchar(1)|0</DataType>
+    </column>
+    <key id="71" parent="12" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>skey</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="72" parent="13" name="skey">
+      <Position>1</Position>
+      <Comment>主键</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="73" parent="13" name="user_id">
+      <Position>2</Position>
+      <Comment>用户id</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="74" parent="13" name="user_name">
+      <Position>3</Position>
+      <Comment>用户名称</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="75" parent="13" name="ip_address">
+      <Position>4</Position>
+      <Comment>IP地址</Comment>
+      <DataType>varchar(16)|0</DataType>
+    </column>
+    <column id="76" parent="13" name="sys_type">
+      <Position>5</Position>
+      <Comment>类型</Comment>
+      <DataType>varchar(12)|0</DataType>
+    </column>
+    <column id="77" parent="13" name="login_time">
+      <Position>6</Position>
+      <Comment>录登时间</Comment>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="78" parent="13" name="logout_time">
+      <Position>7</Position>
+      <Comment>退出时间</Comment>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="79" parent="13" name="unit_key">
+      <Position>8</Position>
+      <Comment>位单代码</Comment>
+      <DataType>varchar(12)|0</DataType>
+    </column>
+    <column id="80" parent="13" name="unit_name">
+      <Position>9</Position>
+      <Comment>位名称单</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="81" parent="13" name="yxzt">
+      <Position>10</Position>
+      <Comment>有效状态</Comment>
+      <DataType>varchar(1)|0</DataType>
+    </column>
+    <key id="82" parent="13" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>skey</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="83" parent="14" name="skey">
+      <Position>1</Position>
+      <Comment>键主</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="84" parent="14" name="id">
+      <Position>2</Position>
+      <Comment>户用id</Comment>
+      <DataType>varchar(19)|0</DataType>
+    </column>
+    <column id="85" parent="14" name="name">
+      <Position>3</Position>
+      <Comment>用户姓名</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="86" parent="14" name="sex">
+      <Position>4</Position>
+      <Comment>户性别用</Comment>
+      <DataType>varchar(2)|0</DataType>
+    </column>
+    <column id="87" parent="14" name="unit">
+      <Position>5</Position>
+      <Comment>户用单位</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="88" parent="14" name="password">
+      <Position>6</Position>
+      <Comment>户用密码</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="89" parent="14" name="phone">
+      <Position>7</Position>
+      <Comment>户用电话</Comment>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="90" parent="14" name="address">
+      <Position>8</Position>
+      <Comment>户用地址</Comment>
+      <DataType>varchar(200)|0</DataType>
+    </column>
+    <column id="91" parent="14" name="email">
+      <Position>9</Position>
+      <Comment>户用邮箱</Comment>
+      <DataType>varchar(40)|0</DataType>
+    </column>
+    <column id="92" parent="14" name="flag">
+      <Position>10</Position>
+      <Comment>户状态用</Comment>
+      <DataType>varchar(2)|0</DataType>
+    </column>
+    <column id="93" parent="14" name="lasttime">
+      <Position>11</Position>
+      <Comment>后一次最登录时间</Comment>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="94" parent="14" name="lastip">
+      <Position>12</Position>
+      <Comment>后最一次登录ip</Comment>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="95" parent="14" name="bz">
+      <Position>13</Position>
+      <Comment>注备</Comment>
+      <DataType>varchar(256)|0</DataType>
+    </column>
+    <column id="96" parent="14" name="mobile">
+      <Position>14</Position>
+      <Comment>动电话移</Comment>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="97" parent="14" name="regtime">
+      <Position>15</Position>
+      <Comment>册时间注</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <key id="98" parent="14" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>skey</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="99" parent="15" name="rolekey">
+      <Position>1</Position>
+      <Comment>角色主键</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="100" parent="15" name="userkey">
+      <Position>2</Position>
+      <Comment>户用主键</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="101" parent="15" name="skey">
+      <Position>3</Position>
+      <Comment>键主</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="102" parent="15" name="index_user_role">
+      <ColNames>userkey</ColNames>
+    </index>
+    <key id="103" parent="15" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>skey</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="104" parent="16" name="parentkey">
+      <Position>1</Position>
+      <Comment>级上编号</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="105" parent="16" name="name">
+      <Position>2</Position>
+      <Comment>源资名称</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="106" parent="16" name="icon">
+      <Position>3</Position>
+      <Comment>源资图标</Comment>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <column id="107" parent="16" name="url">
+      <Position>4</Position>
+      <Comment>源资路径</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="108" parent="16" name="isparent">
+      <Position>5</Position>
+      <Comment>都否一级元素</Comment>
+      <DataType>varchar(2)|0</DataType>
+    </column>
+    <column id="109" parent="16" name="seq">
+      <Position>6</Position>
+      <Comment>序排</Comment>
+      <DataType>int(2)|0</DataType>
+    </column>
+    <column id="110" parent="16" name="file1">
+      <Position>7</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="111" parent="16" name="skey">
+      <Position>8</Position>
+      <Comment>主键</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <key id="112" parent="16" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>skey</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="113" parent="17" name="skey">
+      <Position>1</Position>
+      <Comment>键主</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="114" parent="17" name="parentkey">
+      <Position>2</Position>
+      <Comment>级元素上</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="115" parent="17" name="name">
+      <Position>3</Position>
+      <Comment>称名</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="116" parent="17" name="action">
+      <Position>4</Position>
+      <Comment>作操</Comment>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="117" parent="17" name="icon">
+      <Position>5</Position>
+      <Comment>钮按</Comment>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <column id="118" parent="17" name="seq">
+      <Position>6</Position>
+      <Comment>序排</Comment>
+      <DataType>int(2)|0</DataType>
+    </column>
+    <column id="119" parent="17" name="style">
+      <Position>7</Position>
+      <Comment>样式</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <key id="120" parent="17" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>skey</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="121" parent="18" name="skey">
+      <Position>1</Position>
+      <Comment>键主</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="122" parent="18" name="resoucekey">
+      <Position>2</Position>
+      <Comment>源资编号</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="123" parent="18" name="role_key">
+      <Position>3</Position>
+      <Comment>角色编号</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <key id="124" parent="18" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>skey</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
