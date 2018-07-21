@@ -91,6 +91,18 @@ public interface XtZyDao {
       *
       */
     Page findXtZyByParam(Page page, XtZyVO xtZyVO);
+    
+    
+    /**
+      *@method: 获取系统资源列表
+      *@author: lix
+      *@desc： 
+      *@Date: 17:33 2018/3/8
+      *@param: 
+      *@return:   
+      *
+      */
+    List<XtZy> getXtZyList(String sql);
 
 
 }

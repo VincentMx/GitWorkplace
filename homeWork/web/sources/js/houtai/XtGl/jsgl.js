@@ -39,6 +39,42 @@ function LoadingResources() {
 }
 
 function operateJs() {
+    var layerIndex;
+
+    layerIndex = layer.open({
+        type:2,
+        title:['我的资源','background-color : #26A96A; color : #fff; font-size : 18px; font-weight : 700 '],
+        area: ['30%','60%'],
+        shade:0,
+        maxmin:true,
+        scrollbar: false,
+        content:'../../console/XtGl/XtZyTree.jsp',
+        btn:['确认','重置','关闭'],
+        yes:function () {
+            $("#xtzyName").val($("iframe").contents().find("#xtzyName").val());
+            $("#xtzyId").val($("iframe").contents().find("#xtzyId").val());
+            alert($("iframe").contents().find("#xtzyId").val() +"---");
+            layer.close(layerIndex);
+        },
+        btn2: function () {
+            $("#parentname").val("");
+            $("#parentkey").val("");
+            layer.close(layerIndex);
+        },
+        btn3: function () {
+            layer.closeAll();
+        },
+        zIndex: layer.zIndex, //重点1
+        success: function (layero) {
+            layer.setTop(layero); //重点2
+        }
+
+    });
+}
+
+
+
+function operateJss() {
 
     var index = layer.open({
         title:['我的树','background-color : #26A69A ; color : #fff; font-size : 14 px; font-weight : 700; text-align : center'],

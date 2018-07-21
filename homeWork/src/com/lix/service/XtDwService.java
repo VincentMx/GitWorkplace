@@ -86,4 +86,27 @@ public interface XtDwService {
       */
     void deleteXtDwINFO(String skey,HttpServletRequest request,Xt_yh xt_yh) throws Exception;
     
+    
+    /**
+      *@method: 获取单位树
+      *@author: lix
+      *@desc： 
+      *@Date: 16:08 2018/3/6
+      *@param: 
+      *@return:   
+      *
+      */
+    List<XtDw> getXtDwList(String parentKey);
+
+    /**
+      *@method: 获取单位树
+      *@author: lix
+      *@desc： 
+      *@Date: 16:15 2018/3/6
+      *@param: 
+      *@return:   
+      *
+      */
+    List<XtDw> getXtDwList(String parentKey,String unit);
+
 }

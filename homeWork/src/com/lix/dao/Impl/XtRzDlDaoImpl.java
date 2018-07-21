@@ -157,6 +157,7 @@ public class XtRzDlDaoImpl implements XtRzDlDao {
         if(!StringUtils.isEmpty(xtDlRzVO.getEndTime())){
             Hql += " and loginTime <  '"+xtDlRzVO.getEndTime()+"' ";
         }
+        Hql += " order by loginTime desc  ";
         try{
             Query query = session.createQuery(Hql);
             countList = query.list();

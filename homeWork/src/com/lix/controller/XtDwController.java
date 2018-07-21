@@ -1,7 +1,9 @@
 package com.lix.controller;
 
 import cn.lix.controller.base.BaseController;
+import com.boyang.core.util.StringUtils;
 import com.lix.entity.XtDw;
+import com.lix.entity.Xt_yh;
 import com.lix.entity.vo.XtDwVO;
 import com.lix.service.XtDwService;
 import com.lix.util.Page;
@@ -9,6 +11,7 @@ import com.lix.util.PageUtils;
 import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -153,6 +156,33 @@ public class XtDwController extends BaseController {
         return  results;
     }
 
+    /**
+      *@method: 获取用户单位树
+      *@author: lix
+      *@desc： 
+      *@Date: 16:21 2018/3/6
+      *@param: 
+      *@return:   
+      *
+      */
+    @RequestMapping(value = "/findUnitTree.html")
+    @ResponseBody
+    public String getUnitTreeParnet(@RequestParam(value = "parentKey") String parentKey,@RequestParam(value = "type") String type,HttpServletRequest request){
+        Xt_yh xt_yh = getYh(request);
+        List<XtDw> list = null;
+        if(type.equals("addTreeNodes")){
+            list = xtDwService.getXtDwList(parentKey);
+        }else {
+            if(xt_yh != null && StringUtils.hasText(xt_yh.getUnit())){
+                list = xtDwService.getXtDwList(parentKey,xt_yh.getUnit());
+            }else{
+                list = xtDwService.getXtDwList(parentKey,"620000000000");
+            }
+        }
 
+        JSONArray jsonArray = JSONArray.fromObject(list);
+        String  results = "{\"success\":\"true\",\"data\":" + jsonArray+ "}";
+        return  results;
+    }
 
 }

@@ -1,17 +1,12 @@
 package com.lix.util;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.sql.Timestamp;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.GregorianCalendar;
-import java.util.Hashtable;
-import java.util.Locale;
-
-import org.apache.commons.lang.StringUtils;
+import java.util.*;
 
 /**
  * @author : lix

@@ -6,6 +6,7 @@ import com.lix.util.Page;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author : lix
@@ -108,4 +109,75 @@ public interface XtYhService {
       *
       */
     void removeXtYh(String skey,HttpServletRequest request,Xt_yh xt_yh) throws Exception;
+    
+    
+    /**
+      *@method: 获取系统用户数量
+      *@author: lix
+      *@desc： 
+      *@Date: 9:03 2018/3/6
+      *@param: 
+      *@return:   
+      *
+      */
+    String getXtYhCount(Xt_yh xt_yh);
+
+    /**
+      *@method: 用户登录日志数量
+      *@author: lix
+      *@desc： 
+      *@Date: 9:47 2018/3/6
+      *@param: 
+      *@return:   
+      *
+      */
+    String getXtYhDlCount(Xt_yh xt_yh);
+
+    /**
+      *@method: 用户操作日志数量
+      *@author: lix
+      *@desc： 
+      *@Date: 9:47 2018/3/6
+      *@param: 
+      *@return:   
+      *
+      */
+    String getXtYhCzCount(Xt_yh xt_yh);
+    
+    
+    /**
+      *@method: 获取用户自己登录的次数统计
+      *@author: lix
+      *@desc： 
+      *@Date: 17:01 2018/3/7
+      *@param: 
+      *@return:   
+      *
+      */
+    String getYhSelfDlCount(Xt_yh xt_yh);
+
+
+
+    /**
+      *@method: 审批用户信息
+      *@author: lix
+      *@desc： 
+      *@Date: 23:33 2018/6/27
+      *@param: 
+      *@return:   
+      *
+      */
+    void SpYhInfo(String Skey, String flag , String bz) throws Exception;
+
+
+  /***
+      *@method: 获取所有用户信息
+      *@author: lix
+      *@desc：
+      *@Date: 19:26 2018/7/9
+      *@param:
+      *@return:
+      *
+      */
+    List<Map<String , Object>> getAllXtYh(String skey , String id ) throws Exception;
 }

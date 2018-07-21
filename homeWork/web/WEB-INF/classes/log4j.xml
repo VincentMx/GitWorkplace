@@ -14,9 +14,6 @@
     <appender class="org.apache.log4j.DailyRollingFileAppender" name="RollingFile">
         <!-- 每天产生一个日志文件 -->
         <param name="DatePattern" value=".yyyy-MM-dd"/>
-        <!-- 每月产生一个日志文件 -->
-        <!-- <param name="DatePattern" value=".yyyy-MM"/> -->
-        <!-- <param name="File" value="${jboss.server.log.dir}/jcxxcjpt/jcxxcjpt_error.log" /> -->
         <param name="File" value="${catalina.home}/logs/homeWork/homeWork_error.log" />
         <param name="Encoding" value="UTF-8"/>
         <layout class="org.apache.log4j.PatternLayout">

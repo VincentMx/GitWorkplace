@@ -94,4 +94,15 @@ public interface XtDwDao  extends AbstractDao{
       */
     void deleteXtDw(XtDw xtDw);
     
+    /**
+      *@method: 获取单位信息
+      *@author: lix
+      *@desc： 
+      *@Date: 16:50 2018/3/6
+      *@param: 
+      *@return:   
+      *
+      */
+    List<XtDw> getXtDwList(String sql);
+    
 }

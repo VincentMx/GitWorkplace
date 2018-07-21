@@ -11,6 +11,7 @@ import com.lix.util.Page;
 import com.lix.util.UuidUtils;
 import com.lix.util.operateUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,6 +29,9 @@ public class XtDwServiceImpl implements XtDwService {
 
     @Resource
     private XtDwDao xtDwDao;
+
+    @Resource
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public Page getXtDwWithPage(Page page, XtDwVO xtDwVO, HttpServletRequest request, String sfzh) {
@@ -97,7 +101,20 @@ public class XtDwServiceImpl implements XtDwService {
         }else {
             xtDwDao.deleteXtDw(xtDw1);
             operateUtils.addUserOperateLog(xt_yh.getId(), Constants.OPERATORLOGDELETE,Constants.OPERATE_SUCCESS,"","删除单位信息","saveDw,主键："+xtDw1.getSkey(),request);
-
         }
+    }
+
+    @Override
+    public List<XtDw> getXtDwList(String parentKey) {
+        String Sql = "from XtDw t where t.parentkey = '" + parentKey +  "' order by t.code ASC ";
+        List<XtDw> list = xtDwDao.getXtDwList(Sql);
+        return list;
+    }
+
+    @Override
+    public List<XtDw> getXtDwList(String parentKey, String unit) {
+        String Sql = " from XtDw t where  t.code = '" + unit +  "' order by t.code ASC ";
+        List<XtDw> list = xtDwDao.getXtDwList(Sql);
+        return list;
     }
 }

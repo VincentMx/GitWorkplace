@@ -2,23 +2,22 @@ package com.lix.service.impl;
 
 import cn.lix.constants.Constants;
 import com.lix.dao.XtYhDao;
-import com.lix.entity.XtZy;
+import com.lix.entity.XtYhDsp;
 import com.lix.entity.Xt_yh;
 import com.lix.entity.vo.XtYhVO;
+import com.lix.service.XtYhDspService;
 import com.lix.service.XtYhService;
-import com.lix.service.XtZyService;
-import com.lix.util.BeanUtils;
-import com.lix.util.Page;
-import com.lix.util.UuidUtils;
-import com.lix.util.operateUtils;
+import com.lix.util.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 /**
  * @author : lix
@@ -32,7 +31,12 @@ public class XtYhServiceImpl implements XtYhService {
     @Resource
     private XtYhDao xtYhDao;
 
+    @Resource
+    private XtYhDspService xtYhDspService;
 
+
+    @Resource
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public void saveYhInfo(Xt_yh xt_yh,HttpServletRequest request,Xt_yh xt_yh2) throws Exception {
@@ -111,5 +115,87 @@ public class XtYhServiceImpl implements XtYhService {
         }else{
             throw new Exception(" skey 不能为空  ");
         }
+    }
+
+    @Override
+    public String getXtYhCount(Xt_yh xt_yh) {
+        String sql = "SELECT  count(0) FROM xt_yh t WHERE  t.flag = '1'";
+        Map<String,Object> numbers = jdbcTemplate.queryForMap(sql);
+        return numbers.get("count(0)").toString();
+    }
+
+    @Override
+    public String getXtYhDlCount(Xt_yh xt_yh) {
+        String sql = "SELECT  count(0) FROM xt_rz_dl t WHERE  t.yxzt = '1' and t.unit_key like '" + SysUnitUtil.getRightDome(xt_yh.getUnit()) + "%'";
+        Map<String,Object> numbers = jdbcTemplate.queryForMap(sql);
+        return numbers.get("count(0)").toString();
+    }
+
+    @Override
+    public String getXtYhCzCount(Xt_yh xt_yh) {
+        String sql = "SELECT  count(0) FROM xt_rz_cz t WHERE  t.yxzt = '1' and t.unit_key like '" + SysUnitUtil.getRightDome(xt_yh.getUnit()) + "%'";
+        Map<String,Object> numbers = jdbcTemplate.queryForMap(sql);
+        return numbers.get("count(0)").toString();
+    }
+
+    @Override
+    public String getYhSelfDlCount(Xt_yh xt_yh) {
+        String sql = "SELECT  count(0) FROM xt_rz_dl t WHERE  t.yxzt = '1' and t.user_id = '" + xt_yh.getId() + "' and t.unit_key like '" + SysUnitUtil.getRightDome(xt_yh.getUnit()) + "%'";
+        Map<String,Object> numbers = jdbcTemplate.queryForMap(sql);
+        return numbers.get("count(0)").toString();
+    }
+
+    @Override
+    public void SpYhInfo(String Skey, String flag, String bz) throws Exception {
+        if(Skey != null && !"".equals(Skey) && !StringUtils.isEmpty(Skey) && !StringUtils.isEmpty(flag)){
+            XtYhDsp xtYhDsp = xtYhDspService.getXtYhDspInfoById(Skey);
+            Xt_yh xtYh = new Xt_yh();
+            if(xtYhDsp != null){
+                if(Constants.XtYhDsp_SPTG.equals(flag)){
+                    BeanUtils.copyPropertityIgnoreNull(xtYhDsp,xtYh);
+                    xtYh.setFlag(Constants.XtYh_YX);
+                    xtYh.setBz(bz);
+                    xtYhDao.saveYhInfo(xtYh);
+                    //当把用户审核通过之后、则保存进系统用户表中、接着删除待审批表中的数据
+                    xtYhDspService.deleteXtYhDspInfoById(Skey,xtYh.getId());
+                }else if (Constants.XtYhDsp_SPWTG.equals(flag)){
+                     xtYhDsp.setFlag(flag);
+                     xtYhDsp.setSkey(Skey);
+                     xtYhDspService.addXtYhDspInfo(xtYhDsp);
+                }
+
+
+            }
+        }
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllXtYh(String skey, String id) throws Exception {
+        List<Map<String , Object>> xtyhList = new ArrayList<Map<String, Object>>();
+        Xt_yh xt_yh = findYhInfoById(skey);
+        if(xt_yh != null){
+            //当用户信息不为空时、判断用户所传id是否匹配
+            if(id.equals(xt_yh.getId())){
+            //当用户id匹配时、开始判断用户所在单位
+                StringBuffer sql = new StringBuffer(" select t.skey, t.id , t.name , t.sex, t.unit , t.phone  ,t.address , t.email , t.flag , t.bz , t.lastitime , t.lastip ,t. mobile, t.regtime  ");
+                sql.append(" from xt_yh t  ");
+                sql.append(" where 1 = 1  ");
+                sql.append(" and t.unit like '" + SysUnitUtil.getRightDome(xt_yh.getUnit()) + "%'  ");
+                sql.append(" and t.flag = '1'  ");
+                sql.append("  order by t.regtime desc; ");
+
+                xtyhList = jdbcTemplate.queryForList(sql.toString());
+
+
+                 if(xtyhList == null){
+                     xtyhList.add(new HashMap<>());
+                 }
+            }else{
+            throw new Exception("用户信息匹配失败！");
+            }
+        }else{
+            throw new Exception("未获取到用户信息");
+        }
+        return xtyhList;
     }
 }

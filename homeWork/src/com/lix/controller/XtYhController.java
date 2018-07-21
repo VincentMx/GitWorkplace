@@ -1,6 +1,8 @@
 package com.lix.controller;
 
+import cn.lix.constants.Constants;
 import cn.lix.controller.base.BaseController;
+import com.boyang.core.util.StringUtils;
 import com.lix.entity.XtRzCz;
 import com.lix.entity.Xt_yh;
 import com.lix.entity.vo.XtDlRzVO;
@@ -164,6 +166,39 @@ public class XtYhController extends BaseController {
         return  result;
     }
 
+    /**
+      *@method: 审批用户信息
+      *@author: lix
+      *@desc： 
+      *@Date: 0:11 2018/6/28
+      *@param: 
+      *@return:   
+      *
+      */
+    @RequestMapping(value = "/SpXtYh.html")
+    @ResponseBody
+    public String SpYhInfo(String skey, String flag , String bz, HttpServletRequest request){
+        String result = "";
+        try{
+            if(StringUtils.hasText(skey)){
+
+                 if("001".equals(flag)){
+                     xtYhService.SpYhInfo(skey, Constants.XtYhDsp_SPTG,bz);
+                 }else if("002".equals(flag)){
+                     xtYhService.SpYhInfo(skey,Constants.XtYhDsp_SPWTG,bz);
+                 }
+                result  = "{\"success\":\"true\"}";
+
+            }else{
+                result  = "{\"success\":\"false\",\"msg\":\"审批失败、主键不能为空\"}";
+            }
+        }catch (Exception e){
+            result = "{\"success\":\"false\",\"msg\":\"审批用户信息失败"+e.getMessage()+"\"}";
+            logger.error("审批用户信息失败"+e.getMessage());
+        }
+        logger.debug(result);
+        return  result;
+    }
 
 
 

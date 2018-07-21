@@ -508,7 +508,7 @@ function detailXtYh() {
  */
 function addYh() {
     var index = layer.open({
-        title:['查找用户信息','background-color : #26A69A ; color : #fff; font-size : 14 px; font-weight : 700; text-align : center'],
+        title:['添加用户信息','background-color : #26A69A ; color : #fff; font-size : 14 px; font-weight : 700; text-align : center'],
         area:['60%','65%'],
         content:'<form role="form" id="XtYhAddInfoForms" action="javascript:void(0)">\n' +
         '    <div class="row">\n' +
@@ -540,23 +540,16 @@ function addYh() {
         '     </div>\n' +
         '    </div>\n' +
         '    <div class="row">\n' +
-        '     <div class="col-xs-6">  \n'+
         '        <div class="form-group input-group">\n' +
         '            <span class="input-group-addon">联系邮箱</span>\n' +
         '            <input type="text" id="sear_email" name="email" class="form-control"  placeholder="请输入用户邮箱...."     />\n' +
         '        </div>\n' +
-        '     </div>\n' +
-        '     <div class="col-xs-6">  \n'+
-        '        <div class="form-group input-group">\n' +
-        '            <span class="input-group-addon">上次登录IP</span>\n' +
-        '            <input type="text" id="sear_lastip" name="lastip" class="form-control"  placeholder="请输入上次登录IP信息...." />\n' +
-        '        </div>\n' +
-        '     </div>\n' +
         '    </div>\n' +
         '    <div class="row">\n' +
         '        <div class="form-group input-group">\n' +
         '            <span class="input-group-addon">单位</span>\n' +
-        '            <input type="text" id="sear_unit"  name="unit" class="form-control"  placeholder="请输入单位信息...." />\n' +
+        '            <input type="text" id="sear_unit_name"  onclick="unitTree();" name="unit" class="form-control"  placeholder="请输入单位信息...." readonly />\n' +
+        '            <input type="hidden" id="sear_unit_id"  name="unit" class="form-control"   />\n' +
         '        </div>\n' +
         '    </div>\n' +
         '    <div class="row">\n' +
@@ -573,12 +566,12 @@ function addYh() {
         '        </div>\n' +
         '    </div>\n' +
         '</form>',
-        btn:['查找','取消'],
+        btn:['添加','取消'],
         btn1:function (index) {
 
             var name = $("#sear_name").val();
             var id = $("#sear_id").val();
-            var unit = $("#sear_unit").val();
+            var unit = $("#sear_unit_id").val();
             var phone = $("#sear_phone").val();
             var address = $("#sear_address").val();
             var mobile = $("#sear_mobile").val();
@@ -593,7 +586,6 @@ function addYh() {
                         type: 'POST',
                         url: CTX + "/xt/user/addXtYh.html",
                         data: {
-                            skey: skey,
                             name: name,
                             id: id,
                             unit: unit,
@@ -601,17 +593,16 @@ function addYh() {
                             address: address,
                             mobile: mobile,
                             email: email,
-                            bz: bz,
-                            sex: sex
+                            bz: bz
                         },
                         dataType: 'json',
                         async: false,
                         success: function (data) {
                             if (data.success) {
-                                layer.msg('修改成功', {icon: 1});
+                                layer.msg('添加成功', {icon: 1});
                                 $("#XtYh_content").bootstrapTable('refresh', {url: CTX + "/xt/user/queryAllXtYhByPage.html?type = 1 "})
                             } else {
-                                layer.msg('修改失败' + data.msg, {icon: 2});
+                                layer.msg('添加失败' + data.msg, {icon: 2});
                             }
                         },
                         error: function () {
@@ -627,7 +618,42 @@ function addYh() {
 
         }
     });
-    }
+
+}
+
+/**
+ * 单位树加载
+ */
+function unitTree() {
+    layerIndex = layer.open({
+        type:2,
+        title:['政府机构','background-color : #26A96A; color : #fff; font-size : 18px; font-weight : 700 '],
+        area: ['40%','60%'],
+        shade:0,
+        maxmin:true,
+        scrollbar: false,
+        content:'../../console/XtGl/DwTree.jsp',
+        btn:['确认','重置','关闭'],
+        yes:function () {
+            $("#sear_unit_name").val($("iframe").contents().find("#unitName").val());
+            $("#sear_unit_id").val($("iframe").contents().find("#unitId").val());
+            layer.close(layerIndex);
+        },
+        btn2: function () {
+            $("#parentname").val("");
+            $("#parentkey").val("");
+            layer.close(layerIndex);
+        },
+        btn3: function () {
+            layer.closeAll();
+        },
+        zIndex: layer.zIndex, //重点1
+        success: function (layero) {
+            layer.setTop(layero); //重点2
+        }
+
+    });
+};
 
 /**
  * 刷新用户列表

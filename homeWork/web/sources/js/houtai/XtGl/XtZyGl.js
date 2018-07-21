@@ -113,7 +113,8 @@ function addResources() {
         '    <div class="row">\n' +
         '        <div class="form-group input-group">\n' +
         '            <span class="input-group-addon">选择父资源</span>\n' +
-        '            <select type="text" id="parentkey" name="parentkey" class="form-control"  ></select>\n' +
+        '            <select type="text" id="parentkey" name="parentkey" class="form-control"  > \n' +
+        '            </select>\n' +
         '        </div>\n' +
         '    </div>\n' +
         '    <div class="row">\n' +
@@ -138,7 +139,8 @@ function addResources() {
             var seq = $("#seq").val();
             var file = $("#field1").val();
             var isparent = $('input:radio:checked').val();
-            var parentkey = $("#parentkey").val();
+            var parentkey = $("#parentkey option:selected").val();
+
 
             if(isparent == '0'){
                 if(parentkey == null || parentkey == ''){
@@ -146,7 +148,7 @@ function addResources() {
                     return false;
                 }
             }else if(isparent == '1'){
-                if(parentkey != null || parentkey != ''){
+                if( parentkey != ''){
                     layer.alert("如果属于父级资源，则不能选择所属父级资源",{icon:2});
                     return false;
                 }
@@ -518,3 +520,167 @@ function operateResources() {
     });
 }
 
+
+function updateResources() {
+    var skey = "";
+    var selections = $("#xtZyContent").bootstrapTable('getSelections');
+    if(selections.length == 1){
+        skey = selections[0].skey;
+    }else{
+        layer.msg("请选择单条数据！");
+        return false;
+    }
+    if(  skey == "" || skey == null ){
+        layer.msg("未获取到相关信息！");
+        return false;
+    }else{
+        $.ajax({
+            type: 'POST',
+            url: CTX + "/xtzy/getZyXxById.html",
+            data: {skey:skey},
+            dataType: 'json',
+            async: false,
+            success:function (data) {
+                if(data.success){
+                    var index = layer.open({
+                        title:['我的消息','background-color : #26A69A ; color : #fff; font-size : 14 px; font-weight : 700; text-align : center'],
+                        area:['400px','490px'],
+                        content:'<form id="updResourcesForm" role="form" action="javascript:void(0)">\n' +
+                        '    <div class="row">\n' +
+                        '        <div class="form-group input-group">\n' +
+                        '            <span class="input-group-addon">名称</span>\n' +
+                        '            <input type="text" id="up_name"  name="name" class="form-control"  />\n' +
+                        '            <input type="hidden" id="up_skey"  name="name" class="form-control"  />\n' +
+                        '        </div>\n' +
+                        '    </div>\n' +
+                        '    <div class="row">\n' +
+                        '        <div class="form-group input-group">\n' +
+                        '            <span class="input-group-addon">url</span>\n' +
+                        '            <input type="text" id="up_url"  name="url" class="form-control"  />\n' +
+                        '        </div>\n' +
+                        '    </div>\n' +
+                        '    <div class="row">\n' +
+                        '        <div class="form-group input-group">\n' +
+                        '            <span class="input-group-addon">资源图标</span>\n' +
+                        '            <input type="text" id="up_icon" name="icon" class="form-control"  />\n' +
+                        '        </div>\n' +
+                        '    </div>\n' +
+                        '    <div class="row">\n' +
+                        '        <div class="form-group input-group">\n' +
+                        '            <span class="input-group-addon">是否为父级资源</span> &nbsp;&nbsp;&nbsp; \n' +
+                        '           <label class="radio-inline">' +
+                        '           <input type="radio"  id="up_isparent1"  name="isparent1" value="1" checked> 是 \n' +
+                        '          </label>\n' +
+                        '           <label class="radio-inline">' +
+                        '           <input type="radio"  id="up_isparent2"  name="isparent2" value="0" checked> 不是 \n' +
+                        '          </label>\n' +
+                        '        </div>\n' +
+                        '    </div>\n' +
+                        '    <div class="row">\n' +
+                        '        <div class="form-group input-group">\n' +
+                        '            <span class="input-group-addon">选择父资源</span>\n' +
+                        '            <select type="text" id="up_parentkey" name="parentkey" class="form-control"  ></select>\n' +
+                        '        </div>\n' +
+                        '    </div>\n' +
+                        '    <div class="row">\n' +
+                        '        <div class="form-group input-group">\n' +
+                        '            <span class="input-group-addon">排序</span>\n' +
+                        '            <input type="text" id="up_seq" name="seq" class="form-control"  />\n' +
+                        '        </div>\n' +
+                        '    </div>\n' +
+                        '    <div class="row">\n' +
+                        '        <div class="form-group input-group">\n' +
+                        '            <span class="input-group-addon">备注</span>\n' +
+                        '            <textarea type="text" id="up_field1" name="field1" class="form-control"  />\n' +
+                        '        </div>\n' +
+                        '    </div>\n' +
+                        '</form>',
+                        btn:['修改','关闭'],
+                        btn1:function (index) {
+                            layer.alert('敬请期待');
+                            var name = $("#up_name").val();
+                            var skey = $("#up_skey").val();
+                            var url = $("#up_url").val();
+                            var icon = $("#up_icon").val();
+                            var seq = $("#up_seq").val();
+                            var file = $("#up_field1").val();
+                            var isparent = $('input:radio:checked').val();
+                            var parentkey = $("#up_parentkey option:selected").val();
+
+
+                            if(isparent == '0'){
+                                if(parentkey == null || parentkey == ''){
+                                    layer.alert("如果不属于父级资源，则必须选择所属父级资源",{icon:2});
+                                    return false;
+                                }
+                            }else if(isparent == '1'){
+                                if( parentkey != ''){
+                                    layer.alert("如果属于父级资源，则不能选择所属父级资源",{icon:2});
+                                    return false;
+                                }
+                            }
+
+                            $("#updResourcesForm").bootstrapValidator("validate");
+                            if ($("#updResourcesForm").data("bootstrapValidator").isValid()){
+                                layer.confirm('确认是否添加',function () {
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: CTX + "/xtzy/saveXtZy.html",
+                                        data: {skey:skey,name:name,url:url,icon:icon,seq:seq,file1:file,isparent:isparent,parentkey:parentkey},
+                                        dataType: 'json',
+                                        async: false,
+                                        success: function (data) {
+                                            if (data.success ){
+                                                layer.msg("添加成功！",{icon:1});
+                                                $("#xtZyContent").bootstrapTable('refresh',{url:CTX+"/xtzy/getXtZyPageList.html?1=1 "})
+                                            }else {
+                                                layer.alert(data.result.msg);
+                                                layer.close(index);
+                                            }
+                                        },
+                                        error: function (XMLHttpRequest,textStatus) {
+                                            alert(XMLHttpRequest + "---" + textStatus + "添加资源失败")
+                                        }
+                                    });
+                                });
+                            }
+                            //saveXtZy
+
+                        },
+                        btn2:function (index) {
+                            layer.close(index);
+                        }
+
+                    });
+                    var datas = data.results[0];
+
+
+                    $("#up_name").val("").val(datas.name);
+                    $("#up_url").val("").val(datas.url);
+                    $("#up_icon").val("").val(datas.icon);
+                    $("#up_seq").val("").val(datas.seq);
+                    $("#up_field1").val("").val(datas.file1);
+                    $("#up_skey").val("").val(datas.skey);
+                    if(datas.isparent == "0"){
+                        $('input[name="isparent1"]:checked').attr("checked",false);
+                        $('input[name="isparent2"]:checked').attr("checked",true);
+                    }else{
+                        $('input[name="isparent2"]:checked').attr("checked",false);
+                        $('input[name="isparent1"]:checked').attr("checked",true);
+
+                    }
+                    $("#up_parentkey").val("").val(datas.parentkey);
+
+                }else {
+                    layer.msg("获取失败！");
+                }
+            },
+            error:function (results) {
+                layer.alert("查询相关参数出错，请联系管理员！");
+            }
+        });
+    };
+
+    //加载select的选项
+    loadingOptions('up_parentkey');
+}

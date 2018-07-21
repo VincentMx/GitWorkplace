@@ -8,6 +8,7 @@ import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -124,5 +125,6 @@ public class BaseController {
             jedis.rpush(key,list.get(i));
         }
     }
+
 
 }

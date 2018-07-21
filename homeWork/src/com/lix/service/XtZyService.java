@@ -107,4 +107,26 @@ public interface XtZyService {
       *
       */
     List<Map<String,Object>> getTree(String skey);
+    
+    /**
+      *@method: 获取资源树
+      *@author: lix
+      *@desc： 
+      *@Date: 16:55 2018/3/8
+      *@param: 
+      *@return:   
+      *
+      */
+    List<XtZy> getXtZyList(String parentKey);
+    
+    /**
+      *@method: 获取资源树
+      *@author: lix
+      *@desc： 
+      *@Date: 17:18 2018/3/8
+      *@param: 
+      *@return:   
+      *
+      */
+    List<XtZy> getXtZyList(String parentKey,String unit);
 }

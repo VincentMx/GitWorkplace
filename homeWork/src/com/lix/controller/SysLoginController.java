@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import redis.clients.jedis.Jedis;
 import sun.security.provider.MD5;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -129,6 +131,11 @@ public class SysLoginController extends BaseController {
         session.setAttribute("yhSkey",xt_yh.getSkey());
         session.setAttribute("yhUnitKey",xt_yh.getUnit());
         logger.info("用户信息Session存储成功");
+
+        //将用户信息添加进
+//        setRedisCatch("yhId",xt_yh.getId());
+//
+//        putLoginUserToRedis(xt_yh);
 
     }
 

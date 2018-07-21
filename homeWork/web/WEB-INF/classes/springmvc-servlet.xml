@@ -12,6 +12,7 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
 
+
     <!--使用@Response注解，并且返回json字符串-->
     <context:annotation-config/>
     <!--可以和这个一起使用-->

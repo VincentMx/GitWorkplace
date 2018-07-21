@@ -264,4 +264,23 @@ public class XtDwDaoImpl implements XtDwDao {
             session.close();
         }
     }
+
+    @Override
+    public List<XtDw> getXtDwList(String sql) {
+        List<XtDw> list = new ArrayList<XtDw>();
+        try{
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            Query query = session.createQuery(sql);
+            list = query.list();
+            transaction.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+
+            session.close();
+        }
+        return list;
+    }
 }

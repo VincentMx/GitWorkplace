@@ -19,4 +19,9 @@
 <table id="XtJsContent"></table>
 <div id="jsTree"></div>
 </body>
+<script type="text/javascript">
+
+
+
+</script>
 </html>

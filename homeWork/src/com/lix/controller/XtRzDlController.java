@@ -123,7 +123,7 @@ public class XtRzDlController extends BaseController {
         try{
            // start = 0; limit = 10;
             xtDlRzVO.setUnitKey((String)request.getSession().getAttribute("yhUnitKey"));
-            Page page = new Page(start+1,0,limit,null);
+            Page page = new Page(start,0,limit,null);
             page = xtRzDlService.getAllXtRzDlByParam(xtDlRzVO,page);
             result = PageUtils.getExtjsPageJsonData(page);
             //result = "{\"success\":\"true\",\"result\":"+jsonArray+"}";

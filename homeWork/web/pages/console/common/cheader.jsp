@@ -26,6 +26,8 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/sources/css/houtai/font-awesome.min.css">
     <link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath}/sources/image/houtai/icon/icon.png">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/sources/image/houtai/icon/favicon.ico">
+    <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/sources/js/jeDate/jeDate.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/sources/js/jeDate/jeDate.js"></script>
     <script src="${pageContext.request.contextPath}/sources/js/houtai/jquery-2.1.4.min.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/sources/js/system/jquery.min.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/sources/js/layui/layui.all.js" type="text/javascript"></script>

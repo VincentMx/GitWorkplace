@@ -121,4 +121,18 @@ public class XtZyServiceImpl implements XtZyService {
 
         return list;
     }
+
+    @Override
+    public List<XtZy> getXtZyList(String parentKey) {
+        String sql = "from XtZy t  where t.parentkey = '" + parentKey +  "'";
+        List<XtZy> list = xtZyDao.getXtZyList(sql);
+        return list;
+    }
+
+    @Override
+    public List<XtZy> getXtZyList(String parentKey, String unit) {
+        String sql = "from XtZy t  where t.parentkey = '" + parentKey +  "'";
+        List<XtZy> list = xtZyDao.getXtZyList(sql);
+        return list;
+    }
 }

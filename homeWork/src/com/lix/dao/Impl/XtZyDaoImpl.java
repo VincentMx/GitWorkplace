@@ -1,6 +1,7 @@
 package com.lix.dao.Impl;
 
 import com.lix.dao.XtZyDao;
+import com.lix.entity.XtDw;
 import com.lix.entity.XtZy;
 import com.lix.entity.vo.XtZyVO;
 import com.lix.util.Page;
@@ -163,5 +164,25 @@ public class XtZyDaoImpl implements XtZyDao {
         }
 
         return page;
+    }
+
+    @Override
+    public List<XtZy> getXtZyList(String sql) {
+        List<XtZy> list = new ArrayList<XtZy>();
+        try{
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            Query query = session.createQuery(sql);
+            list = query.list();
+            transaction.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+
+            session.close();
+        }
+        return list;
+
     }
 }

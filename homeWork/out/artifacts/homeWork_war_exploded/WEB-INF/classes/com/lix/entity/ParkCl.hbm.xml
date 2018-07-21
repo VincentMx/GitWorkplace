@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.lix.entity.ParkCl" table="park_cl" schema="xxxt">
+        <id name="skey" column="skey"/>
+        <property name="paSkey" column="pa_skey"/>
+        <property name="clSkey" column="cl_skey"/>
+        <property name="tcKssj" column="tc_kssj"/>
+        <property name="tcJssj" column="tc_jssj"/>
+        <property name="tcZt" column="tc_zt"/>
+        <property name="bz" column="bz"/>
+        <property name="paSf" column="pa_sf"/>
+    </class>
+</hibernate-mapping>

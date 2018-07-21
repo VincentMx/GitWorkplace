@@ -3,7 +3,9 @@ package com.lix.controller;
 
 import cn.lix.controller.base.BaseController;
 import com.lix.entity.XtCs;
+import com.lix.entity.XtDw;
 import com.lix.entity.XtZy;
+import com.lix.entity.Xt_yh;
 import com.lix.entity.vo.XtZyVO;
 import com.lix.service.XtZyService;
 import com.lix.util.Page;
@@ -180,6 +182,13 @@ public class XtZyController extends BaseController{
         return  result;
     }
 
+
+    /***
+     * 加载资源树的操作
+     * @param id
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/getZyTree.html")
     @ResponseBody
     public String tree(String id,HttpServletRequest request){
@@ -200,6 +209,36 @@ public class XtZyController extends BaseController{
             }
         }
         return  jsonArray2.toString();
+    }
+
+
+    /**
+     *@method: 获取用户单位树
+     *@author: lix
+     *@desc：
+     *@Date: 16:21 2018/3/6
+     *@param:
+     *@return:
+     *
+     */
+    @RequestMapping(value = "/findXtZyTree.html")
+    @ResponseBody
+    public String getXtZyTreeParnet(@RequestParam(value = "parentKey") String parentKey,@RequestParam(value = "type") String type,HttpServletRequest request){
+        Xt_yh xt_yh = getYh(request);
+        List<XtZy> list = null;
+        if(type.equals("addTreeNodes")){
+            list = xtZyService.getXtZyList(parentKey);
+        }else {
+            if(xt_yh != null && com.boyang.core.util.StringUtils.hasText(xt_yh.getUnit())){
+                list = xtZyService.getXtZyList(parentKey,xt_yh.getUnit());
+            }else{
+                list = xtZyService.getXtZyList(parentKey,"620000000000");
+            }
+        }
+
+        JSONArray jsonArray = JSONArray.fromObject(list);
+        String  results = "{\"success\":\"true\",\"data\":" + jsonArray+ "}";
+        return  results;
     }
 
 
