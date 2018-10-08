@@ -87,15 +87,15 @@ public class XtRzCzDaoImpl implements XtRzCzDao {
         XtRzCz xtRzCz = new XtRzCz();
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        String Hal = "from XtRzCz WHERE yxzt = '1' ";
+        StringBuffer Hal = new StringBuffer("from XtRzCz WHERE yxzt = '1' ");
         if(!StringUtils.isEmpty(xtRzCzVO.getSkey())){
-            Hal += " and skey = "+xtRzCzVO.getSkey()+"  ";
+            Hal.append(" and skey = "+xtRzCzVO.getSkey()+"  ");
         }
         if(!StringUtils.isEmpty(xtRzCzVO.getUserId())){
-            Hal += " and user_id = "+xtRzCzVO.getUserId()+"  ";
+            Hal.append(" and user_id = "+xtRzCzVO.getUserId()+"  ");
         }
         try{
-            Query query =  session.createQuery(Hal);
+            Query query =  session.createQuery(Hal.toString());
             xtRzCz = (XtRzCz) query.getSingleResult();
             transaction.commit();
             session.flush();
@@ -112,15 +112,15 @@ public class XtRzCzDaoImpl implements XtRzCzDao {
         XtRzCz xtRzCz1 = new XtRzCz();
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        String Hal = "from XtRzCz WHERE yxzt = '1' ";
+        StringBuffer Hal = new StringBuffer("from XtRzCz WHERE yxzt = '1' ");
         if(!StringUtils.isEmpty(xtRzCz.getSkey())){
-            Hal += " and skey = '"+xtRzCz.getSkey()+"'  ";
+            Hal.append(" and skey = '"+xtRzCz.getSkey()+"'  ");
         }
         if(!StringUtils.isEmpty(xtRzCz.getUserId())){
-            Hal += " and user_id = '"+xtRzCz.getUserId()+"'  ";
+            Hal.append(" and user_id = '"+xtRzCz.getUserId()+"'  ");
         }
         try{
-            Query query =  session.createQuery(Hal);
+            Query query =  session.createQuery(Hal.toString());
             xtRzCz1 = (XtRzCz) query.getSingleResult();
             transaction.commit();
 //            session.flush();
@@ -136,34 +136,34 @@ public class XtRzCzDaoImpl implements XtRzCzDao {
     public Page getAllXtCzRzByParam(XtRzCzVO xtRzCzVO, Page page) {
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        String Hal = "from XtRzCz where yxzt = '1'  ";
+        StringBuffer Hal = new StringBuffer("from XtRzCz where yxzt = '1'  ");
         if(!StringUtils.isEmpty(xtRzCzVO.getUnitKey())){
-            Hal += " and unitKey like '" + SysUnitUtil.getRightDome(xtRzCzVO.getUnitKey()) + "%'   ";
+            Hal.append(" and unitKey like '" + SysUnitUtil.getRightDome(xtRzCzVO.getUnitKey()) + "%'   ");
         }
         if(!StringUtils.isEmpty(xtRzCzVO.getOperateType())){
-            Hal += " and operateType = '" + xtRzCzVO.getOperateType() + "'  ";
+            Hal.append(" and operateType = '" + xtRzCzVO.getOperateType() + "'  ");
         }
         if(!StringUtils.isEmpty(xtRzCzVO.getOperateName())){
-            Hal += " and operateName like '%" + xtRzCzVO.getOperateName() + "%'  ";
+            Hal.append(" and operateName like '%" + xtRzCzVO.getOperateName() + "%'  ");
         }
         if(!StringUtils.isEmpty(xtRzCzVO.getOperateCondition())){
-            Hal += " and operateCondition like '%" + xtRzCzVO.getOperateCondition() + "%'  ";
+            Hal.append(" and operateCondition like '%" + xtRzCzVO.getOperateCondition() + "%'  ");
         }
         if(!StringUtils.isEmpty(xtRzCzVO.getUserId())){
-            Hal += " and userId = '" + xtRzCzVO.getUserId() + "'  ";
+            Hal.append(" and userId = '" + xtRzCzVO.getUserId() + "'  ");
         }
         if(!StringUtils.isEmpty(xtRzCzVO.getUserName())){
-            Hal += " and userName like '%" + xtRzCzVO.getUserName() +  "%' ";
+            Hal.append(" and userName like '%" + xtRzCzVO.getUserName() +  "%' ");
         }
         if(!StringUtils.isEmpty(xtRzCzVO.getStartTime())){
-            Hal += "  and operateTime > '" + xtRzCzVO.getStartTime()  + "'  ";
+            Hal.append("  and operateTime > '" + xtRzCzVO.getStartTime()  + "'  ");
         }
         if(!StringUtils.isEmpty(xtRzCzVO.getEndTime())){
-            Hal += "  and operateTime < '"  + xtRzCzVO.getEndTime() +  "'   ";
+            Hal.append("  and operateTime < '"  + xtRzCzVO.getEndTime() +  "'   ");
         }
-        Hal += " order by operateTime desc  ";
+        Hal.append(" order by operateTime desc  ");
         try{
-            Query query =  session.createQuery(Hal);
+            Query query =  session.createQuery(Hal.toString());
             page.setTotalCount(query.list().size());
             query.setMaxResults(page.getPageSize());
             query.setFirstResult(page.getStart());

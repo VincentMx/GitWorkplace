@@ -36,7 +36,7 @@
                     <input name="phone" id="phone" type="text" class="kuang_txt email" placeholder="联系电话">
                     <input name="password" id="password" type="text" class="kuang_txt possword" placeholder="密码">
                     <input name="password2" id="password2" type="text" class="kuang_txt possword" placeholder="确认密码">
-                    <input name="unit" id="unitName" type="text" onclick="unitTree()" class="kuang_txt yanzm" placeholder="单位">
+                    <input name="unit" id="unitName" type="text" onclick="unitTree()" class="kuang_txt yanzm" placeholder="点击选择单位" readonly>
                     <input name="unit" id="unitId" type="hidden"  class="kuang_txt yanzm" placeholder="单位">
 
                     <div>
@@ -55,7 +55,7 @@
 
             </div>
         </div>
-        <P>lix.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎注册  未知系统：<a href="#" target="_blank">未知系统</a></P>
+        <P>lix.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎注册  木子管理系统：<a href="../../hello.jsp" target="_blank">木子管理</a></P>
     </div>
 
 </div>
@@ -143,7 +143,10 @@
             async: false,
             success: function (data) {
                 if (data.success ){
-                    layer.msg("注册成功，请联系管理员及时审批！",{icon:1});
+                    layer.msg("注册成功，请联系管理员及时审批！",{icon:1},function (e) {
+                        location.href= '../../hello.jsp';
+                    });
+
                 }else {
                     layer.alert(data.result.msg);
                     layer.close(index);

@@ -1,6 +1,8 @@
 package com.lix.Query;
 
 import cn.lix.constants.Constants;
+import com.lix.manager.JlgtManager;
+import com.lix.manager.ParkManager;
 import com.lix.manager.TranslateManager;
 import com.lix.manager.XtYhInfoManager;
 import org.apache.commons.logging.Log;
@@ -28,6 +30,12 @@ public class ServiceQueryUtil {
 
     @Autowired
     private XtYhInfoManager xtYhInfoManager;
+
+    @Autowired
+    private ParkManager parkManager;
+
+    @Autowired
+    private JlgtManager jlgtManager;
 
 
     public Map<String , Object> queryBack(Map<String , Object> bodyMap){
@@ -154,14 +162,19 @@ public class ServiceQueryUtil {
             logger.info("------获取停车位图片列表接口结束------");
         }
         if(code.equals(Constants.PK013)){
-            logger.info("------获取停车位图片列表接口开始------");
-            retMap = xtYhInfoManager.deleteXtYh(bodyMap);
-            logger.info("------获取停车位图片列表接口结束------");
+            logger.info("------获取停车公司列表接口开始------");
+            retMap = parkManager.getParkCompanyList(bodyMap);
+            logger.info("------获取停车公司列表接口结束------");
         }
         if(code.equals(Constants.PK014)){
-            logger.info("------获取停车位图片列表接口开始------");
-            retMap = xtYhInfoManager.deleteXtYh(bodyMap);
-            logger.info("------获取停车位图片列表接口结束------");
+            logger.info("------获取停车公司信息接口开始------");
+            retMap = parkManager.getParkCompanyInfo(bodyMap);
+            logger.info("------获取停车公司信息接口结束------");
+        }
+        if(code.equals(Constants.PK015)){
+            logger.info("------获取停车公司车位列表接口开始------");
+            retMap = parkManager.getParkCompanyCwList(bodyMap);
+            logger.info("------获取停车公司车位列表接口结束------");
         }
 
 
@@ -170,10 +183,33 @@ public class ServiceQueryUtil {
 
 
         //****************************    停车类接口  结束    *******************************//
+        //****************************    公共类接口  开始    *******************************//
+        if(code.equals(Constants.UL001)){
+            logger.info("------用户登录接口开始------");
+            retMap = xtYhInfoManager.XtYhLogin(bodyMap);
+            logger.info("------用户登录接口结束------");
+        }
+        if(code.equals(Constants.UL002)){
+            logger.info("------用户注册接口开始------");
+            retMap = xtYhInfoManager.addXtYh(bodyMap);
+            logger.info("------用户注册接口结束------");
+        }
 
+        //****************************    公共类接口  结束    *******************************//
+        //****************************    交流沟通类接口  开始    *******************************//
 
+        if(code.equals(Constants.JLGT001)){
+            logger.info("------用户获取公告信息接口开始------");
+            retMap = jlgtManager.queryForGgxx(bodyMap);
+            logger.info("------用户获取公告信息接口结束------");
+        }
+        if(code.equals(Constants.JLGT002)){
+            logger.info("------用户获取公告详细信息接口开始------");
+            retMap = jlgtManager.queryForGgxxxxById(bodyMap);
+            logger.info("------用户获取公告详细信息接口结束------");
+        }
 
-
+        //****************************    交流沟通类接口  结束    *******************************//
 
         return  retMap;
 

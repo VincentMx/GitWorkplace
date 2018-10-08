@@ -30,11 +30,27 @@ function loadPage() {
             // {title:"操作类型",field:"operateType",align:"left",order:"desc"},
             {title:"操作名称",field:"operateName",align:"left",order:"desc"},
             {title:"操作内容",field:"operateCondition",align:"left",order:"desc"},
-            {title:"操作结果",field:"operateResult",align:"left",order:"desc"},
+            {title:"操作结果",field:"operateResult", formatter: function (value) {
+              return formateFlag(value);
+            }, align:"left",order:"desc"},
             {title:"操作时间",field:"operateTime",align:"left",order:"desc"},
         ],
         locale:"zh-CN" //中文支持
     })
+}
+
+/**
+ * 翻译字段
+ * @param value
+ */
+function formateFlag(value) {
+    var a = "";
+    if(value == "0") {
+        var a = '<span style="color:#c12e2a;"><i class="fa fa-times-circle-o" aria-hidden="true"></i>失败</span>';
+    }else if(value == "1"){
+        var a = '<span style="color:#3e8f3e"><i class="fa fa-check-circle-o" aria-hidden="true"></i>成功</span>';
+    }
+    return a;
 }
 
 /***

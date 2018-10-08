@@ -37,6 +37,8 @@
     <script src="${pageContext.request.contextPath}/sources/js/bootstrap-3.3.7/js/bootbox.min.js"></script>
     <script src="${pageContext.request.contextPath}/sources/js/bootstrap-3.3.7/js/bootstrapValidator.min.js"></script>
     <script src="${pageContext.request.contextPath}/sources/js/houtai/admin-scripts.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/sources/js/system/colorRandom.js"></script>
+
 
     <script  type="text/javascript"  src="${pageContext.request.contextPath}/sources/js/system/watermark.js"></script>
 
@@ -52,10 +54,8 @@
              user = '${user}';
             var username = '${username}';
 
-            //waterInfo();//加载水印
+            waterInfo();//加载水印
         });
-
-
 
 
 
@@ -95,13 +95,13 @@
                 success:function (data) {
                     $("#"+name+"").append("");
                     htmls +=  '<form action="/Comment/checkAll" method="post">' ;
-                    htmls +=   '        <h1 class="page-header">'+ resourcesName +' <span class="badge">4</span></h1>' ;
+                    htmls +=   '       <blockquote class="page-header layui-elem-quote ">'+ resourcesName +' <span class="badge">4</span></blockquote>' ;
                     htmls +=  '        <ol class="breadcrumb">' ;
                     var opData = data.results;
                     //layer.alert(JSON.stringify(opData));
                     if(opData.length > 0){
                         for(var i = 0; i < opData.length; i++){
-                            htmls +=  '<li><a href="javascript:void(0)" onclick="'+opData[i].action+'();">'+opData[i].name+'</a></li>' ;
+                            htmls +=  '<li  ><a href="javascript:void(0)" onclick="'+opData[i].action+'();">'+opData[i].name+'</a></li>' ;
                         }
                     }
                     htmls +=  '        </ol>' ;
@@ -113,6 +113,8 @@
             });
 
         }
+
+
 
         /**
          * @desc:我的消息
@@ -146,3 +148,8 @@
             watermark({watermark_txt:'管理系统'});
         }
     </script>
+    <style>
+        table {
+            font-size:12px;
+        }
+    </style>

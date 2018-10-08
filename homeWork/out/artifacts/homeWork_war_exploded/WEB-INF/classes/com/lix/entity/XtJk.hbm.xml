@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.lix.entity.XtJk" table="xt_jk" schema="xxxt">
+        <id name="skey" column="skey"/>
+        <property name="jkdz" column="jkdz"/>
+        <property name="jktgf" column="jktgf"/>
+        <property name="jkms" column="jkms"/>
+        <property name="jkjym" column="jkjym"/>
+        <property name="jkyxbs" column="jkyxbs"/>
+        <property name="jkqysj" column="jkqysj"/>
+        <property name="jklb" column="jklb"/>
+        <property name="czsj" column="czsj"/>
+        <property name="czry" column="czry"/>
+        <property name="czryunit" column="czryunit"/>
+        <property name="qqmb" column="qqmb"/>
+        <property name="ydmb" column="ydmb"/>
+    </class>
+</hibernate-mapping>

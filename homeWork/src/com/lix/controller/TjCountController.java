@@ -1,13 +1,13 @@
 package com.lix.controller;
 
 import cn.lix.controller.base.BaseController;
-import com.lix.entity.XtRzDl;
 import com.lix.entity.Xt_yh;
 import com.lix.entity.vo.XtYhVO;
-import com.lix.service.*;
+import com.lix.service.XtRzCzService;
+import com.lix.service.XtRzDlService;
+import com.lix.service.XtYhService;
+import com.lix.service.XtZyService;
 import com.lix.util.ObjectUtils;
-import com.lix.util.Page;
-import com.lix.util.PageUtils;
 import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import java.util.HashMap;
 import java.util.Map;
-
-import static net.sf.json.JSONArray.fromObject;
 
 /**
  * @author : lix
@@ -90,8 +87,30 @@ public class TjCountController extends BaseController {
         String nowXtYhCount = "";
         XtYhVO xtYhVO = (XtYhVO) session.getAttribute("xt_yh");
         Xt_yh xt_yh = getYh(request);
+        Map<String , String> systemsMap = new HashMap<String, String>();
 
         try{
+            //获取系统信息
+            systemsMap.put("user_model" ,System.getenv("USERDOMAIN_ROAMINGPROFILE"));
+            systemsMap.put("processorLevel" ,System.getenv("PROCESSOR_LEVEL")); //处理器级别
+            systemsMap.put("address" ,System.getenv("address")); // 地址
+            systemsMap.put("processorArchitecture" ,System.getenv("PROCESSOR_ARCHITECTURE")); //处理器的芯片体系结构
+            systemsMap.put("username" ,System.getenv("USERNAME")); //用户名
+            systemsMap.put("processorIdentifier" ,System.getenv("PROCESSOR_IDENTIFIER")); //处理器说明
+            systemsMap.put("userdomain" ,System.getenv("USERDOMAIN")); //用户帐户的域的名称
+            systemsMap.put("logonserver" ,System.getenv("LOGONSERVER")); //当前登录会话的域控制器的名称。
+            systemsMap.put("fpsBrowserAppProfileString   " ,System.getenv("FPS_BROWSER_APP_PROFILE_STRING"));
+            systemsMap.put("os" ,System.getenv("OS")); //操作系统名称
+            systemsMap.put("computername" ,System.getenv("COMPUTERNAME")); //计算机的名称
+            systemsMap.put("processorRevision" ,System.getenv("PROCESSOR_REVISION")); //处理器修订版本
+            systemsMap.put("numberOfProcessors" ,System.getenv("NUMBER_OF_PROCESSORS")); //处理器数量
+
+
+
+
+
+
+
             // 获取人员数量
             UserCount = xtYhService.getXtYhCount(xt_yh);
             dlRzCount = xtYhService.getXtYhDlCount(xt_yh);
@@ -102,7 +121,8 @@ public class TjCountController extends BaseController {
             JSONArray dlArray = JSONArray.fromObject(Integer.parseInt(dlRzCount));
             JSONArray czArray = JSONArray.fromObject(Integer.parseInt(czCount));
             JSONArray yhSelfDlCountArray = JSONArray.fromObject(Integer.parseInt(yhSelfDlCount));
-            results = "{\"success\":\"true\",\"xtYhCount\":"+jsonArray.get(0)+",\"dlCount\":"+dlArray.get(0)+",\"czCount\":"+czArray.get(0)+",\"yhSelfDlCount\":"+ yhSelfDlCountArray.get(0) +"}";
+            JSONArray systemArr = JSONArray.fromObject(systemsMap);
+            results = "{\"success\":\"true\",\"xtYhCount\":"+jsonArray.get(0)+",\"dlCount\":"+dlArray.get(0)+",\"czCount\":"+czArray.get(0)+",\"yhSelfDlCount\":"+ yhSelfDlCountArray.get(0) +",\"systemMap\":"+ systemArr.get(0) +"}";
         }catch (Exception e){
             results = "{\"success\":\"false\",\"message\":"+e.getMessage()+"}";
             logger.error("系统在执行参数查询时出现错误："+e.getMessage());

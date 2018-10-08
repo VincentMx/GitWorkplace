@@ -167,7 +167,7 @@ public interface XtYhService {
       *@return:   
       *
       */
-    void SpYhInfo(String Skey, String flag , String bz) throws Exception;
+    void SpYhInfo(String Skey, String flag , String bz , HttpServletRequest request,Xt_yh xt_yh) throws Exception;
 
 
   /***
@@ -180,4 +180,15 @@ public interface XtYhService {
       *
       */
     List<Map<String , Object>> getAllXtYh(String skey , String id ) throws Exception;
+    
+    /**
+      *@method: 根据id和单位获取用户信息
+      *@author: lix
+      *@desc： 
+      *@Date: 15:57 2018/7/29
+      *@param: 
+      *@return:   
+      *
+      */
+    Xt_yh fingById(String id , String unit);
 }

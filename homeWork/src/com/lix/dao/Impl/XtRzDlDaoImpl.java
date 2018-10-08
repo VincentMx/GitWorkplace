@@ -5,7 +5,6 @@ import com.lix.dao.XtRzDlDao;
 import com.lix.entity.XtRzDl;
 import com.lix.entity.vo.XtDlRzVO;
 import com.lix.util.Page;
-import com.lix.service.impl.queryWithPage;
 import com.lix.util.SysUnitUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -71,17 +70,17 @@ public class XtRzDlDaoImpl implements XtRzDlDao {
     public List<XtDlRzVO> getAllYhDlRz(XtDlRzVO xtDlRzVO) {
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        String Hql = "from XtRzDl  where yxzt = '1' ";
+        StringBuffer Hql = new StringBuffer("from XtRzDl  where yxzt = '1' ");
         List<XtDlRzVO> list = new ArrayList<XtDlRzVO>();
 
         if(!StringUtils.isEmpty(xtDlRzVO.getSkey())){
-            Hql += " and skey = "+xtDlRzVO.getSkey()+" ";
+            Hql.append(" and skey = "+xtDlRzVO.getSkey()+" ");
         }
         if(!StringUtils.isEmpty(xtDlRzVO.getUserId())){
-            Hql += " and userId = "+xtDlRzVO.getUserId()+" ";
+            Hql.append(" and userId = "+xtDlRzVO.getUserId()+" ");
         }
         try{
-            Query query = session.createQuery(Hql);
+            Query query = session.createQuery(Hql.toString());
             list = query.list();
             transaction.commit();
             session.flush();
@@ -98,24 +97,24 @@ public class XtRzDlDaoImpl implements XtRzDlDao {
     public XtRzDl getXtGlRzByParam(XtRzDl xtRzDl) {
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        String Hql = "from XtRzDl where yxzt = '1' ";
+        StringBuffer Hql = new StringBuffer("from XtRzDl where yxzt = '1' ");
         if(!StringUtils.isEmpty(xtRzDl.getSkey())){
-            Hql += " and skey = '"+xtRzDl.getSkey()+"' ";
+            Hql.append(" and skey = '"+xtRzDl.getSkey()+"' ");
         }
         if(!StringUtils.isEmpty(xtRzDl.getUserId())){
-            Hql += " and userId = '"+xtRzDl.getUserId()+"' ";
+            Hql.append(" and userId = '"+xtRzDl.getUserId()+"' ");
         }
         if(!StringUtils.isEmpty(xtRzDl.getIpAddress())){
-            Hql += " and ipAddress like '" + xtRzDl.getIpAddress() +  "'  ";
+            Hql.append(" and ipAddress like '" + xtRzDl.getIpAddress() +  "'  ");
         }
         if(!StringUtils.isEmpty(xtRzDl.getLoginTime())){
-            Hql += " and loginTime = '" + xtRzDl.getLoginTime() +  "'   ";
+            Hql.append(" and loginTime = '" + xtRzDl.getLoginTime() +  "'   ");
         }
 
         XtRzDl xtRzDl1 = new XtRzDl();
 //        XtDlRzVO xtDlRzVO = new XtDlRzVO();
         try{
-            Query query = session.createQuery(Hql);
+            Query query = session.createQuery(Hql.toString());
 //            xtDlRzVO = (XtDlRzVO)query.getSingleResult();
            xtRzDl1 = (XtRzDl)query.getSingleResult();
             transaction.commit();
@@ -133,33 +132,33 @@ public class XtRzDlDaoImpl implements XtRzDlDao {
     public Page getAllXtRzDlByParam(XtDlRzVO xtDlRzVO, Page page) {
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        String Hql = " from XtRzDl  where yxzt = '1' ";
+        StringBuffer Hql = new StringBuffer(" from XtRzDl  where yxzt = '1' ");
         List<XtDlRzVO> list = new ArrayList<XtDlRzVO>();
         List<XtDlRzVO> countList = new ArrayList<XtDlRzVO>();
         if(!StringUtils.isEmpty(xtDlRzVO.getUnitKey())){
-            Hql += " and unitKey like '"+ SysUnitUtil.getRightDome(xtDlRzVO.getUnitKey()) +"%' ";
+            Hql.append(" and unitKey like '"+ SysUnitUtil.getRightDome(xtDlRzVO.getUnitKey()) +"%' ");
         }
         if(!StringUtils.isEmpty(xtDlRzVO.getSkey())){
-            Hql += " and skey = '"+xtDlRzVO.getSkey()+"' ";
+            Hql.append(" and skey = '"+xtDlRzVO.getSkey()+"' ");
         }
         if(!StringUtils.isEmpty(xtDlRzVO.getUserId())){
-            Hql += " and userId = '"+xtDlRzVO.getUserId()+"' ";
+            Hql.append(" and userId = '"+xtDlRzVO.getUserId()+"' ");
         }
         if(!StringUtils.isEmpty(xtDlRzVO.getUserName())){
-            Hql += " and userName like '%"+xtDlRzVO.getUserName()+"%' ";
+            Hql.append(" and userName like '%"+xtDlRzVO.getUserName()+"%' ");
         }
         if(!StringUtils.isEmpty(xtDlRzVO.getIpAddress())){
-            Hql += " and ipAddress like '%"+xtDlRzVO.getIpAddress()+"%' ";
+            Hql.append(" and ipAddress like '%"+xtDlRzVO.getIpAddress()+"%' ");
         }
         if(!StringUtils.isEmpty(xtDlRzVO.getStartTime())){
-            Hql += " and loginTime >  '"+xtDlRzVO.getStartTime()+"' ";
+            Hql.append(" and loginTime >  '"+xtDlRzVO.getStartTime()+"' ");
         }
         if(!StringUtils.isEmpty(xtDlRzVO.getEndTime())){
-            Hql += " and loginTime <  '"+xtDlRzVO.getEndTime()+"' ";
+            Hql.append(" and loginTime <  '"+xtDlRzVO.getEndTime()+"' ");
         }
-        Hql += " order by loginTime desc  ";
+        Hql.append(" order by loginTime desc  ");
         try{
-            Query query = session.createQuery(Hql);
+            Query query = session.createQuery(Hql.toString());
             countList = query.list();
             query.setFirstResult(page.getStart());
             query.setMaxResults(page.getPageSize());

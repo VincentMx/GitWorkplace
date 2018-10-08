@@ -1,6 +1,6 @@
 package com.lix.manager;
 
-import cn.lix.constants.BasicConfig;
+import cn.lix.config.BasicConfig;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;

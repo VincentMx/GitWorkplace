@@ -18,6 +18,9 @@
         $(document).ready(function () {
             getResources();
         });
+
+
+
         /**
          * 加载资源数据
          **/
@@ -33,11 +36,11 @@
                     var htmls = "";
                     for(var i = 0; i< results.length; i++){
                         if(results[i].isparent == 1){
-                            htmls +=  "<li><a  class=\"dropdown-toggle\" id=\"settingMenu\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"  href=\""+results[i].url+"\">"+results[i].name+"</a>" ;
+                            htmls +=  "<li><a  class=\"dropdown-toggle\" id=\"settingMenu\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"   href=\""+results[i].url+"\">"+results[i].name+"</a>" ;
                             htmls += "<ul class=\"dropdown-menu\" aria-labelledby=\"settingMenu\">";
                             for (var j = 0; j < results.length ; j ++){
                                 if(results[j].parentkey == results[i].skey ){
-                                    htmls += "    <li><a href='javascript:void(0)'  onclick=\"getTargetUrl("+"'"+results[j].url+"','"+ results[j].skey +"','" + results[j].name + "'"+")\">"+results[j].name+"</a></li>";
+                                    htmls += "    <li  ><a href='javascript:void(0)'  onclick=\"getTargetUrl("+"'"+results[j].url+"','"+ results[j].skey +"','" + results[j].name + "'"+")\">"+results[j].name+"</a></li>";
                                 }
                             }
                             htmls += "</ul>";
@@ -65,7 +68,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">切换导航</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                    <a class="navbar-brand" href="/">Soft Ware</a> </div>
+                    <a class="navbar-brand" href="/">木子管理系统</a> </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="javascript:getMyMessage();">消息 <span class="badge" id="user_Message">1</span></a></li>
@@ -108,14 +111,6 @@
                 </li>
             </ul>
             <ul class="nav nav-sidebar">
-                <li><a class="dropdown-toggle" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">用户</a>
-                    <ul class="dropdown-menu" aria-labelledby="userMenu">
-                        <li><a data-toggle="modal" data-target="#areDeveloping">管理用户组</a></li>
-                        <li><a href="manage-user.html">管理用户</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="loginlog.html">管理登录日志</a></li>
-                    </ul>
-                </li>
                 <li><a class="dropdown-toggle" id="settingMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">设置</a>
                     <ul class="dropdown-menu" aria-labelledby="settingMenu">
                         <li><a href="setting.html">基本设置</a></li>
@@ -145,7 +140,7 @@
                     <h4 class="modal-title" >个人信息</h4>
                 </div>
                 <div class="modal-body">
-                    <table class="table" style="margin-bottom:0px;">
+                    <table class="table" id="userInfoId" style="margin-bottom:0px;">
                         <thead>
                         <tr> </tr>
                         </thead>
@@ -163,15 +158,15 @@
                             <td width="80%"><input type="text" value="18538078281" class="form-control" name="usertel" maxlength="13" autocomplete="off" /></td>
                         </tr>
                         <tr>
-                            <td wdith="20%">旧密码:</td>
+                            <td wdith="20%">邮箱:</td>
                             <td width="80%"><input type="password" class="form-control" name="old_password" maxlength="18" autocomplete="off" /></td>
                         </tr>
                         <tr>
-                            <td wdith="20%">新密码:</td>
+                            <td wdith="20%">联系地址:</td>
                             <td width="80%"><input type="password" class="form-control" name="password" maxlength="18" autocomplete="off" /></td>
                         </tr>
                         <tr>
-                            <td wdith="20%">确认密码:</td>
+                            <td wdith="20%">单位:</td>
                             <td width="80%"><input type="password" class="form-control" name="new_password" maxlength="18" autocomplete="off" /></td>
                         </tr>
                         </tbody>

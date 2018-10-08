@@ -1,12 +1,10 @@
 package com.lix.service;
 
-import com.lix.entity.ClXx;
-import com.lix.entity.ParkCl;
-import com.lix.entity.ParkSf;
-import com.lix.entity.ParkXx;
+import com.lix.entity.*;
 import com.lix.entity.vo.CwxxVO;
 import com.lix.util.Page;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -306,4 +304,198 @@ public interface YhParkService {
       */
     ClXx  findClxxByParam(ClXx clXx);
 
+
+
+    /**
+      *@method: 添加公司
+      *@author: lix
+      *@desc： 
+      *@Date: 18:51 2018/7/29
+      *@param: 
+      *@return:   
+      *
+      */
+   void saveOrUpdateParkCompany(ParkCompany parkCompany) throws Exception;
+
+   /**
+     *@method: 审批停车公司
+     *@author: lix
+     *@desc： 
+     *@Date: 18:52 2018/7/29
+     *@param: 
+     *@return:   
+     *
+     */
+   void spParkCompany(Xt_yh xt_yh , ParkCompanyDsp parkCompanyDsp , String spflag );
+
+
+   /**
+     *@method: 分页查询停车公司
+     *@author: lix
+     *@desc： 
+     *@Date: 18:33 2018/8/7
+     *@param: 
+     *@return:   
+     *
+     */
+    Page findAllParkCompany(Page page, ParkCompany parkCompany);
+
+
+    /**
+      *@method: 分页查询待审批停车公司信息
+      *@author: lix
+      *@desc： 
+      *@Date: 18:56 2018/8/7
+      *@param: 
+      *@return:   
+      *
+      */
+    Page findAllParkCompanyDsp(Page page, ParkCompanyDsp parkCompanyDsp);
+
+    /**
+      *@method: 添加或者修改停车公司信息
+      *@author: lix
+      *@desc： 
+      *@Date: 18:56 2018/8/7
+      *@param: 
+      *@return:   
+      *
+      */
+    void saveOrUpdateParkCompanyDsp(Xt_yh xt_yh , ParkCompanyDsp parkCompanyDsp , HttpServletRequest request) throws Exception;
+    /**
+      *@method: 根据主键查询
+      *@author: lix
+      *@desc： 
+      *@Date: 18:56 2018/8/7
+      *@param: 
+      *@return:   
+      *
+      */
+    ParkCompanyDsp findParkCompanyDspBySkey(String skey) throws Exception;
+    
+    /**
+      *@method: 删除待审批信息
+      *@author: lix
+      *@desc： 
+      *@Date: 18:57 2018/8/7
+      *@param: 
+      *@return:   
+      *
+      */
+    void deleteParkCompanyDsp(String skey , HttpServletRequest request ,Xt_yh xt_yh) throws Exception;
+
+
+    /**
+     *@method: 删除车位公司信息
+     *@author: lix
+     *@desc：
+     *@Date: 18:57 2018/8/7
+     *@param:
+     *@return:
+     *
+     */
+    void deleteParkCompany(String skey , HttpServletRequest request ,Xt_yh xt_yh) throws Exception;
+
+    /**
+      *@method: 查询所有停车公司
+      *@author: lix
+      *@desc： 
+      *@Date: 19:05 2018/8/7
+      *@param: 
+      *@return:   
+      *
+      */
+    List<ParkCompany> findAllParkCompany(ParkCompany parkCompany);
+    
+    /**
+      *@method: 查询所有待审批停车公司
+      *@author: lix
+      *@desc： 
+      *@Date: 19:09 2018/8/7
+      *@param: 
+      *@return:   
+      *
+      */
+    List<ParkCompanyDsp> findAllParkCompanyDsp(ParkCompanyDsp parkCompanyDsp);
+
+
+    /**
+      *@method: 根据主键查找车位公司
+      *@author: lix
+      *@desc： 
+      *@Date: 8:45 2018/8/23
+      *@param: 
+      *@return:   
+      *
+      */
+    ParkCompany findParkCompanyById(ParkCompany  parkCompany);
+    
+    
+    /**
+      *@method: 添加关联信息
+      *@author: lix
+      *@desc： 
+      *@Date: 17:16 2018/8/24
+      *@param: 
+      *@return:   
+      *
+      */
+    void save(ParkCompanyGl parkCompanyGl , Xt_yh xt_yh);
+    
+    /**
+      *@method: 删除关联信息
+      *@author: lix
+      *@desc： 
+      *@Date: 17:16 2018/8/24
+      *@param: 
+      *@return:   
+      *
+      */
+    void delete(ParkCompanyGl parkCompanyGl , Xt_yh xt_yh);
+    
+    /**
+      *@method: 修改关联信息
+      *@author: lix
+      *@desc： 
+      *@Date: 17:16 2018/8/24
+      *@param: 
+      *@return:   
+      *
+      */
+    void update(ParkCompanyGl parkCompanyGl , Xt_yh xt_yh);
+    
+    /**
+      *@method: 查询关联关系
+      *@author: lix
+      *@desc： 
+      *@Date: 17:17 2018/8/24
+      *@param: 
+      *@return:   
+      *
+      */
+    List<ParkCompanyGl> findAllParkGlByParam(ParkCompanyGl parkCompanyGl , ParkCompany parkCompany ,ParkXx parkXx);
+
+    /**
+      *@method: 根据公司添加车位信息
+      *@author: lix
+      *@desc：
+      *@Date: 17:21 2018/8/24
+      *@param:
+      *@return:
+      *
+      */
+    void save(String pcskey , ParkXx parkXx , Xt_yh xt_yh , HttpServletRequest request) throws Exception;
+
+    
+    /**
+      *@method: 获取停车公司车位
+      *@author: lix
+      *@desc： 
+      *@Date: 15:42 2018/8/25
+      *@param: 
+      *@return:   
+      *
+      */
+    List<ParkXx> findParkListByPcskey(ParkCompany parkCompany);
+    
 }

@@ -124,6 +124,6 @@ $('[data-toggle="tooltip"]').tooltip();
 //Console
 try {
     if (window.console && window.console.log) {
-        console.log("\nPOWERED BY WY ALL RIGHTS RESERVED");
+        console.log("\nPOWERED BY lixianlz@163.com ALL RIGHTS RESERVED");
     }
 } catch (e) {};

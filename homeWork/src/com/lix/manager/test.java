@@ -1,6 +1,6 @@
 package com.lix.manager;
 
-import cn.lix.constants.BasicConfig;
+import cn.lix.config.BasicConfig;
 import com.lix.util.baidu.TransApi;
 
 import java.io.UnsupportedEncodingException;

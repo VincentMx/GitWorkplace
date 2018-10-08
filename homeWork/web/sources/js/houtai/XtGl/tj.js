@@ -118,21 +118,21 @@ function wztj(){
             subtext: '这是你最关心的数据了吧？',
             x: 'left'
         },
-        toolbox: {
-            show: true,
-            feature: {
-                dataView: {
-                    show: true,
-                    readOnly: true
-                },
-                restore: {
-                    show: true
-                },
-                saveAsImage: {
-                    show: true
-                }
-            }
-        },
+        // toolbox: {
+        //     show: true,
+        //     feature: {
+        //         dataView: {
+        //             show: true,
+        //             readOnly: true
+        //         },
+        //         restore: {
+        //             show: true
+        //         },
+        //         saveAsImage: {
+        //             show: true
+        //         }
+        //     }
+        // },
         series: createSeries(mainData)
     }
     myChart.setOption(option);

@@ -13,7 +13,12 @@
 <html>
 <head>
     <title>hello</title>
+    <script src="${pageContext.request.contextPath}/sources/js/houtai/jquery-2.1.4.min.js" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/sources/css/hello.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/sources/css/fonts/iconfont.css">
+    <%--<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/sources/js/layui/css/layui.css">--%>
+    <%--<script type="text/javascript" src="${pageContext.request.contextPath}/sources/js/layui/layui.js"></script>--%>
+
     <script type="text/javascript">
     </script>
 </head>
@@ -24,12 +29,16 @@
 <div class="content">
     <div class="form_div">
         <form action="<%=path%>/sys/login/login.html" method="post">
-            <table>
+            <table >
                 <tr>
-                    <td><input type="text" name="id" placeholder="userId"></td>
+                    <td>
+                        <input title="username" type="text" name="id" placeholder="userId" >
+                    </td>
                 </tr>
                 <tr>
-                    <td><input type="text" name="password" placeholder="password"></td>
+                    <td>
+                        <input title="password" type="password" name="password" placeholder="password" />
+                    </td>
 
                 </tr>
                 <tr>

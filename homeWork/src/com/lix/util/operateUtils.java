@@ -10,8 +10,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
-import static cn.lix.constants.Constants.XtRzCz_YX;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author : lix
@@ -49,6 +48,10 @@ public class operateUtils  {
         Xt_yh xt_yh = new Xt_yh();
         try{
             xt_yh = (Xt_yh) Constants.xtYhInfo.get(sfzh);
+            if(xt_yh == null){
+                HttpSession session = request.getSession();
+                xt_yh = (Xt_yh) session.getAttribute("xtYh");
+            }
             if(xt_yh == null || StringUtils.isEmpty(xt_yh.getId())){
                log.error("operateUtils[addUserOperateLog]：用户：【"+xt_yh.getId()+"】登陆信息不存在");
                throw  new Exception("operateUtils[addUserOperateLog]：用户：【"+xt_yh.getId()+"】登陆信息不存在");

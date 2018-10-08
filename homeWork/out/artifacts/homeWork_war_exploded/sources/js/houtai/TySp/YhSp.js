@@ -30,13 +30,29 @@ function loadTable() {
             {title:"邮箱",field:"email",align:"left",order:"desc"},
             {title:"电话",field:"phone",align:"left",order:"desc"},
             {title:"注册时间",field:"regtime",align:"left",order:"desc"},
-            {title:"审批状态",field:"flag",align:"left",order:"desc"},
+            {title:"审批状态",field:"flag",align:"left", formatter: function (value,row,index) {
+                return formatYhFlag(value);
+            } ,order:"desc"},
         //     {title:"操作结果",field:"operateResult",align:"left",order:"desc"},
         //     {title:"操作时间",field:"operateTime",align:"left",order:"desc"},
         //
         ],
         locale:"zh-CN" //中文支持
     })
+}
+
+/**
+ * 翻译字段
+ * @returns {string}
+ */
+function formatYhFlag(value) {
+    var a = "";
+    if(value == "02") {
+        var a = '<span style="color:#c12e2a;"><i class="fa fa-times-circle-o" aria-hidden="true"></i>不通过</span>';
+    }else if(value == "00"){
+        var a = '<span style="color:#3e8f3e"><i class="fa fa-check-circle-o" aria-hidden="true"></i>待审批</span>';
+    }
+    return a;
 }
 
 /***

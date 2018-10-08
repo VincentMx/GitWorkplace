@@ -95,5 +95,18 @@ public interface XtYhDao {
     Page getAllXtYh(Page page, XtYhVO xtYhVO);
 
 
+    /**
+      *@method: 根据编号获取用户信息
+      *@author: lix
+      *@desc： 
+      *@Date: 15:49 2018/7/29
+      *@param: 
+      *@return:   
+      *
+      */
+     Xt_yh findById(String id , String unit);
+
+
+
 
 }

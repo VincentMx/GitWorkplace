@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.lix.entity.XtTcDdXx" table="xt_tc_dd_xx" schema="xxxt">
+        <id name="orderNo" column="orderNo"/>
+        <property name="jfHh" column="jf_hh"/>
+        <property name="jfShbh" column="jf_shbh"/>
+        <property name="ddzt" column="ddzt"/>
+        <property name="cssj" column="cssj"/>
+        <property name="ddje" column="ddje"/>
+        <property name="ddzfje" column="ddzfje"/>
+        <property name="bz" column="bz"/>
+        <property name="zddbh" column="zddbh"/>
+        <property name="jylsh" column="jylsh"/>
+        <property name="zfqd" column="zfqd"/>
+        <property name="bz2" column="bz2"/>
+        <property name="jfrbh" column="jfrbh"/>
+    </class>
+</hibernate-mapping>

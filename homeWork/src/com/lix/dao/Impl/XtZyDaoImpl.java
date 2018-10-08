@@ -1,7 +1,6 @@
 package com.lix.dao.Impl;
 
 import com.lix.dao.XtZyDao;
-import com.lix.entity.XtDw;
 import com.lix.entity.XtZy;
 import com.lix.entity.vo.XtZyVO;
 import com.lix.util.Page;
@@ -80,10 +79,19 @@ public class XtZyDaoImpl implements XtZyDao {
     public XtZy findById(XtZy xt_zy) {
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        String Hql = "   from XtZy where skey = '"+xt_zy.getSkey()+"'";
-        Query query = session.createQuery(Hql);
-        XtZy xt_zy1 = (XtZy) query.getSingleResult();
-        transaction.commit();
+        XtZy xt_zy1 = new XtZy();
+        try {
+            String Hql = "   from XtZy where skey = '"+xt_zy.getSkey()+"'";
+            Query query = session.createQuery(Hql);
+           xt_zy1 = (XtZy) query.getSingleResult();
+            transaction.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+
         return xt_zy1;
     }
 
@@ -133,7 +141,7 @@ public class XtZyDaoImpl implements XtZyDao {
         transaction = session.beginTransaction();
         String Hql = "  from XtZy where 1 = 1  ";
         if(!StringUtils.isEmpty(xtZyVO.getParentkey())){
-            Hql += " and parentkey = "+ xtZyVO.getParentkey() +" ";
+            Hql += " and parentkey = '"+ xtZyVO.getParentkey() +"' ";
         }
         if(!StringUtils.isEmpty(xtZyVO.getName())){
             Hql += " and name like '%"+ xtZyVO.getName()+"%'  ";

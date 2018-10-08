@@ -1,6 +1,6 @@
 package com.lix.webService.impl;
 
-import cn.lix.constants.BasicConfig;
+import cn.lix.config.BasicConfig;
 import cn.lix.constants.Constants;
 import com.lix.Query.ServiceQueryUtil;
 import com.lix.service.XtYhService;
@@ -99,6 +99,7 @@ public class parkServiceImpl implements parkService {
             return resStr;
         }
         String resStr = JsonUtils.map2json(rtnMap);
+        logger.info("---返回报文:" + resStr);
         return resStr;
     }
 
@@ -152,6 +153,7 @@ public class parkServiceImpl implements parkService {
             return resStr;
         }
         String resStr = JsonUtils.map2json(rtnMap);
+        logger.info("---返回报文:" + resStr);
         return resStr;
     }
 

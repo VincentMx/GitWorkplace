@@ -5,7 +5,7 @@ import javax.persistence.*;
 /**
  * @author : lix
  * @desc :
- * @time : 23:142018/5/2
+ * @time : 10:112018/7/31
  * @modify by :
  */
 @Entity
@@ -19,6 +19,7 @@ public class ParkXx {
     private String paMc;
     private String paFlag;
     private String bz;
+    private String paPcskey;
 
     @Id
     @Column(name = "skey")
@@ -100,6 +101,16 @@ public class ParkXx {
         this.bz = bz;
     }
 
+    @Basic
+    @Column(name = "pa_pcskey")
+    public String getPaPcskey() {
+        return paPcskey;
+    }
+
+    public void setPaPcskey(String paPcskey) {
+        this.paPcskey = paPcskey;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -115,6 +126,7 @@ public class ParkXx {
         if (paMc != null ? !paMc.equals(parkXx.paMc) : parkXx.paMc != null) return false;
         if (paFlag != null ? !paFlag.equals(parkXx.paFlag) : parkXx.paFlag != null) return false;
         if (bz != null ? !bz.equals(parkXx.bz) : parkXx.bz != null) return false;
+        if (paPcskey != null ? !paPcskey.equals(parkXx.paPcskey) : parkXx.paPcskey != null) return false;
 
         return true;
     }
@@ -129,6 +141,7 @@ public class ParkXx {
         result = 31 * result + (paMc != null ? paMc.hashCode() : 0);
         result = 31 * result + (paFlag != null ? paFlag.hashCode() : 0);
         result = 31 * result + (bz != null ? bz.hashCode() : 0);
+        result = 31 * result + (paPcskey != null ? paPcskey.hashCode() : 0);
         return result;
     }
 }

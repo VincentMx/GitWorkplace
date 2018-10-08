@@ -8,6 +8,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd
                                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                                          http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
     <context:component-scan base-package="cn.lix,com.lix">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
@@ -32,7 +34,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"></mvc:mapping>
-            <bean class="com.lix.util.LoginExceptor"/>
+            <bean class="cn.lix.interceptor.LoginExceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
 
@@ -42,6 +44,13 @@
           p:prefix="/pages/"
           p:suffix=".jsp"/>
 
+    <!--API 接口访问配置-->
+    <mvc:cors>
+        <mvc:mapping path="/*" allowed-origins="*"
+                     allowed-methods="POST, GET, OPTIONS, DELETE, PUT"
+                     allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+                     allow-credentials="true" />
+    </mvc:cors>
 
 
 </beans>

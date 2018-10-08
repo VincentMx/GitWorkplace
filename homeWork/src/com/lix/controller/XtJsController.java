@@ -1,20 +1,17 @@
 package com.lix.controller;
 
 import cn.lix.controller.base.BaseController;
-import com.lix.entity.XtZy;
 import com.lix.entity.Xt_js;
 import com.lix.entity.vo.XtJsVO;
 import com.lix.service.XtJsService;
 import com.lix.util.Page;
 import com.lix.util.PageUtils;
-import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * @author : lix
@@ -42,6 +39,7 @@ public class XtJsController extends BaseController{
     @RequestMapping("/save")
     public String saveInfo(Xt_js xt_js, HttpServletRequest request){
         String result = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】添加角色信息 开始  ####################################################");
         try{
             if (xt_js != null){
                 xtJsService.saveJs(xt_js,request,getYh(request));
@@ -50,9 +48,11 @@ public class XtJsController extends BaseController{
         }catch (Exception e){
             result = "{success:false}";
             e.getMessage();
-            System.out.println("系统在保存角色时出现："+e.getMessage());
+            System.out.println("--------系统在保存角色时出现："+e.getMessage());
         }
          logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】添加角色信息 结束  ####################################################");
+
         return result;
     }
 
@@ -70,15 +70,17 @@ public class XtJsController extends BaseController{
     @ResponseBody
     public String getXtZyInfo(XtJsVO xtJsVO, HttpServletRequest request, Integer start, Integer limit){
         String results = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】根据角色获取资源列表信息 开始  ####################################################");
         try{
             Page page = new Page(start,0,limit,null);
             page = xtJsService.findAllJs(xtJsVO,page);
             results = PageUtils.getExtjsPageJsonData(page);
         }catch (Exception e){
             results = "{\"success\":\"false\",\"message\":"+e.getMessage()+"}";
-            logger.error("系统在获取角色列表时出现错误："+e.getMessage());
+            logger.error("----------系统在获取角色列表时出现错误："+e.getMessage());
         }
         logger.debug(results);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】根据角色获取资源列表信息 结束  ####################################################");
         return results;
     }
 
@@ -96,6 +98,7 @@ public class XtJsController extends BaseController{
     @ResponseBody
     public String deleteXtJs(Xt_js xt_js,HttpServletRequest request){
         String results = "";
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除角色信息 开始  ####################################################");
         try{
             xtJsService.updateJs(xt_js,request,getYh(request));
             results = "{\"success\":\"true\"}";
@@ -104,6 +107,7 @@ public class XtJsController extends BaseController{
             results = "{\"success\":\"false\",\"msg\":"+e.getMessage()+"}";
         }
         logger.debug(results);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除角色信息 结束  ####################################################");
         return  results;
     }
 }

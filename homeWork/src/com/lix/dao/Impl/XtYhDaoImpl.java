@@ -9,8 +9,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -109,14 +107,25 @@ public class XtYhDaoImpl implements XtYhDao {
         transaction = session.beginTransaction();
         try{
             String Hql = " from Xt_yh  where flag = '1' ";
-            if (!StringUtils.isEmpty(xt_yh.getId()) && !StringUtils.isEmpty(xt_yh.getPassword())){
-                Hql += "  and id = "+xt_yh.getId()+"  and password = "+xt_yh.getPassword()+" ";
+            if (!StringUtils.isEmpty(xt_yh.getId())  ){
+                Hql += "  and id = '"+xt_yh.getId()+"'  ";
+            }
+            if (!StringUtils.isEmpty(xt_yh.getPassword())){
+                Hql += " and password = '"+xt_yh.getPassword()+"' ";
             }
             if (!StringUtils.isEmpty(xt_yh.getName())){
                 Hql += " and name = '"+xt_yh.getName()+"'  ";
             }
+
+            Hql += " order by regtime desc  ";
             Query query = session.createQuery(Hql);
-            xt_yh1 = (Xt_yh) query.getSingleResult();
+             List<String> list =  query.list();
+            if(list.size()  > 0 ){
+                xt_yh1 = (Xt_yh) query.getSingleResult();
+            }else{
+                xt_yh1 = null;
+            }
+
             transaction.commit();
 //            session.flush();
         }catch (Exception e){
@@ -149,36 +158,37 @@ public class XtYhDaoImpl implements XtYhDao {
 
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        String Hql = "  from Xt_yh where flag = '1' ";
+        StringBuffer Hql = new StringBuffer( "  from Xt_yh where flag = '1' ");
         if(!StringUtils.isEmpty(xtYhVO.getUnit())){
-            Hql += " and   unit like '" + SysUnitUtil.getRightDome(xtYhVO.getUnit()) +  "%'  ";
+            Hql.append(" and   unit like '" + SysUnitUtil.getRightDome(xtYhVO.getUnit()) +  "%'  ");
         }
         if(!StringUtils.isEmpty(xtYhVO.getName())){
-            Hql += " and   name like '%" + xtYhVO.getName() +  "%'  ";
+            Hql.append(" and   name like '%" + xtYhVO.getName() +  "%'  ");
         }
         if(!StringUtils.isEmpty(xtYhVO.getPhone())){
-            Hql += " and   phone like '%" + xtYhVO.getPhone() +  "%'  ";
+            Hql.append(" and   phone like '%" + xtYhVO.getPhone() +  "%'  ");
         }
         if(!StringUtils.isEmpty(xtYhVO.getAddress())){
-            Hql += " and   address like '%" + xtYhVO.getAddress() +  "%'  ";
+            Hql.append(" and   address like '%" + xtYhVO.getAddress() +  "%'  ");
         }
         if(!StringUtils.isEmpty(xtYhVO.getEmail())){
-            Hql += " and   email like '%" + xtYhVO.getEmail() +  "%'  ";
+            Hql.append(" and   email like '%" + xtYhVO.getEmail() +  "%'  ");
         }
         if(!StringUtils.isEmpty(xtYhVO.getLastip())){
-            Hql += " and   lastip like '%" + xtYhVO.getLastip() +  "%'  ";
+            Hql.append(" and   lastip like '%" + xtYhVO.getLastip() +  "%'  ");
         }
         if(!StringUtils.isEmpty(xtYhVO.getBz())){
-            Hql += " and   lastip like '%" + xtYhVO.getBz() +  "%'  ";
+            Hql.append(" and   lastip like '%" + xtYhVO.getBz() +  "%'  ");
         }
         if(!StringUtils.isEmpty(xtYhVO.getStartTime())){
-            Hql += " and   regtime > '" + xtYhVO.getStartTime() +  "'  ";
+            Hql.append(" and   regtime > '" + xtYhVO.getStartTime() +  "'  ");
         }
         if(!StringUtils.isEmpty(xtYhVO.getEndTime())){
-            Hql += " and   regtime < '" + xtYhVO.getEndTime() +  "'  ";
+            Hql.append(" and   regtime < '" + xtYhVO.getEndTime() +  "'  ");
         }
+        Hql.append(" order by regtime desc  ");
         try {
-            Query query = session.createQuery(Hql);
+            Query query = session.createQuery(Hql.toString());
             page.setTotalCount(query.list().size());
             query.setFirstResult(page.getStart());
             query.setMaxResults(page.getPageSize());
@@ -190,5 +200,30 @@ public class XtYhDaoImpl implements XtYhDao {
             session.close();
         }
         return page;
+    }
+
+    @Override
+    public Xt_yh findById(String id, String unit) {
+        Xt_yh xt_yh = new Xt_yh();
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try{
+            String Hql = "  from Xt_yh where flag = '1' ";
+            if(!StringUtils.isEmpty(unit)){
+                Hql += " and   unit like '" + SysUnitUtil.getRightDome(unit) +  "%'  ";
+            }
+            if (!StringUtils.isEmpty(id)){
+                Hql += " and id = '" + id +  "' ";
+            }
+             Query query = session.createQuery(Hql);
+            xt_yh = (Xt_yh) query.getSingleResult();
+            transaction.commit();
+//            session.flush();
+        }catch (Exception e){
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+        return xt_yh;
     }
 }

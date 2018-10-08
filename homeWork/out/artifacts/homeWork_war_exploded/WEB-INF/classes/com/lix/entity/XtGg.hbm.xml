@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.lix.entity.XtGg" table="xt_gg" schema="xxxt">
+        <id name="skey" column="skey"/>
+        <property name="ggbt" column="ggbt"/>
+        <property name="ggnr" column="ggnr"/>
+        <property name="fbyh" column="fbyh"/>
+        <property name="fbsj" column="fbsj"/>
+        <property name="flag" column="flag"/>
+    </class>
+</hibernate-mapping>

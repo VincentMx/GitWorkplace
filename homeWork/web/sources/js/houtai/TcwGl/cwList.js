@@ -32,18 +32,54 @@ function LoadingResources() {
         columns:[
             {title:"全选",field: "select",checkbox: true,align:"center",valign:"middle"},
             {title:"车位名称",field:"paMc",align:"left",order:"desc"},
-            {title:"长度",field:"paCd",align:"left",order:"desc"},
-            {title:"宽度",field:"paKd",align:"left",order:"desc"},
+            {title:"长度",field:"paCd",align:"left", formatter:function(value){
+              return formateCd(value);
+            }, order:"desc"},
+            {title:"宽度",field:"paKd",align:"left", formatter: function (value) {
+              return formateKd(value);
+            }, order:"desc"},
             {title:"经度",field:"bdjd",align:"left",order:"desc"},
             {title:"纬度",field:"bdwd",align:"left",order:"desc"},
-            {title:"状态",field:"paFlag",align:"left",order:"desc"},
+            {title:"状态",field:"paFlag",align:"left", formatter:function (value) {
+              return formateCwFlag(value);
+            }, order:"desc"},
             {title:"备注",field:"bz",align:"left",order:"desc"}
 
         ],
         locale:"zh-CN" //中文支持
     })
 
+};
+
+/***
+ * 翻译长度
+ */
+function formateCd(value) {
+    return value + "米";
+};
+/***
+ * 翻译宽度
+ */
+function formateKd(value) {
+    return value + "米";
 }
+
+
+/**
+ * 车位状态字段列表
+ * @param value
+ * @returns {string}
+ */
+function formateCwFlag(value) {
+    var a = "";
+    if(value == "0") {
+        var a = '<span style="color:#c12e2a;"><i class="fa fa-times-circle-o" aria-hidden="true"></i>未启用</span>';
+    }else if(value == "1"){
+        var a = '<span style="color:#3e8f3e"><i class="fa fa-check-circle-o" aria-hidden="true"></i>已启用</span>';
+    }
+    return a;
+}
+
 
 /**
  * 加载select选项
@@ -81,7 +117,7 @@ function loadingOptions(target) {
 function addCw() {
     var index = layer.open({
         title:['新增车位','background-color : #26A69A ; color : #fff; font-size : 14 px; font-weight : 700; text-align : center'],
-        area:['400px','65%'],
+        area:['36%','73%'],
         content:'<form id="addCwForm"  role="form" action="javascript:void(0)">\n' +
         '    <div class="row">\n' +
         '        <div class="form-group input-group">\n' +

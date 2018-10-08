@@ -1,12 +1,12 @@
 package com.lix.controller;
 
-import  com.lix.util.DateUtils;
 import cn.lix.constants.Constants;
 import cn.lix.controller.base.BaseController;
 import com.lix.entity.XtRzDl;
 import com.lix.entity.Xt_yh;
 import com.lix.service.XtRzDlService;
 import com.lix.service.XtYhService;
+import com.lix.util.DateUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.springframework.stereotype.Controller;
@@ -15,15 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import redis.clients.jedis.Jedis;
-import sun.security.provider.MD5;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author : lix
@@ -55,8 +51,9 @@ public class SysLoginController extends BaseController {
     public ModelAndView userLogin(HttpServletRequest request, HttpServletResponse response, Xt_yh xt_yh, HttpSession session) throws Exception {
         ModelAndView mv = new ModelAndView();
 
-        logger.info("对用户进行身份验证");
+        logger.info("############################对用户进行身份验证  START ############################");
         if (xt_yh.getId() == null || xt_yh.getId() == "") {
+            logger.error("----------------------用户名为空  -- 验证失败");
             mv.addObject("errorInfo", "用户名为空！");
             mv.setViewName("hello");
             return mv;
@@ -64,6 +61,7 @@ public class SysLoginController extends BaseController {
 
         logger.info("用户【"+xt_yh.getId()+"】进行验证");
         if (xt_yh.getPassword() == null || xt_yh.getPassword() == "") {
+            logger.error("----------------------密码为空  -- 验证失败");
             mv.addObject("errorInfo", "密码为空！");
             mv.setViewName("hello");
             return mv;
@@ -73,17 +71,24 @@ public class SysLoginController extends BaseController {
         //密码验证
         if (xt_yh1 != null) {
             if (!xt_yh.getId().equals(xt_yh1.getId())) {
+                logger.error("----------------------用户名或密码错误  -- 验证失败");
                 mv.addObject("errorInfo", "用户名或密码错误");
                 mv.setViewName("hello");
                 return mv;
             }else if (xt_yh.getId().equals(xt_yh1.getId())){
 //                session.setAttribute("User", xt_yh1); //用户信息的提取，需要重新设计
+                logger.error("----------------------用户" + xt_yh1.getId() + "验证通过  --成功");
                 mv.setViewName("console/main");
                 mv.addObject("student", xt_yh1);
                 mv.addObject("username", xt_yh1.getName());
                 mv.addObject("user",xt_yh1);
 
             }
+        }else {
+            logger.error("----------------------用户名或密码错误  -- 验证失败");
+            mv.addObject("errorInfo", "用户名或密码错误");
+            mv.setViewName("hello");
+            return mv;
         }
         //单位验证
         //验证权限
@@ -100,6 +105,8 @@ public class SysLoginController extends BaseController {
         xtYhService.updateXtYhInfo(xt_yh1);
         //记录用户登录日志
         addLoginLog(request,xt_yh1);
+        logger.info("############################对用户进行身份验证  END ############################");
+
         return mv;
     }
 
@@ -133,9 +140,9 @@ public class SysLoginController extends BaseController {
         logger.info("用户信息Session存储成功");
 
         //将用户信息添加进
-//        setRedisCatch("yhId",xt_yh.getId());
-//
-//        putLoginUserToRedis(xt_yh);
+      //  lpushRedisCatch("online_users" , xt_yh.getId());
+
+      //  putLoginUserToRedis(xt_yh);
 
     }
 
@@ -148,7 +155,7 @@ public class SysLoginController extends BaseController {
         logger.info("将用户【"+ xt_yh.getId() +"】暂存至redis，操作开始");
         logger.info("判断【"+ xt_yh.getId() +"】是否已暂存至redis");
         if(getRedisCatch(Constants.ZXYH + xt_yh.getId()) == null){
-            logger.info("用户【"+ xt_yh.getId() +"】未暂存至redis，开始暂存");
+            logger.info("用户【" + Constants.ZXYH + xt_yh.getId() +"】未暂存至redis，开始暂存");
             setRedisCatch(Constants.ZXYH + xt_yh.getId(),xt_yh.getId());
         }else{
             logger.info("用户【"+ xt_yh.getId() +"】已经暂存至redis，不在重新存储。");

@@ -1,36 +1,66 @@
 function wztjs() {
     var myChart = echarts.init(document.getElementById('tjid'));
     option = {
+        title: {
+            text: '注册数'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+        },
+        grid: {
+            left: '3%',
+            right: '10%',
+            bottom: '1%',
+            containLabel: true
+        },
+        // toolbox: {
+        //     feature: {
+        //         saveAsImage: {}
+        //     }
+        // },
         xAxis: {
             type: 'category',
-            data: ['鲜花', '星星', '香蕉', '嫌弃']
+            boundaryGap: false,
+            data: ['周一','周二','周三','周四','周五','周六','周日']
         },
         yAxis: {
             type: 'value'
         },
-        series: [{
-            data: [120, 200, 150, 80],
-            type: 'bar',
-            //配置样式
-            itemStyle: {
-                //通常情况下：
-                normal: {
-                    //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
-                    color: function (params) {
-                        var colorList = ['rgb(164,205,238)', 'rgb(42,170,227)', 'rgb(25,46,94)', 'rgb(195,229,235)'];
-                        return colorList[params.dataIndex];
-                    }
-                },
-                //鼠标悬停时：
-                emphasis: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
+        series: [
+            {
+                name:'邮件营销',
+                type:'line',
+                stack: '总量',
+                data:[120, 132, 101, 134, 90, 230, 210]
             },
-            //设置柱子的宽度
-            // barWidth : 120,
-        }]
+            {
+                name:'联盟广告',
+                type:'line',
+                stack: '总量',
+                data:[220, 182, 191, 234, 290, 330, 310]
+            },
+            {
+                name:'视频广告',
+                type:'line',
+                stack: '总量',
+                data:[150, 232, 201, 154, 190, 330, 410]
+            },
+            {
+                name:'直接访问',
+                type:'line',
+                stack: '总量',
+                data:[320, 332, 301, 334, 390, 330, 320]
+            },
+            {
+                name:'搜索引擎',
+                type:'line',
+                stack: '总量',
+                data:[820, 932, 901, 934, 1290, 1330, 1320]
+            }
+        ]
     };
     myChart.setOption(option);
 }

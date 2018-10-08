@@ -2,15 +2,12 @@ package com.lix.controller;
 
 import cn.lix.controller.base.BaseController;
 import com.lix.entity.XtCs;
-import com.lix.entity.XtCsLx;
-import com.lix.entity.vo.XtCsLxVO;
 import com.lix.entity.vo.XtCsVO;
 import com.lix.service.XtCsService;
 import com.lix.util.Page;
 import com.lix.util.PageUtils;
 import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -44,6 +41,8 @@ public class XtCsController extends BaseController {
     @RequestMapping(value = "/getXtCsWithPage.html")
     @ResponseBody
     public String getXtCsWithPage(XtCsVO xtCsVO, HttpServletRequest request,Integer start,Integer limit){
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】请求系统参数分页列表 开始  ####################################################");
+
         String results = null;
         try{
             Page page = new Page(start,0,limit,null);
@@ -53,6 +52,8 @@ public class XtCsController extends BaseController {
             results = "{\"success\":\"false\",\"message\":"+e.getMessage()+"}";
             logger.error("系统在执行参数查询时出现错误："+e.getMessage());
         }
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】请求系统参数分页列表 结束  ####################################################");
+
         return  results;
     }
 
@@ -70,13 +71,17 @@ public class XtCsController extends BaseController {
     @ResponseBody
     public String saveXtCs(XtCs xtCs, HttpServletRequest request){
         String results = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】添加或修改系统参数 开始  ####################################################");
+
         try{
             xtCsService.saveOrUpdateXtCs(xtCs,request,getYh(request));
             results = "{\"success\":\"true\"}";
         }catch (Exception e){
             results = "{\"success\":\"false\",\"message\":"+e.getMessage()+"}";
-            logger.error("系统在执行参数保存时出现错误："+e.getMessage());
+            logger.error("--------------系统在执行参数保存时出现错误："+e.getMessage());
         }
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】添加或修改系统参数 结束  ####################################################");
+
         return  results;
     }
 
@@ -94,13 +99,17 @@ public class XtCsController extends BaseController {
     @ResponseBody
     public String deleteXtCs(String skey, HttpServletRequest request){
         String results = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除系统参数 开始  ####################################################");
+
         try{
             xtCsService.deleteXtCs(skey,request,getYh(request));
             results = "{\"success\":\"true\"}";
         }catch (Exception e){
             results = "{\"success\":\"false\",\"message\":"+e.getMessage()+"}";
-            logger.error("系统在执行删除系统参数时出现错误："+e.getMessage());
+            logger.error("---------------系统在执行删除系统参数时出现错误："+e.getMessage());
         }
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除系统参数 结束  ####################################################");
+
         return  results;
     }
 
@@ -118,6 +127,8 @@ public class XtCsController extends BaseController {
     @ResponseBody
     public String getAllXtCs(XtCsVO xtCsVO, HttpServletRequest request){
         String results = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】查询系统参数列表 开始  ####################################################");
+
         try{
             List<XtCsVO> list = xtCsService.findAllXtCsByPara(xtCsVO);
             JSONArray j = JSONArray.fromObject(list);
@@ -126,6 +137,7 @@ public class XtCsController extends BaseController {
             results = "{\"success\":\"false\",\"message\":"+e.getMessage()+"}";
             logger.error("系统在执行参数查询时出现错误："+e.getMessage());
         }
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】查询系统参数列表 结束  ####################################################");
         return  results;
     }
 
@@ -143,6 +155,7 @@ public class XtCsController extends BaseController {
     @ResponseBody
     public  String saveXtCslX(XtCsVO xtCsVO, HttpServletRequest request){
         String results = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】查询参数信息 开始  ####################################################");
         XtCs xtCs = new XtCs();
         try{
             xtCs = xtCsService.getXtCsBySkey(xtCsVO.getSkey());
@@ -152,6 +165,7 @@ public class XtCsController extends BaseController {
             results = "{\"success\":\"false\",\"message\":"+e.getMessage()+"}";
             logger.error("系统在执行参数查询时出现错误："+e.getMessage());
         }
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】查询参数信息 结束  ####################################################");
         return  results;
     }
 

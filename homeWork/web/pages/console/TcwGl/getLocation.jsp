@@ -15,10 +15,30 @@
     <title>鼠标拾取地图坐标</title>
     <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
     <script type="text/javascript"
-            src="https://webapi.amap.com/maps?v=1.4.8&key=您申请的key值&plugin=AMap.Autocomplete"></script>
+            src="https://webapi.amap.com/maps?v=1.4.8&key=78fc091f21d8f0b292c158b46d4fa288&plugin=AMap.Autocomplete"></script>
     <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <script>
+        var x=document.getElementById("demo");
+        function getLocation()
+        {
+            if (navigator.geolocation)
+            {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            }
+            else{x.innerHTML="Geolocation is not supported by this browser.";}
+        }
+        function showPosition(position)
+        {
+
+            alert("Latitude: " + position.coords.latitude +
+                "<br />Longitude: " + position.coords.longitude);
+        }
+
+    </script>
 </head>
 <body>
+
+
 <div id="container"></div>
 <div id="myPageTop">
     <table>
@@ -28,6 +48,7 @@
             </td>
             <td class="column2">
                 <label>左击获取经纬度：</label>
+
             </td>
         </tr>
         <tr>

@@ -211,9 +211,71 @@ public class Constants {
    public static String PK009 = "PK009"; //取消订单
    public static String PK010 = "PK010"; //获取取消订单列表
    public static String PK011 = "PK011"; //获取取消订单详情
-   public static String PK012 = "PK012"; //
-   public static String PK013 = "PK013"; //
-   public static String PK014 = "PK014"; //
+   public static String PK012 = "PK012"; //添加停车公司信息
+   public static String PK013 = "PK013"; //获取停车公司列表
+   public static String PK014 = "PK014"; //获取停车公司信息
+   public static String PK015 = "PK015"; //获取停车公司车位列表
+
+    //用户登陆注册
+    public static String UL001 = "UL001"; //用户登录
+    public static String UL002 = "UL002"; //用户注册
+
+
+    //公告
+    public static String JLGT001 = "JLGT001"; //app首页获取5条公告
+    public static String JLGT002 = "JLGT002"; //app首页公告详细信息
+    public static String JLGT003 = "JLGT003"; //app首页获取5条公告
+    public static String JLGT004 = "JLGT004"; //app首页获取5条公告
+    public static String JLGT005 = "JLGT005"; //app首页获取5条公告
+    public static String JLGT006 = "JLGT006"; //app首页获取5条公告
+    public static String JLGT007 = "JLGT007"; //app首页获取5条公告
+    public static String JLGT008 = "JLGT008"; //app首页获取5条公告
+
+
+
+
+
+    public static final String parkCompany_SPZ = "01"; //停车公司有效状态 -- 00 初始状态 01 正在审批中状态 02 审批通过状态 03 审批未通过状态 04 无效状态
+    public static final String parkCompany_SPTG = "02"; //停车公司有效状态 -- 00 初始状态 01 正在审批中状态 02 审批通过状态 03 审批未通过状态 04 无效状态
+    public static final String parkCompany_SPBTG = "03"; //停车公司有效状态 -- 00 初始状态 01 正在审批中状态 02 审批通过状态 03 审批未通过状态 04 无效状态
+    public static final String parkCompany_WX = "04"; //停车公司有效状态 -- 00 初始状态 01 正在审批中状态 02 审批通过状态 03 审批未通过状态 04 无效状态
+    public static final String parkCompany_CS = "00"; //停车公司有效状态 -- 00 初始状态 01 正在审批中状态 02 审批通过状态 03 审批未通过状态 04 无效状态
+
+    public static final String park_Company_gl_WX = "00"; //停车位和公司关系有效状态 -- 00 无效状态 01 有效状态 02 初始状态
+    public static final String park_Company_gl_YX = "01"; //停车位和公司关系有效状态 -- 00 无效状态 01 有效状态 02 初始状态
+    public static final String park_Company_gl_CS = "02"; //停车位和公司关系有效状态 -- 00 无效状态 01 有效状态 02 初始状态
+
+
+    public static final String XT_YH_WX_YX = "01"; //系统微信用户账号 --有效
+    public static final String XT_YH_WX_WX = "00"; //系统微信用户账号 --无效
+
+
+    public static final String XT_JK_YX = "01"; //系统接口 --有效
+    public static final String XT_JK_WX = "02"; //系统接口 --无效
+
+
+    public static final String XT_GG_CS = "00"; //系统接口 --初始
+    public static final String XT_GG_FB = "01"; //系统接口 --发布
+    public static final String XT_GG_SC = "02"; //系统接口 --删除
+
+
+
+    /**
+      *app相关数据
+      */
+    public static final int GG_APP_SY_SL = 5; //公告 --app首页显示条数
+    public static final int GG_APP_LB_SL = 20; //公告 --app列表显示条数
+
+
+
+
+
+
+
+
+
+
+
 
 
 

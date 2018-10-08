@@ -44,12 +44,12 @@ public class XtYhServiceImpl implements XtYhService {
             xt_yh.setSkey(UuidUtils.get32UUID());
             xt_yh.setFlag(Constants.XtYhYxzt_YX);
             xtYhDao.saveYhInfo(xt_yh);
-            operateUtils.addUserOperateLog(xt_yh2.getId(), Constants.OPERATORLOGADD,Constants.OPERATE_SUCCESS,"","添加用户信息","saveXtYh,主键："+xt_yh.getSkey(),request);
+            operateUtils.addUserOperateLog(xt_yh2.getId(), Constants.OPERATORLOGADD,Constants.OPERATE_SUCCESS,"","添加用户信息","saveYhInfo,主键："+xt_yh.getSkey(),request);
         }else {
             Xt_yh xt_yh1 = xtYhDao.findYhInfoById(xt_yh.getSkey());
             BeanUtils.copyPropertityIgnoreNull(xt_yh,xt_yh1);
             xtYhDao.updateXtYhInfo(xt_yh1);
-            operateUtils.addUserOperateLog(xt_yh2.getId(), Constants.OPERATORLOGUPDATE,Constants.OPERATE_SUCCESS,"","修改用户信息","updateXtYh,主键："+xt_yh.getSkey(),request);
+            operateUtils.addUserOperateLog(xt_yh2.getId(), Constants.OPERATORLOGUPDATE,Constants.OPERATE_SUCCESS,"","修改用户信息","saveYhInfo,主键："+xt_yh.getSkey(),request);
         }
     }
 
@@ -146,7 +146,7 @@ public class XtYhServiceImpl implements XtYhService {
     }
 
     @Override
-    public void SpYhInfo(String Skey, String flag, String bz) throws Exception {
+    public void SpYhInfo(String Skey, String flag, String bz , HttpServletRequest request , Xt_yh xt_yh) throws Exception {
         if(Skey != null && !"".equals(Skey) && !StringUtils.isEmpty(Skey) && !StringUtils.isEmpty(flag)){
             XtYhDsp xtYhDsp = xtYhDspService.getXtYhDspInfoById(Skey);
             Xt_yh xtYh = new Xt_yh();
@@ -157,11 +157,15 @@ public class XtYhServiceImpl implements XtYhService {
                     xtYh.setBz(bz);
                     xtYhDao.saveYhInfo(xtYh);
                     //当把用户审核通过之后、则保存进系统用户表中、接着删除待审批表中的数据
-                    xtYhDspService.deleteXtYhDspInfoById(Skey,xtYh.getId());
+                    xtYhDspService.deleteXtYhDspInfoById(Skey,xtYh.getId(),request);
+                    operateUtils.addUserOperateLog(xt_yh.getId(), Constants.OPERATORLOGUPDATE,Constants.OPERATE_SUCCESS,"","审批用户信息","SpYhInfo,主键："+xtYh.getSkey(),request);
+
                 }else if (Constants.XtYhDsp_SPWTG.equals(flag)){
                      xtYhDsp.setFlag(flag);
                      xtYhDsp.setSkey(Skey);
-                     xtYhDspService.addXtYhDspInfo(xtYhDsp);
+                     xtYhDspService.addXtYhDspInfo(xtYhDsp , request , xt_yh);
+                     operateUtils.addUserOperateLog(xt_yh.getId(), Constants.OPERATORLOGUPDATE,Constants.OPERATE_SUCCESS,"","审批用户信息","SpYhInfo,主键："+xtYhDsp.getSkey(),request);
+
                 }
 
 
@@ -197,5 +201,10 @@ public class XtYhServiceImpl implements XtYhService {
             throw new Exception("未获取到用户信息");
         }
         return xtyhList;
+    }
+
+    @Override
+    public Xt_yh fingById(String id, String unit) {
+        return xtYhDao.findById(id , unit);
     }
 }

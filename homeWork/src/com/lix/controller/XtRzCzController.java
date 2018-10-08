@@ -2,7 +2,6 @@ package com.lix.controller;
 
 import cn.lix.controller.base.BaseController;
 import com.lix.entity.XtRzCz;
-import com.lix.entity.vo.XtDlRzVO;
 import com.lix.entity.vo.XtRzCzVO;
 import com.lix.service.XtRzCzService;
 import com.lix.util.Page;
@@ -94,6 +93,7 @@ public class XtRzCzController extends BaseController {
     @ResponseBody
     public String deleteInfo(String skey,HttpServletRequest request){
         String result = "";
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除系统操作日志信息 开始  ####################################################");
         XtRzCz xtRzCz = new XtRzCz();
         try{
             xtRzCz.setSkey(skey);
@@ -104,6 +104,7 @@ public class XtRzCzController extends BaseController {
             logger.error("删除日志失败"+e.getMessage());
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除系统操作日志信息 结束  ####################################################");
         return  result;
     }
 

@@ -1,8 +1,10 @@
 package com.lix.service;
 
 import com.lix.entity.XtYhDsp;
+import com.lix.entity.Xt_yh;
 import com.lix.util.Page;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -22,7 +24,7 @@ public interface XtYhDspService {
       *@return:
       *
       */
-    void addXtYhDspInfo(XtYhDsp xtYhDsp);
+    void addXtYhDspInfo(XtYhDsp xtYhDsp ,  HttpServletRequest request , Xt_yh xt_yh) throws Exception;
 
     /**
       *@method: 获取所有用户注册待审批信息
@@ -78,7 +80,7 @@ public interface XtYhDspService {
       *@return:   
       *
       */
-    void deleteXtYhDspInfoById(String id,String sfzh) throws Exception;
+    void deleteXtYhDspInfoById(String id,String sfzh , HttpServletRequest request) throws Exception;
     
     /**
       *@method: 分页获取所有待审批用户

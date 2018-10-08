@@ -1,6 +1,6 @@
 package com.lix.manager;
 
-import cn.lix.constants.BasicConfig;
+import cn.lix.config.BasicConfig;
 import cn.lix.constants.Constants;
 import cn.lix.constants.SystemErrorCode;
 import com.alibaba.fastjson.JSON;
@@ -43,14 +43,24 @@ public class TranslateManager {
           logger.info("****************************************用户" + (String)bodyMap.get("id")+ " 开始请求 百度 翻译 START ****************************************");
           String queryStr = null;
           String resStr = null;
+          String to = null;
           queryStr = (String)bodyMap.get("queryStr");
+          if(bodyMap.get("to") != null){
+              to = (String)bodyMap.get("to");
+          }
 
         try {
-
-          resStr =   api.getTransResult(queryStr, "auto", "fra");
+          if(to != null){
+              resStr =   api.getTransResult(queryStr, "auto", to);
+          }else {
+              resStr =   api.getTransResult(queryStr, "auto", "fra");
+          }
+          logger.info("接口获取到的数据为：" + resStr);
           baiduTrans = JSON.parseObject(resStr,BaiduTrans.class);
           if(baiduTrans.getError_code() == null){
               retMap.put("results",baiduTrans.getTrans_result());
+              retMap.put("words",baiduTrans.getTrans_result().get(0).getDst());
+
               retMap.put(SystemErrorCode.retcode, Constants.success);
               retMap.put(SystemErrorCode.retshow, Constants.success_msg);
 
@@ -66,7 +76,8 @@ public class TranslateManager {
 
     }
 
-    
+
+
     /**
       *@method: 有道翻译
       *@author: lix
@@ -78,15 +89,31 @@ public class TranslateManager {
       */
     public Map<String,Object> queryForYoudaoTrans(Map<String , Object> bodyMap){
         Map<String , Object> retMap = new HashMap<String, Object>();
+        Map<String , String> queryMap = new HashMap<String , String>();
         YoudaoBasicData youdaoBasicData = new YoudaoBasicData();
-        logger.info("****************************************用户" + (String)bodyMap.get("id")+ " 开始请求 有道 翻译 END ****************************************");
+        logger.info("****************************************用户" + (String)bodyMap.get("id")+ " 开始请求 有道 翻译 START ****************************************");
 
         String query = (String)bodyMap.get("queryStr");
+        String from = "zh-CHS";
+        String to = "EN";
+        if(bodyMap.get("from") != null){
+            from = bodyMap.get("from").toString();
+        }
+
+        if(bodyMap.get("to") != null){
+            to = bodyMap.get("to").toString();
+        }
+
+        //请求体封装
+        queryMap.put("query",query);
+        queryMap.put("from", from);
+        queryMap.put("to", to);
+
+
         try{
 
-            String resMsg = sendMsg(query);
+            String resMsg = sendMsg(queryMap);
             youdaoBasicData = JSON.parseObject(resMsg,YoudaoBasicData.class);
-
             if("0".equals(youdaoBasicData.getErrorCode()) ){
                 retMap.put("result",youdaoBasicData);
                 retMap.put(SystemErrorCode.retcode, Constants.success);
@@ -107,17 +134,16 @@ public class TranslateManager {
     }
 
 
-    public static String sendMsg(String query) throws Exception {
+    public static String sendMsg(Map<String , String> map) throws Exception {
         String appKey = BasicConfig.YOUDAO_APP_ID;
         String url = "http://openapi.youdao.com/api";
         String salt = String.valueOf(System.currentTimeMillis());
-        String from = "zh-CHS";
-        String to = "EN";
-        String sign = md5(appKey + query + salt+ BasicConfig.YOUDAO_SECURE_KEY);
+
+        String sign = md5(appKey + map.get("query") + salt+ BasicConfig.YOUDAO_SECURE_KEY);
         Map params = new HashMap();
-        params.put("q", query);
-        params.put("from", from);
-        params.put("to", to);
+        params.put("q", map.get("query"));
+        params.put("from", map.get("from"));
+        params.put("to", map.get("to"));
         params.put("sign", sign);
         params.put("salt", salt);
         params.put("appKey", appKey);

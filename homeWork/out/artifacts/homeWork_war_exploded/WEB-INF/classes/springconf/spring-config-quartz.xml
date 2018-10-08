@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+	<!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+	<!--xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+    <!--http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"-->
+	<!--default-lazy-init="false">-->
+
+	<!--<bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+		<!--<property name="dataSource" ref="proxoolDataSource" />-->
+	<!--</bean>-->
+	<!---->
+	<!--<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">-->
+        <!--<property name="corePoolSize" value="5" />-->
+        <!--<property name="maxPoolSize" value="10" />-->
+        <!--<property name="queueCapacity" value="25" />-->
+    <!--</bean>-->
+	<!---->
+	<!--<bean name="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
+		<!--<property name="configLocation" value="classpath:springconf/quartz.properties" />-->
+		<!--<property name="dataSource" ref="proxoolDataSource" />-->
+		<!--<property name="transactionManager" ref="transactionManager" />-->
+		<!--<property name="schedulerName" value="baseScheduler" />-->
+		<!--<property name="overwriteExistingJobs" value="true" />-->
+		<!--<property name="applicationContextSchedulerContextKey" value="appli" />-->
+		<!--<property name="jobFactory"><bean class="com.vito.web.quartz.AutowiringBean2JobFactory" /></property>-->
+
+		<!--<property name="triggers">-->
+			<!--<list>-->
+				<!--<ref bean="jiankongTrigger" />&lt;!&ndash; 渠道监控定时任务 &ndash;&gt;-->
+				<!--<ref bean="shoudandzTrigger" />&lt;!&ndash; 收单对账定时任务 &ndash;&gt;-->
+				<!--<ref bean="jiaofeidzTrigger" />&lt;!&ndash; 缴费对账定时任务 &ndash;&gt;-->
+				<!--<ref bean="zhifudzTrigger" /> &lt;!&ndash; 支付对账定时任务 &ndash;&gt;-->
+				<!--<ref bean="ranqidzTrigger" /> &lt;!&ndash; 燃气对账定时任务 &ndash;&gt;-->
+				<!--<ref bean="alipaydzTrigger" /> &lt;!&ndash; 支付宝对账定时任务 &ndash;&gt;-->
+				<!---->
+				<!--<ref bean="jiesuanTrigger" /> &lt;!&ndash; 结算定时任务 &ndash;&gt;-->
+			<!--</list>-->
+		<!--</property>-->
+		<!--<property name="jobDetails">-->
+			<!--<list>-->
+				<!--<ref bean="jiankongjobDetail" />&lt;!&ndash; 渠道监控定时任务 &ndash;&gt;-->
+				<!--<ref bean="shoudandzjobDetail" />&lt;!&ndash; 收单对账定时任务 &ndash;&gt;-->
+				<!--<ref bean="jiaofeidzjobDetail" />&lt;!&ndash; 缴费对账定时任务 &ndash;&gt;-->
+				<!--<ref bean="zhifudzjobDetail" />&lt;!&ndash; 支付对账定时任务 &ndash;&gt;-->
+				<!--<ref bean="ranqidzjobDetail" />&lt;!&ndash; 燃气对账定时任务 &ndash;&gt;-->
+				<!--<ref bean="alipaydzjobDetail" />&lt;!&ndash; 支付宝对账定时任务 &ndash;&gt;-->
+				<!---->
+				<!--<ref bean="jiesuanjobDetail" />&lt;!&ndash; 结算定时任务 &ndash;&gt;-->
+			<!--</list>-->
+		<!--</property>-->
+	<!--</bean>-->
+	<!--&lt;!&ndash; 监控定时任务 &ndash;&gt;-->
+	<!--<bean name="jiankongjobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">-->
+		<!--<property name="jobClass" value="com.vito.web.quartz.MonitorQuartz" />-->
+	<!--</bean>-->
+	<!--<bean id="jiankongTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+		<!--<property name="jobDetail" ref="jiankongjobDetail" />-->
+		<!--<property name="cronExpression" value="0 0/6 * * * ?" />-->
+	<!--</bean>-->
+	<!---->
+	<!--&lt;!&ndash; 收单对账定时任务 &ndash;&gt;-->
+	<!--<bean name="shoudandzjobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">-->
+		<!--<property name="jobClass" value="com.vito.web.quartz.ShouDanBalance" />-->
+	<!--</bean>-->
+	<!--<bean id="shoudandzTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+		<!--<property name="jobDetail" ref="shoudandzjobDetail" />-->
+		<!--<property name="cronExpression" value="0 00 05 * * ?" />-->
+	<!--</bean>-->
+
+	<!--&lt;!&ndash; 缴费对账定时任务 &ndash;&gt;-->
+	<!--<bean name="jiaofeidzjobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">-->
+		<!--<property name="jobClass" value="com.vito.web.quartz.PayMentBalance" />-->
+	<!--</bean>-->
+	<!--<bean id="jiaofeidzTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+		<!--<property name="jobDetail" ref="jiaofeidzjobDetail" />-->
+		<!--<property name="cronExpression" value="0 00 07 * * ?" />-->
+	<!--</bean>-->
+	<!---->
+	<!--&lt;!&ndash; 支付对账定时任务 &ndash;&gt;-->
+	<!--<bean name="zhifudzjobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">-->
+		<!--<property name="jobClass" value="com.vito.web.quartz.ZhiFuBalance" />-->
+	<!--</bean>-->
+	<!--<bean id="zhifudzTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+		<!--<property name="jobDetail" ref="zhifudzjobDetail" />-->
+		<!--<property name="cronExpression" value="0 00 06 * * ?" />-->
+	<!--</bean>-->
+	<!---->
+	<!--&lt;!&ndash; 燃气对账定时任务 &ndash;&gt;-->
+	<!--<bean name="ranqidzjobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">-->
+		<!--<property name="jobClass" value="com.vito.web.quartz.RanQiBalance" />-->
+	<!--</bean>-->
+	<!--<bean id="ranqidzTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+		<!--<property name="jobDetail" ref="ranqidzjobDetail" />-->
+		<!--<property name="cronExpression" value="0 00 17 * * ?" />-->
+	<!--</bean>-->
+	<!---->
+	<!--&lt;!&ndash; 支付宝对账定时任务 &ndash;&gt;-->
+	<!--<bean name="alipaydzjobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">-->
+		<!--<property name="jobClass" value="com.vito.web.quartz.AlipayBalance" />-->
+	<!--</bean>-->
+	<!--<bean id="alipaydzTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+		<!--<property name="jobDetail" ref="alipaydzjobDetail" />-->
+		<!--<property name="cronExpression" value="0 00 12 * * ?" />-->
+	<!--</bean>-->
+	<!---->
+	<!--&lt;!&ndash; 结算定时任务 &ndash;&gt;-->
+	<!--<bean name="jiesuanjobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">-->
+		<!--<property name="jobClass" value="com.vito.web.quartz.JieSuanBalance" />-->
+	<!--</bean>-->
+	<!--<bean id="jiesuanTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+		<!--<property name="jobDetail" ref="jiesuanjobDetail" />-->
+		<!--<property name="cronExpression" value="0 30 09 * * ?" />-->
+	<!--</bean>-->
+
+<!--</beans>-->
+    

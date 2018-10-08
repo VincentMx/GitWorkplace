@@ -2,14 +2,12 @@ package com.lix.controller;
 
 import cn.lix.controller.base.BaseController;
 import com.lix.entity.XtRzDl;
-import com.lix.entity.XtZy;
 import com.lix.entity.vo.XtDlRzVO;
 import com.lix.service.XtRzDlService;
 import com.lix.util.Page;
 import com.lix.util.PageUtils;
 import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -94,6 +92,7 @@ public class XtRzDlController extends BaseController {
     @ResponseBody
     public String deleteInfo(String skey,HttpServletRequest request){
         String result = "";
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除系统登录日志信息 开始  ####################################################");
         XtRzDl xtRzDl = new XtRzDl();
         try{
             xtRzDl.setSkey(skey);
@@ -104,6 +103,7 @@ public class XtRzDlController extends BaseController {
             logger.error("删除资源失败"+e.getMessage());
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除系统登录日志信息 开始  ####################################################");
         return  result;
     }
     

@@ -5,7 +5,6 @@ import cn.lix.controller.base.BaseController;
 import com.boyang.core.util.StringUtils;
 import com.lix.entity.XtRzCz;
 import com.lix.entity.Xt_yh;
-import com.lix.entity.vo.XtDlRzVO;
 import com.lix.entity.vo.XtYhVO;
 import com.lix.service.XtYhService;
 import com.lix.util.Page;
@@ -103,6 +102,8 @@ public class XtYhController extends BaseController {
     @ResponseBody
     public String saveYhInfo(Xt_yh xt_yh, HttpServletRequest request){
         String result = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】 新增系统用户信息 开始  ####################################################");
+
         try{
             xtYhService.saveYhInfo(xt_yh,request,getYh(request));
             result = "{\"success\":\"true\"}";
@@ -111,6 +112,7 @@ public class XtYhController extends BaseController {
             e.getMessage();
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】 新增系统用户信息 结束  ####################################################");
         return result;
     }
 
@@ -128,6 +130,7 @@ public class XtYhController extends BaseController {
     @ResponseBody
     public String deleteInfo(String skey,HttpServletRequest request){
         String result = "";
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除系统用户信息 开始  ####################################################");
         try{
             xtYhService.deleteXtYh(skey,request,getYh(request));
             result  = "{\"success\":\"true\"}";
@@ -136,6 +139,7 @@ public class XtYhController extends BaseController {
             logger.error("删除用户失败"+e.getMessage());
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除系统用户信息 结束  ####################################################");
         return  result;
     }
 
@@ -154,6 +158,8 @@ public class XtYhController extends BaseController {
     @ResponseBody
     public String removeInfo(String skey,HttpServletRequest request){
         String result = "";
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】注销系统用户信息 开始  ####################################################");
+
         XtRzCz xtRzCz = new XtRzCz();
         try{
             xtYhService.removeXtYh(skey,request,getYh(request));
@@ -163,6 +169,8 @@ public class XtYhController extends BaseController {
             logger.error("注销用户信息失败"+e.getMessage());
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】注销系统用户信息 结束  ####################################################");
+
         return  result;
     }
 
@@ -179,13 +187,14 @@ public class XtYhController extends BaseController {
     @ResponseBody
     public String SpYhInfo(String skey, String flag , String bz, HttpServletRequest request){
         String result = "";
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】审批系统用户信息 开始  ####################################################");
         try{
             if(StringUtils.hasText(skey)){
 
                  if("001".equals(flag)){
-                     xtYhService.SpYhInfo(skey, Constants.XtYhDsp_SPTG,bz);
+                     xtYhService.SpYhInfo(skey, Constants.XtYhDsp_SPTG,bz,  request ,getYh(request));
                  }else if("002".equals(flag)){
-                     xtYhService.SpYhInfo(skey,Constants.XtYhDsp_SPWTG,bz);
+                     xtYhService.SpYhInfo(skey,Constants.XtYhDsp_SPWTG,bz , request , getYh(request));
                  }
                 result  = "{\"success\":\"true\"}";
 
@@ -197,6 +206,7 @@ public class XtYhController extends BaseController {
             logger.error("审批用户信息失败"+e.getMessage());
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】审批系统用户信息 结束  ####################################################");
         return  result;
     }
 

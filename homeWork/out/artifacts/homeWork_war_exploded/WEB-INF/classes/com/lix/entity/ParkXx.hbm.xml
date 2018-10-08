@@ -13,5 +13,6 @@
         <property name="paMc" column="pa_mc"/>
         <property name="paFlag" column="pa_flag"/>
         <property name="bz" column="bz"/>
+        <property name="paPcskey" column="pa_pcskey"/>
     </class>
 </hibernate-mapping>

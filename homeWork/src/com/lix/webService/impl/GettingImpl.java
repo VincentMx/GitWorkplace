@@ -1,6 +1,6 @@
 package com.lix.webService.impl;
 
-import cn.lix.constants.BasicConfig;
+import cn.lix.config.BasicConfig;
 import cn.lix.constants.Constants;
 import com.lix.Query.ServiceQueryUtil;
 import com.lix.util.JsonUtils;
@@ -34,6 +34,9 @@ public class GettingImpl implements Getting {
     @Autowired
     private ServiceQueryUtil serviceQueryUtil;
 
+
+
+
     @Override
     public String getting(String username) {
         logger.info("请求信息：" + username);
@@ -45,7 +48,64 @@ public class GettingImpl implements Getting {
 
 
     public String transLate(@WebParam (name = "jsonStr") String jsonStr){
-        logger.info("Method:WebserviceImpl.payResService");
+
+        logger.info("##########################################  - 请求百度或有道翻译接口 开始 -  ################################################");
+        logger.info("------------------------------Method:GettingImpl.transLate");
+        logger.info("------------------------------接受到的报文" + jsonStr);
+
+        Map<String, Object> map = JsonUtils.parseJSON2Map(jsonStr);
+        Map<String, Object> headMap = JsonUtils.parseJSON2Map(map.get("msghead").toString());
+        Map<String, Object> bodyMap = JsonUtils.parseJSON2Map(map.get("msgreq").toString());
+        // 作为参数传递使用的map
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        Map<String, Object> headermap = new HashMap<String, Object>();
+        Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+        paramMap.putAll(bodyMap);
+        paramMap.putAll(headMap);
+
+        try{
+
+            String servicename = (String) headMap.get("serviceName");
+            String code = (String)headMap.get("sign");
+
+            if(code == null){
+                logger.info("---------验证码为空------");
+                String resStr = webServiceUtil.rtnBack(code,"验证码为空",headMap);
+                return resStr;
+            }else if(!code.equals(BasicConfig.sign)){
+                logger.info("---------验证码错误------");
+                String resStr = webServiceUtil.rtnBack(code,"验证码错误",headMap);
+                return resStr;
+            }
+
+            if (servicename == null){
+                logger.info("---------服务名称为空------");
+                String resStr = webServiceUtil.rtnBack(code,"服务名称为空",headMap);
+                return resStr;
+            }
+            bodyMap.put("servicename",servicename);
+            headermap.putAll(headMap);
+            Map<String,Object> queryMap = new HashMap<String, Object>();
+            queryMap = serviceQueryUtil.queryBack(bodyMap);
+
+            rtnMap.put("msghead", headermap);
+            rtnMap.put("msgrsp", queryMap);
+        } catch (Exception e) {
+            String resStr = webServiceUtil.rtnBack(Constants.error_msg, headMap);
+            logger.info("---返回报文:" + resStr);
+            return resStr;
+        }
+
+        logger.info("##########################################  - 请求百度或有道翻译接口 结束 -  ################################################");
+        String resStr = JsonUtils.map2json(rtnMap);
+        return resStr;
+    }
+
+    @Override
+    public String userLogin(String jsonStr) {
+
+        logger.info("Method:GettingImpl.userLogin");
         logger.info("接受到的报文" + jsonStr);
 
         Map<String, Object> map = JsonUtils.parseJSON2Map(jsonStr);
@@ -92,6 +152,60 @@ public class GettingImpl implements Getting {
             return resStr;
         }
         String resStr = JsonUtils.map2json(rtnMap);
+        logger.info("---返回报文:" + resStr);
+        return resStr;
+    }
+
+    @Override
+    public String queryService(String jsonStr) {
+        logger.info("Method:gettingImpl.queryService");
+        logger.info("接受到的报文" + jsonStr);
+
+        Map<String, Object> map = JsonUtils.parseJSON2Map(jsonStr);
+        Map<String, Object> headMap = JsonUtils.parseJSON2Map(map.get("msghead").toString());
+        Map<String, Object> bodyMap = JsonUtils.parseJSON2Map(map.get("msgreq").toString());
+        // 作为参数传递使用的map
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        Map<String, Object> headermap = new HashMap<String, Object>();
+        Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+        paramMap.putAll(bodyMap);
+        paramMap.putAll(headMap);
+
+        try{
+
+            String servicename = (String) headMap.get("serviceName");
+            String code = (String)headMap.get("sign");
+
+            if(code == null){
+                logger.info("---------验证码为空------");
+                String resStr = webServiceUtil.rtnBack(code,"验证码为空",headMap);
+                return resStr;
+            }else if(!code.equals(BasicConfig.sign)){
+                logger.info("---------验证码错误------");
+                String resStr = webServiceUtil.rtnBack(code,"验证码错误",headMap);
+                return resStr;
+            }
+
+            if (servicename == null){
+                logger.info("---------服务名称为空------");
+                String resStr = webServiceUtil.rtnBack(code,"服务名称为空",headMap);
+                return resStr;
+            }
+            bodyMap.put("servicename",servicename);
+            headermap.putAll(headMap);
+            Map<String,Object> queryMap = new HashMap<String, Object>();
+            queryMap = serviceQueryUtil.queryBack(bodyMap);
+
+            rtnMap.put("msghead", headermap);
+            rtnMap.put("msgrsp", queryMap);
+        } catch (Exception e) {
+            String resStr = webServiceUtil.rtnBack(Constants.error_msg, headMap);
+            logger.info("---返回报文:" + resStr);
+            return resStr;
+        }
+        String resStr = JsonUtils.map2json(rtnMap);
+        logger.info("---返回报文:" + resStr);
         return resStr;
     }
 }

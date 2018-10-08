@@ -46,14 +46,18 @@ public class XtDwController extends BaseController {
     @ResponseBody
     public String getXtCsWithPage(XtDwVO xtDwVO, HttpServletRequest request, Integer start, Integer limit){
         String results = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】获取系统单位分页列表信息 开始  ####################################################");
+
         try{
             Page page = new Page(start,0,limit,null);
             page = xtDwService.getXtDwWithPage(page,xtDwVO,request,null);
             results = PageUtils.getExtjsPageJsonData(page);
         }catch (Exception e){
             results = "{\"success\":\"false\",\"message\":"+e.getMessage()+"}";
-            logger.error("系统在执行参数查询时出现错误："+e.getMessage());
+            logger.error("---------系统在执行参数查询时出现错误："+e.getMessage());
         }
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】获取系统单位分页列表信息 结束  ####################################################");
+
         return  results;
     }
 
@@ -71,13 +75,17 @@ public class XtDwController extends BaseController {
     @ResponseBody
     public String saveXtDw(XtDw xtDw, HttpServletRequest request){
         String results = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】保存或修改系统单位信息 开始  ####################################################");
+
         try{
             xtDwService.saveOrUpdate(xtDw,request,getYh(request));
             results = "{\"success\":\"true\"}";
         }catch (Exception e){
             results = "{\"success\":\"false\",\"message\":"+e.getMessage()+"}";
-            logger.error("系统在执行参数保存时出现错误："+e.getMessage());
+            logger.error("------------系统在执行参数保存时出现错误："+e.getMessage());
         }
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】保存或修改系统单位信息 结束  ####################################################");
+
         return  results;
     }
 
@@ -95,6 +103,7 @@ public class XtDwController extends BaseController {
     @ResponseBody
     public String deleteXtCs(String skey, HttpServletRequest request){
         String results = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除系统单位信息 开始  ####################################################");
         try{
             xtDwService.deleteXtDwINFO(skey,request,getYh(request));
             results = "{\"success\":\"true\"}";
@@ -102,6 +111,7 @@ public class XtDwController extends BaseController {
             results = "{\"success\":\"false\",\"message\":"+e.getMessage()+"}";
             logger.error("系统在执行删除系统参数时出现错误："+e.getMessage());
         }
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除系统单位信息 结束  ####################################################");
         return  results;
     }
 
@@ -119,14 +129,16 @@ public class XtDwController extends BaseController {
     @ResponseBody
     public String getAllXtCs(XtDwVO xtDwVO, HttpServletRequest request){
         String results = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】查询系统单位列表信息 开始  ####################################################");
         try{
             List<XtDwVO> list = xtDwService.getAllXtDw(xtDwVO,request);
             JSONArray j = JSONArray.fromObject(list);
             results = "{\"success\":\"true\",\"results\":"+ j  +"}";
         }catch (Exception e){
             results = "{\"success\":\"false\",\"message\":"+e.getMessage()+"}";
-            logger.error("系统在执行参数查询时出现错误："+e.getMessage());
+            logger.error("-------------系统在执行参数查询时出现错误："+e.getMessage());
         }
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】查询系统单位列表信息 结束  ####################################################");
         return  results;
     }
 
@@ -144,6 +156,7 @@ public class XtDwController extends BaseController {
     @ResponseBody
     public  String saveXtCslX(XtDwVO xtDwVO, HttpServletRequest request){
         String results = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】查询系统单位信息 开始  ####################################################");
         XtDw xtDw1 = new XtDw();
         try{
             xtDw1 = xtDwService.getXtDwByParam(xtDwVO);
@@ -153,6 +166,7 @@ public class XtDwController extends BaseController {
             results = "{\"success\":\"false\",\"message\":"+e.getMessage()+"}";
             logger.error("系统在执行参数查询时出现错误："+e.getMessage());
         }
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】查询系统单位信息 结束  ####################################################");
         return  results;
     }
 

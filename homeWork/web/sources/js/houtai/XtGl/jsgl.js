@@ -139,3 +139,8 @@ function operateJss() {
 
 
 }
+
+
+function addJs() {
+ layer.alert("欢迎添加角色");
+}

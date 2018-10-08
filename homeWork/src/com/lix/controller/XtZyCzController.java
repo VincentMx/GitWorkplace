@@ -1,7 +1,6 @@
 package com.lix.controller;
 
 import cn.lix.controller.base.BaseController;
-import com.lix.entity.Xt_yh;
 import com.lix.entity.Xt_zy_cz;
 import com.lix.service.XtZyCzService;
 import net.sf.json.JSONArray;
@@ -40,14 +39,16 @@ public class XtZyCzController extends BaseController{
     @ResponseBody
     public String saveXtZyCzInfo(Xt_zy_cz xt_zy_cz, HttpServletRequest request){
         String result = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】添加或修改系统资源操作信息 开始  ####################################################");
         String sfzh = (String)request.getSession().getAttribute("yhId");
         try{
             xtZyCzService.saveZyCzInfo(xt_zy_cz,request,sfzh);
             result = "{\"success\":\"true\"}";
         }catch (Exception e){
-            logger.error("在saveOrUpdateXtZyCzInfo的方法执行中出现"+e.getMessage());
+            logger.error("----------在saveOrUpdateXtZyCzInfo的方法执行中出现"+e.getMessage());
             result = "{\"success\":\"false\",\"msg\":\""+e.getMessage()+"\"}";
         }
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】添加或修改系统资源操作信息 结束  ####################################################");
         return  result;
     }
     
@@ -64,6 +65,7 @@ public class XtZyCzController extends BaseController{
     @ResponseBody
     public String deleteInfo(@RequestParam("skey") String skey,HttpServletRequest request){
         String result = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除系统资源操作信息 开始  ####################################################");
         Xt_zy_cz xt_zy_cz = new Xt_zy_cz();
         String sfzh = (String)request.getSession().getAttribute("yhId");
 
@@ -75,6 +77,7 @@ public class XtZyCzController extends BaseController{
             logger.error("在deleteXtZyCzInfo的方法执行中出现"+e.getMessage());
             result = "{\"success\":\"false\",\"msg\":\""+e.getMessage()+"\"}";
         }
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除系统资源操作信息 结束  ####################################################");
         return  result;
     }
 
@@ -117,6 +120,7 @@ public class XtZyCzController extends BaseController{
     @ResponseBody
     public String fingAllInfo(Xt_zy_cz xt_zy_cz,HttpServletRequest request){
         String result = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】查询系统资源操作列表信息 开始  ####################################################");
         try{
             List<Xt_zy_cz> list =  xtZyCzService.findAllXtZyCz(xt_zy_cz);
             JSONArray jsonDate = JSONArray.fromObject(list);
@@ -126,6 +130,7 @@ public class XtZyCzController extends BaseController{
             result = "{\"success\":\"false\",\"msg\":\""+e.getMessage()+"\"}";
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】查询系统资源操作列表信息 结束  ####################################################");
         return  result;
     }
 
@@ -143,6 +148,7 @@ public class XtZyCzController extends BaseController{
     @ResponseBody
     public String getInfoById(Xt_zy_cz xt_zy_cz ,HttpServletRequest request){
         String result = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】根据资源主键获取权限信息 开始  ####################################################");
         try{
             List<Xt_zy_cz> list =  xtZyCzService.findXtZyCzByResourcesId(xt_zy_cz);
             JSONArray jsonDate = JSONArray.fromObject(list);
@@ -152,6 +158,7 @@ public class XtZyCzController extends BaseController{
             result = "{\"success\":\"false\",\"msg\":\""+e.getMessage()+"\"}";
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】根据资源主键获取权限信息 结束  ####################################################");
         return  result;
     }
     

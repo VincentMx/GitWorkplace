@@ -10,7 +10,7 @@ import javax.jws.soap.SOAPBinding;
  * @time : 17:522018/7/16
  * @modify by :
  */
-@WebService(targetNamespace = "com.lix.webService.Getting")
+@WebService(targetNamespace = "com.lix.webService.parkService")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public interface parkService {
 

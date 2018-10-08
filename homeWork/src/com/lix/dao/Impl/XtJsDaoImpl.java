@@ -36,8 +36,16 @@ public class XtJsDaoImpl implements XtjsDao {
     public void saveJs(Xt_js xt_js) {
       session = sessionFactory.openSession();
       transaction = session.beginTransaction();
-      session.save(xt_js);
-      transaction.commit();
+      try{
+          session.save(xt_js);
+          transaction.commit();
+          session.flush();
+      }catch (Exception e){
+          e.printStackTrace();
+          transaction.rollback();
+      }finally {
+          session.close();
+      }
     }
 
     @Override
@@ -78,15 +86,24 @@ public class XtJsDaoImpl implements XtjsDao {
     public void updateJs(Xt_js xt_js) {
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        session.update(xt_js);
-        transaction.commit();
+        try{
+            session.update(xt_js);
+            transaction.commit();
+            session.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
     }
 
     @Override
     public Xt_js findByPara(Xt_js xt_js) {
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        String Hql = "from lx.entity.Xt_js where flag = '1' ";
+        Xt_js xt_js1 = new Xt_js();
+        String Hql = "from Xt_js where flag = '1' ";
         if (!StringUtils.isEmpty(xt_js.getName())){
             Hql += " and name like '%"+xt_js.getName()+"%' ";
         }
@@ -96,8 +113,16 @@ public class XtJsDaoImpl implements XtjsDao {
         if (!StringUtils.isEmpty(xt_js.getSkey())){
             Hql += " and skey = '"+xt_js.getSkey()+"'  ";
         }
-        Query query = session.createQuery(Hql);
-        Xt_js xt_js1 = (Xt_js) query.getSingleResult();
-        return xt_js;
+
+        try {
+
+            Query query = session.createQuery(Hql);
+            xt_js1 = (Xt_js) query.getSingleResult();
+        }catch (Exception e){
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+        return xt_js1;
     }
 }

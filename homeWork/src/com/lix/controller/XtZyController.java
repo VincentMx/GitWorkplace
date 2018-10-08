@@ -2,8 +2,6 @@ package com.lix.controller;
 
 
 import cn.lix.controller.base.BaseController;
-import com.lix.entity.XtCs;
-import com.lix.entity.XtDw;
 import com.lix.entity.XtZy;
 import com.lix.entity.Xt_yh;
 import com.lix.entity.vo.XtZyVO;
@@ -50,17 +48,19 @@ public class XtZyController extends BaseController{
     @ResponseBody
     public String getXtZyInfo(XtZy xt_zy, HttpServletRequest request,Integer start,Integer limit){
         String result = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】获取系统资源列表信息 开始  ####################################################");
         try{
             List<XtZy> list = xtZyService.findAllXtZy(xt_zy);
             JSONArray jsonArray = JSONArray.fromObject(list);
-
    //         Page page = new Page(start + 1, 0 , limit, null);
             result = "{\"success\":\"true\",\"result\":"+jsonArray+"}";
         }catch (Exception e){
             result = "{\"success\":\"false\",\"message\":"+e.getMessage()+"}";
-            e.getMessage();
+            logger.error("-----------获取系统资源列表信息失败," + e.getMessage());
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】获取系统资源列表信息 结束  ####################################################");
+
         return result;
     }
 
@@ -77,15 +77,19 @@ public class XtZyController extends BaseController{
     @ResponseBody
     public String getXtzyPageList(XtZyVO xtZyVO,XtZy xtZy,HttpServletRequest request,Integer start,Integer limit){
         String results = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】获取系统资源分页列表信息 开始  ####################################################");
+
         try{
             Page page = new Page(start,0,limit,null);
             page = xtZyService.findXtZyByParam(page,xtZyVO);
             results = PageUtils.getExtjsPageJsonData(page);
         }catch (Exception e){
             results = "{\"success\":\"false\",\"message\":"+e.getMessage()+"}";
-            e.printStackTrace();
+            logger.error("----------获取系统资源分页列表信息失败," + e.getMessage());
         }
         logger.debug(request);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】获取系统资源分页列表信息 结束  ####################################################");
+
         return  results;
     }
 
@@ -104,6 +108,7 @@ public class XtZyController extends BaseController{
     @ResponseBody
     public String addXtZy(XtZy xtZy,HttpServletRequest request){
         String result = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】添加系统资源信息 开始  ####################################################");
         String sfzh = (String)request.getSession().getAttribute("yhId");
         try{
             if (xtZy != null){
@@ -114,8 +119,9 @@ public class XtZyController extends BaseController{
             }
         }catch (Exception e){
             result = "{\"success\":\"false\",\"msg\":\""+e.getMessage()+"\"}";
-
+            logger.error("-------------添加系统资源信息失败 " + e.getMessage());
         }
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】添加系统资源信息 结束  ####################################################");
         return result;
     }
 
@@ -133,6 +139,7 @@ public class XtZyController extends BaseController{
     @ResponseBody
     public String deleteInfo(String skey,HttpServletRequest request){
         String result = "";
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除系统资源信息 开始  ####################################################");
         String sfzh = (String)request.getSession().getAttribute("yhId");
         try{
             if(!StringUtils.isEmpty(skey)){
@@ -144,9 +151,10 @@ public class XtZyController extends BaseController{
 
         }catch (Exception e){
             result = "{\"success\":\"false\",\"msg\":\""+e.getMessage()+"\"}";
-            logger.error("删除资源失败"+e.getMessage());
+            logger.error("----------删除资源失败"+e.getMessage());
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除系统资源信息 结束  ####################################################");
         return  result;
     }
 

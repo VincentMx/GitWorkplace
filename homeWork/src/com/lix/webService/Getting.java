@@ -35,6 +35,30 @@ public interface Getting {
       *@return:   
       *
       */
+
     public String transLate(@WebParam(name = "jsonStr") String jsonStr);
-    
+
+
+    /**
+     * 用户登录
+     * @param jsonStr
+     * @return
+     */
+    public String userLogin(@WebParam(name = "jsonStr") String jsonStr);
+
+
+
+
+    /**
+      *@method: 公告查询服务
+      *@author: lix
+      *@desc： 
+      *@Date: 14:48 2018/9/28
+      *@param: 
+      *@return:   
+      *
+      */
+    public String queryService(@WebParam(name = "jsonStr") String jsonStr);
+
+
 }

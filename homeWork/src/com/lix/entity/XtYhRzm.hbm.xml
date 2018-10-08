@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.lix.entity.XtYhRzm" table="xt_yh_rzm" schema="xxxt">
+        <id name="skey" column="skey"/>
+        <property name="yhskey" column="yhskey"/>
+        <property name="code" column="code"/>
+        <property name="codetime" column="codetime"/>
+    </class>
+</hibernate-mapping>

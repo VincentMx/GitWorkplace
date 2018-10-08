@@ -12,7 +12,7 @@ import javax.jws.soap.SOAPBinding;
  * @time : 10:152018/3/8
  * @modify by :
  */
-@WebService(targetNamespace = "http://impl.webService.com.lix/")
+@WebService(targetNamespace = "com.lix.webService.YhInfoService")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public interface YhInfoService {
 

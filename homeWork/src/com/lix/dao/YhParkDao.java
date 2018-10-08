@@ -1,9 +1,6 @@
 package com.lix.dao;
 
-import com.lix.entity.ClXx;
-import com.lix.entity.ParkCl;
-import com.lix.entity.ParkSf;
-import com.lix.entity.ParkXx;
+import com.lix.entity.*;
 import com.lix.entity.vo.CwxxVO;
 import com.lix.util.Page;
 
@@ -303,4 +300,236 @@ public interface YhParkDao {
       *
       */
     ParkCl findParkClById(String skey);
+
+
+    /**
+      *@method: 添加公司
+      *@author: lix
+      *@desc： 
+      *@Date: 18:23 2018/7/29
+      *@param: 
+      *@return:   
+      *
+      */
+    
+    void saveParkCompany(ParkCompany parkCompany);
+
+
+    /**
+      *@method: 添加对应关系
+      *@author: lix
+      *@desc： 
+      *@Date: 18:23 2018/7/29
+      *@param: 
+      *@return:   
+      *
+      */
+    void saveParkUnit(ParkUnit parkUnit);
+    
+    /**
+      *@method: 修改停车公司信息
+      *@author: lix
+      *@desc： 
+      *@Date: 18:35 2018/7/29
+      *@param: 
+      *@return:   
+      *
+      */
+    void updateParkCompany(ParkCompany parkCompany);
+    
+    /**
+      *@method: 修改依赖关系信息
+      *@author: lix
+      *@desc： 
+      *@Date: 18:35 2018/7/29
+      *@param: 
+      *@return:   
+      *
+      */
+    void updateParkUnit(ParkUnit parkUnit);
+    
+    /**
+      *@method: 删除停车单位对应关系
+      *@author: lix
+      *@desc： 
+      *@Date: 18:35 2018/7/29
+      *@param: 
+      *@return:   
+      *
+      */
+    void deleteParkUnit(ParkUnit parkUnit);
+    
+    /**
+      *@method: 删除停车公司信息
+      *@author: lix
+      *@desc： 
+      *@Date: 18:36 2018/7/29
+      *@param: 
+      *@return:   
+      *
+      */
+    void deleteParkCompany(ParkCompany parkCompany);
+    
+    /**
+      *@method: 分页查询停车公司列表
+      *@author: lix
+      *@desc： 
+      *@Date: 18:36 2018/7/29
+      *@param: 
+      *@return:   
+      *
+      */
+    Page getParkCompanyByPage(Page page , ParkCompany parkCompany);
+    
+    
+    /**
+      *@method: 根据id查询停车公司信息
+      *@author: lix
+      *@desc： 
+      *@Date: 19:10 2018/7/29
+      *@param: 
+      *@return:   
+      *
+      */
+    ParkCompany findParkCompanyById(String id);
+
+
+    /**
+      *@method: 停车公司注册
+      *@author: lix
+      *@desc： 
+      *@Date: 18:41 2018/8/7
+      *@param: 
+      *@return:   
+      *
+      */
+    void add(ParkCompanyDsp parkCompanyDsp);
+
+    /**
+      *@method: 删除待审批停车公司 
+      *@author: lix
+      *@desc： 
+      *@Date: 18:43 2018/8/7
+      *@param: 
+      *@return:   
+      *
+      */
+    void delete(ParkCompanyDsp parkCompanyDsp);
+    
+    /**
+      *@method: 修改停车公司信息
+      *@author: lix
+      *@desc： 
+      *@Date: 18:43 2018/8/7
+      *@param: 
+      *@return:   
+      *
+      */
+    void update(ParkCompanyDsp parkCompanyDsp);
+    
+    
+    /**
+      *@method: 分页查询停车公司信息
+      *@author: lix
+      *@desc： 
+      *@Date: 18:43 2018/8/7
+      *@param: 
+      *@return:   
+      *
+      */
+    Page getAllParkCompanyDsp(Page page , ParkCompanyDsp parkCompanyDsp);
+     
+    /**
+      *@method: 根据主键查询待审批停车公司信息
+      *@author: lix
+      *@desc： 
+      *@Date: 18:47 2018/8/7
+      *@param: 
+      *@return:   
+      *
+      */
+    ParkCompanyDsp findParkCompanyDspById(String skey);
+    
+    
+    /**
+      *@method: 查询所有公司
+      *@author: lix
+      *@desc： 
+      *@Date: 18:59 2018/8/7
+      *@param: 
+      *@return:   
+      *
+      */
+    List<ParkCompany> getAllParkCompany(ParkCompany parkCompany);
+    
+    /**
+      *@method: 查询所有待审批公司
+      *@author: lix
+      *@desc： 
+      *@Date: 19:00 2018/8/7
+      *@param: 
+      *@return:   
+      *
+      */
+    List<ParkCompanyDsp> getAllParkCompanyDsp(ParkCompanyDsp parkCompanyDsp);
+
+
+    /**
+      *@method: 添加关系
+      *@author: lix
+      *@desc： 
+      *@Date: 1:06 2018/8/24
+      *@param: 
+      *@return:   
+      *
+      */
+    void save(ParkCompanyGl parkCompanyGl);
+    
+    /**
+      *@method: 删除关联关系
+      *@author: lix
+      *@desc： 
+      *@Date: 1:07 2018/8/24
+      *@param: 
+      *@return:   
+      *
+      */
+    void delete(ParkCompanyGl parkCompanyGl);
+    
+    /**
+      *@method: 修改关联关系
+      *@author: lix
+      *@desc： 
+      *@Date: 1:07 2018/8/24
+      *@param: 
+      *@return:   
+      *
+      */
+    void update(ParkCompanyGl parkCompanyGl);
+
+    /**
+      *@method: 获取关联关系
+      *@author: lix
+      *@desc： 
+      *@Date: 1:07 2018/8/24
+      *@param: 
+      *@return:   
+      *
+      */
+    List<ParkCompanyGl> findByParam(ParkCompanyGl parkCompanyGl);
+
+
+
+    /**
+     *@method: 获取关联关系 -- by companyId
+     *@author: lix
+     *@desc：
+     *@Date: 1:07 2018/8/24
+     *@param:
+     *@return:
+     *
+     */
+    List<ParkCompanyGl> findByParam(ParkCompany parkCompany);
+
+
 }

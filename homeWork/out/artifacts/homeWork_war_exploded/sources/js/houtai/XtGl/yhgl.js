@@ -21,23 +21,30 @@ function loadTable() {
         search: false, //查询参数组织方式
         searchOnEnterKey: false, //回车搜索,
         clickToSelect: true,
+
         // toolbar: "#toolbar",
         columns:[
             {title:"全选",field: "select",checkbox: true,align:"center",valign:"middle"},
-            {title:"用户",field:"id",align:"left",order:"desc"},
+            {title:"用户ID",field:"id",align:"left",order:"desc"},
             {title:"用户名",field:"name",align:"left",order:"desc"},
             {title:"单位",field:"unit",align:"left",order:"desc"},
-            {title:"联系电话",field:"phone",align:"left",order:"desc"},
-            {title:"联系地址",field:"address",align:"left",order:"desc"},
+            //{title:"联系电话",field:"phone",align:"left",order:"desc"},
+           // {title:"联系地址",field:"address",align:"left",order:"desc"},
             {title:"邮箱",field:"email",align:"left",order:"desc"},
-            {title:"联系手机",field:"mobile",align:"left",order:"desc"},
+            {title:"联系手机",field:"phone",align:"left",order:"desc"},
             {title:"上次登录IP",field:"lastip",align:"left",order:"desc"},
-            {title:"上次登录时间",field:"lasttime",align:"left",order:"desc"},
+            //{title:"上次登录时间",field:"lasttime",align:"left",order:"desc"},
             {title:"注册时间",field:"regtime",align:"left",order:"desc"},
-            {title:"备注",field:"bz",align:"left",order:"desc"}
+           // {title:"备注",field:"bz",align:"left",order:"desc"}
 
         ],
-        locale:"zh-CN" //中文支持
+        locale:"zh-CN", //中文支持
+        formatLoadingMessage: function () {
+            return "请稍等，正在加载中...";
+        },
+        formatNoMatches: function () {  //没有匹配的结果
+            return '无符合条件的记录';
+        },
     })
 }
 
@@ -500,7 +507,122 @@ function updateYh() {
  * 用户详情
  */
 function detailXtYh() {
-    layer.msg("详情");
+    var skey = null;
+    var sels = $("#XtYh_content").bootstrapTable('getSelections');
+    if(sels.length != 1  ){
+        layer.msg("请选择一条需要修改的数据",{icon:2});
+        return false;
+    }else{
+        skey = sels[0].skey;
+    }
+    if(skey == null || skey == '' || skey == undefined){
+        layer.msg('请选择您需要修改的数据',{icon: 3});
+        return false;
+    }
+    $.ajax({
+        type: 'POST',
+        url: CTX + "/xt/user/getUserInfo.html",
+        data: {skey:skey},
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            if (data.success){
+                var index = layer.open({
+                    title:['审核用户信息','background-color : #26A69A ; color : #fff; font-size : 14 px; font-weight : 700; text-align : center'],
+                    area:['60%','68%'],
+                    content:'<form role="form" action="javascript:void(0)">\n' +
+                    '    <div class="row">\n' +
+                    '     <div class="col-xs-6">  \n'+
+                    '        <div class="form-group input-group">\n' +
+                    '            <span class="input-group-addon">用户名</span>\n' +
+                    '            <input type="text" id="upd_name"  name="name" class="form-control" placeholder="请输入用户名称...." readonly=readonly   />\n' +
+                    '            <input type="hidden" id="upd_skey"  name="skey" class="form-control"  />\n' +
+                    '        </div>\n' +
+                    '     </div>\n' +
+                    '     <div class="col-xs-6">  \n'+
+                    '        <div class="form-group input-group">\n' +
+                    '            <span class="input-group-addon">身份证号</span>\n' +
+                    '            <input type="text" id="upd_id"  name="id" class="form-control" placeholder="请输入用户身份证号码...." readonly />\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    </div>\n' +
+                    '    <div class="row">\n' +
+                    '     <div class="col-xs-6">  \n'+
+                    '        <div class="form-group input-group">\n' +
+                    '            <span class="input-group-addon">联系电话</span>\n' +
+                    '            <input type="text" id="upd_phone"  name="phone" class="form-control"  placeholder="请输入联系电话...." readonly   />\n' +
+                    '        </div>\n' +
+                    '     </div>\n' +
+                    '     <div class="col-xs-6">  \n'+
+                    '        <div class="form-group input-group">\n' +
+                    '            <span class="input-group-addon">联系手机</span>\n' +
+                    '            <input type="text" id="upd_mobile" name="mobile" class="form-control"  placeholder="请输入联系手机...." readonly  />\n' +
+                    '        </div>\n' +
+                    '     </div>\n' +
+                    '    </div>\n' +
+                    '    <div class="row">\n' +
+                    '     <div class="col-xs-6">  \n'+
+                    '        <div class="form-group input-group">\n' +
+                    '            <span class="input-group-addon">联系邮箱</span>\n' +
+                    '            <input type="text" id="upd_email" name="email" class="form-control"  placeholder="请输入用户邮箱...."  readonly   />\n' +
+                    '        </div>\n' +
+                    '     </div>\n' +
+                    '     <div class="col-xs-6">  \n'+
+                    '        <div class="form-group input-group">\n' +
+                    '            <span class="input-group-addon">性别</span>\n' +
+                    '            <input type="text" id="upd_sex" name="sex" class="form-control"  placeholder="请选择性别信息...."readonly  />\n' +
+                    '        </div>\n' +
+                    '     </div>\n' +
+                    '    </div>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="form-group input-group">\n' +
+                    '            <span class="input-group-addon">单位</span>\n' +
+                    '            <input type="text" id="upd_unit"  name="unit" class="form-control"  placeholder="请输入单位信息...." readonly />\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="form-group input-group">\n' +
+                    '            <span class="input-group-addon">联系地址</span>\n' +
+                    '            <input type="text" id="upd_address" name="address" class="form-control"  placeholder="请输入联系地址信息...." readonly />\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+
+                    '    <div class="row">\n' +
+                    '        <div class="form-group input-group">\n' +
+                    '            <span class="input-group-addon">审批意见</span>\n' +
+                    '            <textarea type="text" id="upd_bz" name="bz" class="form-control"  placeholder="请输入备注信息..."/>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '</form>',
+                    btn:['关闭'],
+                    btn1:function (index) {
+
+                        layer.close(index);
+                    }
+
+                });
+
+
+                var datas = data.results[0];
+
+                $("#upd_name").val("").val(datas.name);
+                $("#upd_id").val("").val(datas.id);
+                $("#upd_unit").val("").val(datas.unit);
+                $("#upd_phone").val("").val(datas.phone);
+                $("#upd_address").val("").val(datas.address);
+                $("#upd_mobile").val("").val(datas.mobile);
+                $("#upd_email").val("").val(datas.email);
+                $("#upd_bz").val("").val(datas.bz);
+                $("#upd_sex").val("").val(datas.sex);
+                $("#upd_skey").val("").val(datas.skey);
+            }else{
+                layer.msg('删除失败'+data.msg,{icon:2});
+            }
+        },
+        error: function () {
+            alert("未能正常情求信息，请联系管理员解决问题。");
+        }
+    });
 }
 
 /**

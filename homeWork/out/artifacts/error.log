@@ -1,0 +1,58 @@
+2018/07/11 17:43:12 [emerg] 9503#0: "error_log" directive is duplicate in /usr/local/nginx/conf/nginx.conf:6
+2018/07/11 17:44:32 [emerg] 9510#0: unknown directive "proxy-pass" in /usr/local/nginx/conf/nginx.conf:52
+2018/07/11 17:45:31 [notice] 9518#0: signal process started
+2018/07/11 19:08:04 [emerg] 10139#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/07/11 19:08:04 [emerg] 10139#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/07/11 19:08:04 [emerg] 10139#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/07/11 19:08:04 [emerg] 10139#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/07/11 19:08:04 [emerg] 10139#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/07/11 19:08:04 [emerg] 10139#0: still could not bind()
+2018/07/11 19:09:15 [emerg] 10169#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/07/11 19:09:15 [emerg] 10169#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/07/11 19:09:15 [emerg] 10169#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/07/11 19:09:15 [emerg] 10169#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/07/11 19:09:15 [emerg] 10169#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/07/11 19:09:15 [emerg] 10169#0: still could not bind()
+2018/09/03 18:43:07 [emerg] 2163#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/09/03 18:43:07 [emerg] 2163#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/09/03 18:43:07 [emerg] 2163#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/09/03 18:43:07 [emerg] 2163#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/09/03 18:43:07 [emerg] 2163#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/09/03 18:43:07 [emerg] 2163#0: still could not bind()
+2018/09/03 18:43:21 [notice] 2169#0: signal process started
+2018/09/03 18:43:21 [error] 2169#0: open() "/usr/local/nginx/logs/nginx.pid" failed (2: No such file or directory)
+2018/09/03 18:44:22 [error] 2202#0: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 180.95.195.165, server: www.lixianfran.tech, request: "POST /HelloWorld/webService/park HTTP/1.1", upstream: "http://172.19.154.165:8080/HelloWorld/webService/park", host: "47.100.173.182"
+2018/09/03 18:45:43 [alert] 2197#0: worker process 2205 exited on signal 9
+2018/09/03 18:45:49 [alert] 2197#0: worker process 2204 exited on signal 9
+2018/09/03 18:45:54 [alert] 2197#0: worker process 2203 exited on signal 9
+2018/09/03 18:45:57 [alert] 2197#0: worker process 2202 exited on signal 9
+2018/09/03 18:46:00 [alert] 2197#0: worker process 2201 exited on signal 9
+2018/09/03 18:46:04 [alert] 2197#0: worker process 2200 exited on signal 9
+2018/09/03 18:46:10 [alert] 2197#0: worker process 2199 exited on signal 9
+2018/09/03 18:46:15 [alert] 2197#0: worker process 2198 exited on signal 9
+2018/09/03 18:47:43 [error] 2294#0: *3 connect() failed (111: Connection refused) while connecting to upstream, client: 95.171.5.12, server: www.lixianfran.tech, request: "GET / HTTP/1.1", upstream: "http://172.19.154.165:8080/", host: "47.100.173.182:80"
+2018/09/04 10:11:09 [emerg] 7133#0: invalid parameter "weight" in /usr/local/nginx/conf/nginx.conf:36
+2018/09/04 10:14:53 [notice] 7152#0: signal process started
+2018/09/04 10:14:53 [alert] 7152#0: kill(2197, 1) failed (3: No such process)
+2018/09/04 10:15:12 [emerg] 7154#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/09/04 10:15:12 [emerg] 7154#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/09/04 10:15:12 [emerg] 7154#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/09/04 10:15:12 [emerg] 7154#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/09/04 10:15:12 [emerg] 7154#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/09/04 10:15:12 [emerg] 7154#0: still could not bind()
+2018/09/04 10:15:22 [emerg] 7155#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/09/04 10:15:22 [emerg] 7155#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/09/04 10:15:22 [emerg] 7155#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/09/04 10:15:22 [emerg] 7155#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/09/04 10:15:22 [emerg] 7155#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/09/04 10:15:22 [emerg] 7155#0: still could not bind()
+2018/09/04 11:17:29 [emerg] 8095#0: unknown directive "hash" in /usr/local/nginx/conf/nginx.conf:38
+2018/09/04 11:18:41 [emerg] 8102#0: unknown directive "hash" in /usr/local/nginx/conf/nginx.conf:38
+2018/09/04 11:22:35 [emerg] 8127#0: unknown directive "hash" in /usr/local/nginx/conf/nginx.conf:54
+2018/09/04 11:24:55 [notice] 8140#0: signal process started
+2018/09/04 11:27:30 [notice] 8194#0: signal process started
+2018/09/04 11:28:19 [notice] 8212#0: signal process started
+2018/09/04 11:29:45 [notice] 8240#0: signal process started
+2018/09/04 11:33:33 [notice] 8277#0: signal process started
+2018/09/04 11:35:49 [emerg] 8302#0: unknown log format "main" in /usr/local/nginx/conf/nginx.conf:47
+2018/09/04 11:36:41 [notice] 8307#0: signal process started

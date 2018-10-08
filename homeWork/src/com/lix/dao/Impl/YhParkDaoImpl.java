@@ -1,5 +1,6 @@
 package com.lix.dao.Impl;
 
+import cn.lix.constants.Constants;
 import com.lix.dao.YhParkDao;
 import com.lix.entity.*;
 import com.lix.entity.vo.CwxxVO;
@@ -29,6 +30,7 @@ public class YhParkDaoImpl implements YhParkDao {
 
     private Session session;
     private Transaction transaction;
+
     @Resource
     private SessionFactory sessionFactory;
 
@@ -463,11 +465,18 @@ public class YhParkDaoImpl implements YhParkDao {
     public ClXx findClxxById(String skey) {
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        String Hql = "   from ClXx where skey = '"+ skey +"'";
-        Query query = session.createQuery(Hql);
-        ClXx clXx = (ClXx) query.getSingleResult();
-        transaction.commit();
-        session.close();
+        ClXx clXx = new ClXx();
+        try{
+            String Hql = "   from ClXx where skey = '"+ skey +"'";
+            Query query = session.createQuery(Hql);
+            clXx = (ClXx) query.getSingleResult();
+            transaction.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
         return clXx;
     }
 
@@ -476,10 +485,19 @@ public class YhParkDaoImpl implements YhParkDao {
 
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        String Hql = "   from ParkXx  where skey = '"+ skey +"'";
-        Query query = session.createQuery(Hql);
-        ParkXx parkXx = (ParkXx) query.getSingleResult();
-        transaction.commit();
+        ParkXx parkXx = new ParkXx();
+        try{
+            String Hql = "   from ParkXx  where skey = '"+ skey +"'";
+            Query query = session.createQuery(Hql);
+            parkXx = (ParkXx) query.getSingleResult();
+            transaction.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+
         return parkXx;
     }
 
@@ -487,10 +505,18 @@ public class YhParkDaoImpl implements YhParkDao {
     public ParkSf findParkSfById(String skey) {
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        String Hql = "   from ParkSf  where skey = '"+ skey +"'";
-        Query query = session.createQuery(Hql);
-        ParkSf parkSf = (ParkSf) query.getSingleResult();
-        transaction.commit();
+        ParkSf parkSf = new ParkSf();
+        try{
+            String Hql = "   from ParkSf  where skey = '"+ skey +"'";
+            Query query = session.createQuery(Hql);
+            parkSf = (ParkSf) query.getSingleResult();
+            transaction.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
         return parkSf;
     }
 
@@ -498,10 +524,409 @@ public class YhParkDaoImpl implements YhParkDao {
     public ParkCl findParkClById(String skey) {
         session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        String Hql = "   from ParkCl  where skey = '"+ skey +"'";
-        Query query = session.createQuery(Hql);
-        ParkCl parkCl = (ParkCl) query.getSingleResult();
-        transaction.commit();
+        ParkCl parkCl = new ParkCl();
+        try{
+            String Hql = "   from ParkCl  where skey = '"+ skey +"'";
+            Query query = session.createQuery(Hql);
+            parkCl = (ParkCl) query.getSingleResult();
+            transaction.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
         return parkCl;
     }
+
+    @Override
+    public void saveParkCompany(ParkCompany parkCompany) {
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try{
+            session.save(parkCompany);
+            transaction.commit();
+            //session.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+
+    }
+
+    @Override
+    public void saveParkUnit(ParkUnit parkUnit) {
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try{
+            session.save(parkUnit);
+            transaction.commit();
+            //session.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+
+    }
+
+    @Override
+    public void updateParkCompany(ParkCompany parkCompany) {
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try{
+            session.update(parkCompany);
+            transaction.commit();
+            //session.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+
+    }
+
+    @Override
+    public void updateParkUnit(ParkUnit parkUnit) {
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try{
+            session.update(parkUnit);
+            transaction.commit();
+            //session.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+
+    }
+
+    @Override
+    public void deleteParkUnit(ParkUnit parkUnit) {
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try{
+            session.delete(parkUnit);
+            transaction.commit();
+            //session.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+
+    }
+
+    @Override
+    public void deleteParkCompany(ParkCompany parkCompany) {
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try{
+            session.delete(parkCompany);
+            transaction.commit();
+            //session.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+
+    }
+
+    @Override
+    public Page getParkCompanyByPage(Page page, ParkCompany parkCompany) {
+        List<ParkCompany> list = new ArrayList<ParkCompany>();
+        List<ParkCompany> countList = new ArrayList<ParkCompany>();
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        String Hql = "  from ParkCompany t where 1 = 1 and t.flag = '" + Constants.parkCompany_SPTG + "' ";
+        try{
+            Query query = session.createQuery(Hql);
+            countList = query.list();
+            query.setFirstResult(page.getStart());
+            query.setMaxResults(page.getPageSize());
+            list = query.list();
+            page.setList(list);
+            page.setTotalCount(countList.size());
+//            session.flush();
+            transaction.commit();
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+
+        return page;
+    }
+
+    @Override
+    public ParkCompany findParkCompanyById(String id) {
+        ParkCompany parkCompany = new ParkCompany();
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+
+        try{
+            String Hql = "   from ParkCompany where skey = '"+ id +"'";
+            Query query = session.createQuery(Hql);
+            parkCompany = (ParkCompany) query.getSingleResult();
+            transaction.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+        return parkCompany;
+
+    }
+
+    @Override
+    public void add(ParkCompanyDsp parkCompanyDsp) {
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try{
+            session.save(parkCompanyDsp);
+            transaction.commit();
+            //session.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void delete(ParkCompanyDsp parkCompanyDsp) {
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try{
+            session.delete(parkCompanyDsp);
+            transaction.commit();
+            //session.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void update(ParkCompanyDsp parkCompanyDsp) {
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try{
+            session.update(parkCompanyDsp);
+            transaction.commit();
+            //session.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+    }
+
+
+    @Override
+    public Page getAllParkCompanyDsp(Page page , ParkCompanyDsp parkCompanyDsp) {
+        List<ParkCompanyDsp> list = new ArrayList<ParkCompanyDsp>();
+        List<ParkCompanyDsp> countList = new ArrayList<ParkCompanyDsp>();
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        String Hql = "  from ParkCompanyDsp where 1 = 1  ";
+        try{
+            Query query = session.createQuery(Hql);
+            countList = query.list();
+            query.setFirstResult(page.getStart());
+            query.setMaxResults(page.getPageSize());
+            list = query.list();
+            page.setList(list);
+            page.setTotalCount(countList.size());
+//            session.flush();
+            transaction.commit();
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+
+        return page;
+    }
+
+    @Override
+    public ParkCompanyDsp findParkCompanyDspById(String skey) {
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        ParkCompanyDsp parkCompany = new ParkCompanyDsp();
+        try{
+            String Hql = " from ParkCompanyDsp  t where t.skey = '" + skey + "'  and t.flag  != '" + Constants.parkCompany_WX + "'";
+            Query query = session.createQuery(Hql);
+            parkCompany = (ParkCompanyDsp) query.getSingleResult();
+            transaction.commit();
+            //session.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+        return parkCompany;
+    }
+
+    @Override
+    public List<ParkCompany> getAllParkCompany(ParkCompany parkCompany) {
+        List<ParkCompany> list = new ArrayList<ParkCompany>();
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        String Hql = "  from ParkCompany t where t.flag = '" + Constants.parkCompany_SPTG + "' ";
+        try{
+            Query query = session.createQuery(Hql);
+            list = query.list();
+            session.flush();
+            transaction.commit();
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return list;
+    }
+
+    @Override
+    public List<ParkCompanyDsp> getAllParkCompanyDsp(ParkCompanyDsp parkCompanyDsp) {
+        List<ParkCompanyDsp> list = new ArrayList<ParkCompanyDsp>();
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        String Hql = "  from ParkCompanyDsp t where t.flag != '" + Constants.parkCompany_WX + "'";
+        try{
+            Query query = session.createQuery(Hql);
+            list = query.list();
+            session.flush();
+            transaction.commit();
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return list;
+    }
+
+    @Override
+    public void save(ParkCompanyGl parkCompanyGl) {
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try{
+            session.save(parkCompanyGl);
+            transaction.commit();
+            //session.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void delete(ParkCompanyGl parkCompanyGl) {
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try{
+            session.delete(parkCompanyGl);
+            transaction.commit();
+            //session.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void update(ParkCompanyGl parkCompanyGl) {
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        try{
+            session.update(parkCompanyGl);
+            transaction.commit();
+            //session.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public List<ParkCompanyGl> findByParam(ParkCompanyGl parkCompanyGl) {
+
+        List<ParkCompanyGl> list = new ArrayList<ParkCompanyGl>();
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        String Hql = "  from ParkCompanyGl t where t.flag = '" + Constants.park_Company_gl_YX + "'";
+
+        if(!StringUtils.isEmpty(parkCompanyGl.getPcskey())){
+            Hql += " and t.pcskey = '" + parkCompanyGl.getPcskey() + "' ";
+        }
+        if(!StringUtils.isEmpty(parkCompanyGl.getPaskey())){
+            Hql += " and t.paskey = '" + parkCompanyGl.getPaskey() + "' ";
+        }
+
+        try{
+            Query query = session.createQuery(Hql);
+            list = query.list();
+            session.flush();
+            transaction.commit();
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return list;
+    }
+
+    @Override
+    public List<ParkCompanyGl> findByParam(ParkCompany parkCompany) {
+        List<ParkCompanyGl> list = new ArrayList<ParkCompanyGl>();
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        String Hql = "  from ParkCompanyGl t where t.flag = '" + Constants.park_Company_gl_YX + "'";
+
+        if(!StringUtils.isEmpty(parkCompany.getSkey())){
+            Hql += " and t.pcskey = '" + parkCompany.getSkey() + "' ";
+        }
+
+        Hql += " order by t.paskey desc";
+        try{
+            Query query = session.createQuery(Hql);
+            list = query.list();
+           // session.flush();
+            transaction.commit();
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return list;
+    }
+
+
 }

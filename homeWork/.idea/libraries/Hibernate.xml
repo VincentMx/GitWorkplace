@@ -32,7 +32,6 @@
       <root url="jar://$PROJECT_DIR$/lib/jsonassert-1.4.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.8.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/javax.servlet.jsp.jstl.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/aspectjweaver.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/spring-core-4.3.13.RELEASE.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/spring-expression-4.3.13.RELEASE.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/jandex-2.0.3.Final.jar!/" />
@@ -105,8 +104,32 @@
       <root url="jar://$PROJECT_DIR$/lib/spring-session-data-redis-2.0.0.RC1.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/spring-data-redis-2.0.7.RELEASE.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/xmlpull_1_0_5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/aspectjweaver.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ehcache-1.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cors-filter-2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/java-property-utils-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cxf-rt-rs-extension-providers-3.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cxf-rt-rs-extension-search-3.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cxf-rt-rs-json-basic-3.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cxf-rt-rs-security-cors-3.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cxf-rt-rs-security-jose-3.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cxf-rt-rs-security-jose-jaxrs-3.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cxf-rt-rs-security-oauth-3.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cxf-rt-rs-security-oauth2-3.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cxf-rt-rs-security-sso-saml-3.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cxf-rt-rs-security-xml-3.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cxf-rt-rs-service-description-3.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cxf-rt-rs-sse-3.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cxf-rt-frontend-jaxrs-3.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cxf-tools-wadlto-jaxrs-3.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-jaxrs-json-provider-2.4.0-rc3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/quartz-1.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ehcache-core-2.6.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hibernate-ehcache-4.3.8.Final.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/jackson-jaxrs-json-provider-2.4.0-rc3-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

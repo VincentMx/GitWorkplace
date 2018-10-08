@@ -2,9 +2,7 @@ package com.lix.controller;
 
 import cn.lix.controller.base.BaseController;
 import com.lix.entity.XtYhDsp;
-import com.lix.entity.XtZy;
 import com.lix.entity.Xt_yh;
-import com.lix.entity.vo.XtZyVO;
 import com.lix.service.XtYhDspService;
 import com.lix.util.Page;
 import com.lix.util.PageUtils;
@@ -73,18 +71,21 @@ public class XtYhRegisterController extends BaseController {
     @ResponseBody
     public String addXtYhDsp(XtYhDsp xtYhDsp,HttpServletRequest request){
         String result = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】添加或修改待审批系统用户信息 开始  ####################################################");
         String sfzh = (String)request.getSession().getAttribute("yhId");
         try{
             if (xtYhDsp != null){
-                xtYhDspService.addXtYhDspInfo(xtYhDsp); 
+                xtYhDspService.addXtYhDspInfo(xtYhDsp , request , getYh(request));
                 result = "{\"success\":\"true\"}";
             }else{
                 result = "{\"success\":\"false\",\"msg\":\"保存用户信息为空！\"}";
             }
         }catch (Exception e){
             result = "{\"success\":\"false\",\"msg\":\""+e.getMessage()+"\"}";
-
+            logger.error("------- 新增或修改系统用户时出现错误：" + e.getMessage());
         }
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】添加或修改待审批系统用户信息 结束  ####################################################");
+
         return result;
     }
 
@@ -103,10 +104,11 @@ public class XtYhRegisterController extends BaseController {
     @ResponseBody
     public String deleteInfo(String skey,HttpServletRequest request){
         String result = "";
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除待审批系统用户信息 开始  ####################################################");
         String sfzh = (String)request.getSession().getAttribute("yhId");
         try{
             if(!StringUtils.isEmpty(skey)){
-                xtYhDspService.deleteXtYhDspInfoById(skey,sfzh);
+                xtYhDspService.deleteXtYhDspInfoById(skey,sfzh,request);
                 result  = "{\"success\":\"true\"}";
             }else{
                 result = "{\"success\":\"false\",\"msg\":\"主键为空！\"}";
@@ -114,9 +116,11 @@ public class XtYhRegisterController extends BaseController {
 
         }catch (Exception e){
             result = "{\"success\":\"false\",\"msg\":\""+e.getMessage()+"\"}";
-            logger.error("删除资源失败"+e.getMessage());
+            logger.error("------删除用户信息失败"+e.getMessage());
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除待审批系统用户信息 结束  ####################################################");
+
         return  result;
     }
 

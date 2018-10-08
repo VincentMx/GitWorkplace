@@ -1,9 +1,11 @@
 package com.lix.controller.park;
 
 import cn.lix.controller.base.BaseController;
-import com.lix.entity.*;
+import com.lix.entity.ClXx;
+import com.lix.entity.ParkCl;
+import com.lix.entity.ParkSf;
+import com.lix.entity.ParkXx;
 import com.lix.entity.vo.CwxxVO;
-import com.lix.entity.vo.XtCsVO;
 import com.lix.entity.vo.XtRzCzVO;
 import com.lix.service.XtRzCzService;
 import com.lix.service.YhParkService;
@@ -52,6 +54,7 @@ public class YhParkController extends BaseController{
     @ResponseBody
     public String saveCwInfo(ParkXx parkXx, HttpServletRequest request){
         String result = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】添加车位信息 开始  ####################################################");
         try{
             yhParkService.save(parkXx);
             result = "{\"success\":\"true\"}";
@@ -60,6 +63,7 @@ public class YhParkController extends BaseController{
             e.getMessage();
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】添加车位信息 结束  ####################################################");
         return result;
     }
 
@@ -77,6 +81,8 @@ public class YhParkController extends BaseController{
     @ResponseBody
     public String saveSfInfo(ParkSf parkSf, HttpServletRequest request){
         String result = null;
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】添加车位收费信息 开始  ####################################################");
+
         try{
             yhParkService.save(parkSf);
             result = "{\"success\":\"true\"}";
@@ -85,6 +91,7 @@ public class YhParkController extends BaseController{
             e.getMessage();
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】添加车位收费信息 结束  ####################################################");
         return result;
     }
     
@@ -127,6 +134,7 @@ public class YhParkController extends BaseController{
     @ResponseBody
     public String deleteCw(String skey,HttpServletRequest request){
         String result = "";
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除车位信息 开始  ####################################################");
         ParkXx parkXx = new ParkXx();
         try{
             parkXx.setSkey(skey);
@@ -134,9 +142,10 @@ public class YhParkController extends BaseController{
             result  = "{\"success\":\"true\"}";
         }catch (Exception e){
             result = "{\"success\":\"false\",\"msg\":\""+e.getMessage()+"\"}";
-            logger.error("删除日志失败"+e.getMessage());
+            logger.error("----------删除车位失败"+e.getMessage());
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除车位信息 结束  ####################################################");
         return  result;
     }
 
@@ -154,14 +163,16 @@ public class YhParkController extends BaseController{
     @ResponseBody
     public String updateCw(ParkXx parkXx ,HttpServletRequest request){
         String result = "";
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】修改车位信息 开始  ####################################################");
         try{
             yhParkService.update(parkXx);
             result  = "{\"success\":\"true\"}";
         }catch (Exception e){
             result = "{\"success\":\"false\",\"msg\":\""+e.getMessage()+"\"}";
-            logger.error("修改日志失败"+e.getMessage());
+            logger.error("----------修改车位信息失败"+e.getMessage());
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】修改车位信息 结束  ####################################################");
         return  result;
     }
 
@@ -178,6 +189,7 @@ public class YhParkController extends BaseController{
     @ResponseBody
     public String updateCw(ClXx clXx ,HttpServletRequest request){
         String result = "";
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】修改车辆信息 开始  ####################################################");
         try{
             yhParkService.update(clXx);
             result  = "{\"success\":\"true\"}";
@@ -186,6 +198,7 @@ public class YhParkController extends BaseController{
             logger.error("修改车辆失败"+e.getMessage());
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】修改车辆信息 结束  ####################################################");
         return  result;
     }
 
@@ -202,14 +215,16 @@ public class YhParkController extends BaseController{
     @ResponseBody
     public String updateCw(ParkSf parkSf ,HttpServletRequest request){
         String result = "";
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】修改车位收费信息 开始  ####################################################");
         try{
             yhParkService.update(parkSf);
             result  = "{\"success\":\"true\"}";
         }catch (Exception e){
             result = "{\"success\":\"false\",\"msg\":\""+e.getMessage()+"\"}";
-            logger.error("修改收费信息失败"+e.getMessage());
+            logger.error("----------修改收费信息失败"+e.getMessage());
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】修改车位收费信息 结束  ####################################################");
         return  result;
     }
 
@@ -226,6 +241,7 @@ public class YhParkController extends BaseController{
     @ResponseBody
     public String deleteSf(String skey,HttpServletRequest request){
         String result = "";
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除车位收费信息 开始  ####################################################");
         ParkSf parkSf = new ParkSf();
         try{
             parkSf.setSkey(skey);
@@ -233,9 +249,10 @@ public class YhParkController extends BaseController{
             result  = "{\"success\":\"true\"}";
         }catch (Exception e){
             result = "{\"success\":\"false\",\"msg\":\""+e.getMessage()+"\"}";
-            logger.error("删除收费信息失败"+e.getMessage());
+            logger.error("----------删除收费信息失败"+e.getMessage());
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除车位收费信息 结束  ####################################################");
         return  result;
     }
 
@@ -253,6 +270,7 @@ public class YhParkController extends BaseController{
     @ResponseBody
     public String deleteCl(String skey,HttpServletRequest request){
         String result = "";
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除车辆信息 开始  ####################################################");
         ClXx clXx = new ClXx();
         try{
             clXx.setSkey(skey);
@@ -260,9 +278,10 @@ public class YhParkController extends BaseController{
             result  = "{\"success\":\"true\"}";
         }catch (Exception e){
             result = "{\"success\":\"false\",\"msg\":\""+e.getMessage()+"\"}";
-            logger.error("删除车辆失败"+e.getMessage());
+            logger.error("---------删除车辆失败"+e.getMessage());
         }
         logger.debug(result);
+        logger.info("############################################  用户【 "+ request.getRemoteAddr() +"：" + getYhId(request) + "】删除车辆信息 结束  ####################################################");
         return  result;
     }
 
@@ -456,4 +475,32 @@ public class YhParkController extends BaseController{
         return  results;
     }
 
+    /**
+      *@method: 分页查询停车公司
+      *@author: lix
+      *@desc：
+      *@Date: 18:24 2018/8/7
+      *@param:
+      *@return:
+      *
+      */
+    @RequestMapping(value = "/queryAllTcGsDataByPage.html")
+    @ResponseBody
+    public String queryTcGsDataWithPage(Integer start, Integer limit, ParkCl parkCl, HttpServletRequest request ){
+        String result = null;
+        String unitKey = "";
+        try{
+            // start = 0; limit = 10;
+            Page page = new Page(start,0,limit,null);
+            page = yhParkService.findAllParkCl(page , parkCl);
+            result = PageUtils.getExtjsPageJsonData(page);
+            //result = "{\"success\":\"true\",\"result\":"+jsonArray+"}";
+        }catch (Exception e){
+            result = "{\"success\":\"false\",\"message\":"+e.getMessage()+"}";
+            e.getMessage();
+        }
+        logger.debug(result);
+        return result;
+    }
+    
 }

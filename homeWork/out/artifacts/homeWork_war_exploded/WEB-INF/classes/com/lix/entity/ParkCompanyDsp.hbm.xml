@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.lix.entity.ParkCompanyDsp" table="park_company_dsp" schema="xxxt">
+        <id name="skey" column="skey"/>
+        <property name="pcName" column="pc_name"/>
+        <property name="pcPhone" column="pc_phone"/>
+        <property name="pcAddr" column="pc_addr"/>
+        <property name="pcJd" column="pc_jd"/>
+        <property name="pcWd" column="pc_wd"/>
+        <property name="pcDesc" column="pc_desc"/>
+        <property name="pcBz" column="pc_bz"/>
+        <property name="pcLogo" column="pc_logo"/>
+        <property name="flag" column="flag"/>
+    </class>
+</hibernate-mapping>

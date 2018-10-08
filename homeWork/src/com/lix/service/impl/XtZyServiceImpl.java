@@ -2,6 +2,7 @@ package com.lix.service.impl;
 
 import cn.lix.constants.Constants;
 import com.lix.dao.XtZyDao;
+import com.lix.dao.common.CommonDao;
 import com.lix.entity.XtZy;
 import com.lix.entity.vo.XtZyVO;
 import com.lix.service.XtZyService;
@@ -10,8 +11,6 @@ import com.lix.util.Page;
 import com.lix.util.UuidUtils;
 import com.lix.util.operateUtils;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import net.sf.json.util.JSONUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -36,6 +35,8 @@ public class XtZyServiceImpl implements XtZyService {
     @Resource
     private JdbcTemplate jdbcTemplate;
 
+    @Resource
+    private CommonDao commonDao;
 
     @Override
     public void saveXtZy(XtZy xt_zy, HttpServletRequest request,String sfzh) throws Exception {

@@ -1,19 +1,22 @@
 package com.lix.service.impl;
 
+import cn.lix.constants.Constants;
 import com.lix.dao.YhParkDao;
-import com.lix.entity.ClXx;
-import com.lix.entity.ParkCl;
-import com.lix.entity.ParkSf;
-import com.lix.entity.ParkXx;
+import com.lix.entity.*;
 import com.lix.entity.vo.CwxxVO;
 import com.lix.service.YhParkService;
 import com.lix.util.BeanUtils;
 import com.lix.util.Page;
 import com.lix.util.UuidUtils;
+import com.lix.util.operateUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +49,6 @@ public class yhParkServiceImpl implements YhParkService {
 
     @Override
     public void save(ParkXx parkXx) {
-
         if(parkXx != null){
             parkXx.setSkey(UuidUtils.get32UUID());
             yhParkDao.save(parkXx);
@@ -240,5 +242,217 @@ public class yhParkServiceImpl implements YhParkService {
             clXx1 = yhParkDao.findClxxById(clXx.getSkey());
         }
         return clXx1;
+    }
+
+    @Override
+    public void saveOrUpdateParkCompany(ParkCompany parkCompany) throws Exception {
+        if(StringUtils.isEmpty(parkCompany.getSkey())){
+            if(parkCompany != null){
+                parkCompany.setSkey(UuidUtils.get32UUID());
+                yhParkDao.saveParkCompany(parkCompany);
+            }else{
+             throw new Exception(" 停车公司信息不能为空 ");
+            }
+        }else{
+            ParkCompany parkCompany1  = yhParkDao.findParkCompanyById(parkCompany.getSkey());
+           if(parkCompany1 == null){
+               throw  new Exception(" 未获取到停车公司信息 ");
+           }
+            BeanUtils.copyPropertityIgnoreNull(parkCompany1 , parkCompany);
+            yhParkDao.updateParkCompany(parkCompany);
+
+        }
+    }
+
+    @Override
+    public void spParkCompany(Xt_yh xt_yh, ParkCompanyDsp parkCompanyDsp, String spflag) {
+
+    }
+
+    @Override
+    public Page findAllParkCompany(Page page, ParkCompany parkCompany) {
+        return yhParkDao.getParkCompanyByPage(page , parkCompany);
+    }
+
+    @Override
+    public Page findAllParkCompanyDsp(Page page, ParkCompanyDsp parkCompanyDsp) {
+        return yhParkDao.getAllParkCompanyDsp(page , parkCompanyDsp);
+    }
+
+    @Override
+    public void saveOrUpdateParkCompanyDsp(Xt_yh xt_yh, ParkCompanyDsp parkCompanyDsp , HttpServletRequest request) throws Exception {
+
+        if(parkCompanyDsp.getSkey() != null || !"".equals(parkCompanyDsp.getSkey())){
+
+            parkCompanyDsp.setSkey(UuidUtils.get32UUID());
+            parkCompanyDsp.setFlag(Constants.parkCompany_CS);
+            yhParkDao.add(parkCompanyDsp);
+            operateUtils.addUserOperateLog(xt_yh.getId(), Constants.OPERATORLOGADD,Constants.OPERATE_SUCCESS,"","注册停车公司信息","saveOrUpdateParkCompanyDsp,主键："+parkCompanyDsp.getSkey(),request);
+
+        }else{
+            ParkCompanyDsp parkCompanyDsp1 = yhParkDao.findParkCompanyDspById(parkCompanyDsp.getSkey());
+            if(parkCompanyDsp1 != null){
+                BeanUtils.copyPropertityIgnoreNull(parkCompanyDsp1 , parkCompanyDsp);
+                yhParkDao.update(parkCompanyDsp);
+                operateUtils.addUserOperateLog(xt_yh.getId(), Constants.OPERATORLOGUPDATE,Constants.OPERATE_SUCCESS,"","修改停车公司信息","saveOrUpdateParkCompanyDsp,主键："+parkCompanyDsp.getSkey(),request);
+
+            }
+        }
+    }
+
+    @Override
+    public ParkCompanyDsp findParkCompanyDspBySkey(String skey) throws Exception {
+        ParkCompanyDsp parkCompanyDsp = new ParkCompanyDsp();
+        if(skey != null && !"".equals(skey) ){
+               parkCompanyDsp = yhParkDao.findParkCompanyDspById(skey);
+          }else{
+              throw  new Exception("主键不能为空");
+          }
+        return parkCompanyDsp;
+    }
+
+    @Override
+    public void deleteParkCompanyDsp(String skey ,HttpServletRequest request ,Xt_yh xt_yh) throws Exception {
+        if(skey != null && !"".equals(skey) ){
+         ParkCompanyDsp   parkCompanyDsp = yhParkDao.findParkCompanyDspById(skey);
+             if(parkCompanyDsp != null){
+                 yhParkDao.delete(parkCompanyDsp);
+                 operateUtils.addUserOperateLog(xt_yh.getId(), Constants.OPERATORLOGDELETE,Constants.OPERATE_SUCCESS,"","删除停车公司信息","deleteParkCompanyDsp,主键："+parkCompanyDsp.getSkey(),request);
+             }else{
+                 throw new Exception("未获取到相关公司信息");
+             }
+
+        }else{
+            throw  new Exception("主键不能为空");
+        }
+    }
+
+    @Override
+    public void deleteParkCompany(String skey, HttpServletRequest request, Xt_yh xt_yh) throws Exception {
+        if(skey != null && !"".equals(skey) ){
+            ParkCompany   parkCompany = yhParkDao.findParkCompanyById(skey);
+            if(parkCompany != null){
+                yhParkDao.deleteParkCompany(parkCompany);
+                operateUtils.addUserOperateLog(xt_yh.getId(), Constants.OPERATORLOGDELETE,Constants.OPERATE_SUCCESS,"","删除停车公司信息","deleteParkCompany,主键："+parkCompany.getSkey(),request);
+            }else{
+                throw new Exception("未获取到相关公司信息");
+            }
+
+        }else{
+            throw  new Exception("主键不能为空");
+        }
+
+    }
+
+    @Override
+    public List<ParkCompany> findAllParkCompany(ParkCompany parkCompany) {
+        return yhParkDao.getAllParkCompany(parkCompany);
+    }
+
+    @Override
+    public List<ParkCompanyDsp> findAllParkCompanyDsp(ParkCompanyDsp parkCompanyDsp) {
+        return yhParkDao.getAllParkCompanyDsp(parkCompanyDsp);
+    }
+
+    @Override
+    public ParkCompany findParkCompanyById(ParkCompany parkCompany) {
+        Assert.hasText(parkCompany.getSkey() , "车位公司主键不能为空");
+        ParkCompany parkCompany1 = new ParkCompany();
+        parkCompany1 = yhParkDao.findParkCompanyById(parkCompany.getSkey());
+        return parkCompany1;
+    }
+
+    @Override
+    public void save(ParkCompanyGl parkCompanyGl, Xt_yh xt_yh) {
+        yhParkDao.save(parkCompanyGl);
+    }
+
+    @Override
+    public void delete(ParkCompanyGl parkCompanyGl, Xt_yh xt_yh) {
+
+        yhParkDao.delete(parkCompanyGl);
+    }
+
+    @Override
+    public void update(ParkCompanyGl parkCompanyGl, Xt_yh xt_yh) {
+
+        yhParkDao.update(parkCompanyGl);
+    }
+
+    @Override
+    public List<ParkCompanyGl> findAllParkGlByParam(ParkCompanyGl parkCompanyGl, ParkCompany parkCompany, ParkXx parkXx) {
+        List<ParkCompanyGl> list = new ArrayList<ParkCompanyGl>();
+        if(parkCompanyGl != null){
+          list =   yhParkDao.findByParam(parkCompanyGl);
+        }else{
+            return null;
+        }
+        return list;
+    }
+
+    @Override
+    public void save(String pcskey, ParkXx parkXx, Xt_yh xt_yh, HttpServletRequest request) throws Exception {
+        ParkCompanyGl parkCompanyGl = new ParkCompanyGl();
+        ParkCompany parkCompany = new ParkCompany();
+
+        //判断公司主键
+        if(pcskey == null || "".equals(pcskey) || "undefined".equals(pcskey) ){
+            throw new Exception("公司主键不能为空");
+        }
+        //车位信息不能为空
+        if(parkXx == null){
+            throw  new Exception("车位信息不能为空");
+        }
+
+        //验证公司信息
+        parkCompany = yhParkDao.findParkCompanyById(pcskey);
+        if(parkCompany == null){
+            throw  new Exception("无公司信息");
+        }else if(!Constants.parkCompany_SPTG.equals(parkCompany.getFlag())){
+            throw new Exception("公司状态异常");
+        }
+
+        try {
+
+        //保存车位信息
+        parkXx.setSkey(UuidUtils.get32UUID());
+        parkXx.setPaPcskey(parkCompany.getSkey());
+        yhParkDao.save(parkXx);
+
+        //添加关联信息
+        parkCompanyGl.setPaskey(parkXx.getSkey());
+        parkCompanyGl.setPcskey(parkCompany.getSkey());
+        parkCompanyGl.setSkey(UuidUtils.get32UUID());
+        parkCompanyGl.setFlag(Constants.park_Company_gl_YX);
+        yhParkDao.save(parkCompanyGl);
+
+        }catch (Exception e){
+            operateUtils.addUserOperateLog(xt_yh.getId(), Constants.OPERATORLOGADD,Constants.OPERATE_FAIL,e.getMessage(),"添加车位及公司关联信息","save,主键："+parkCompanyGl.getSkey(),request);
+            e.printStackTrace();
+        }
+
+        operateUtils.addUserOperateLog(xt_yh.getId(), Constants.OPERATORLOGADD,Constants.OPERATE_SUCCESS,"","添加车位及公司关联信息","save,主键："+parkCompanyGl.getSkey(),request);
+
+    }
+
+    //接口调用
+    @Override
+    public List<ParkXx> findParkListByPcskey(ParkCompany parkCompany) {
+
+        List<ParkXx> parkXxList = new ArrayList<ParkXx>();
+        List<ParkCompanyGl> parkCompanyGlList = yhParkDao.findByParam(parkCompany);
+        if(parkCompanyGlList != null){
+            for (ParkCompanyGl parkCompanyGl : parkCompanyGlList ){
+                 ParkXx parkXx = new ParkXx();
+                 parkXx = yhParkDao.findParkById(parkCompanyGl.getPaskey());
+                 parkXxList.add(parkXx);
+            }
+
+        }else {
+           return  parkXxList;
+        }
+
+
+        return parkXxList;
     }
 }

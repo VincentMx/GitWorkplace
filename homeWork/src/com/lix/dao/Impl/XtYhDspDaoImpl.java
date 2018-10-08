@@ -76,7 +76,7 @@ public class XtYhDspDaoImpl  implements XtYhDspDao{
         transaction = session.beginTransaction();
         String Hal = "from XtYhDsp WHERE 1 = 1 ";
         if(!StringUtils.isEmpty(xtYhDsp.getId())){
-            Hal += " and id = "+  xtYhDsp.getId()  +"  ";
+            Hal += " and id = '"+  xtYhDsp.getId()  +"'  ";
         }
         if(!StringUtils.isEmpty(xtYhDsp.getSkey())){
             Hal += " and skey = '" +  xtYhDsp.getSkey()  +"'  ";

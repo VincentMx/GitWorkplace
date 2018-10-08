@@ -1,6 +1,6 @@
 package com.lix.webService.impl;
 
-import cn.lix.constants.BasicConfig;
+import cn.lix.config.BasicConfig;
 import cn.lix.constants.Constants;
 import com.lix.Query.ServiceQueryUtil;
 import com.lix.entity.Xt_yh;
@@ -25,7 +25,7 @@ import java.util.Map;
  * @time : 10:162018/3/8
  * @modify by :
  */
-@WebService(endpointInterface = "com.lix.webService.YhInfoService",targetNamespace = "http://impl.webService.com.lix/")
+@WebService(endpointInterface = "com.lix.webService.YhInfoService",targetNamespace = "com.lix.webService.YhInfoService")
 public class YhInfoServiceImpl implements YhInfoService {
 
     private Logger logger = Logger.getLogger(this.getClass());
@@ -189,6 +189,7 @@ public class YhInfoServiceImpl implements YhInfoService {
             return resStr;
         }
         String resStr = JsonUtils.map2json(rtnMap);
+        logger.info("---返回报文:" + resStr);
         return resStr;
     }
 

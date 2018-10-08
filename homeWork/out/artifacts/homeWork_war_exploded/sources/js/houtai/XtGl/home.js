@@ -14,7 +14,7 @@ function getXtYhCount() {
         dataType: 'json',
         async: false,
         success: function (data) {
-             //alert(JSON.stringify(data));
+             //alert(JSON.stringify(data));systemMap
 
             $("#xtYhCountId").html("").html(data.xtYhCount+ "人");
             $("#dlCountId").html("").html(data.dlCount+ "次");
@@ -22,6 +22,16 @@ function getXtYhCount() {
             $("#yhDlCountId").html("").html(data.yhSelfDlCount);
             $("#yhFwlId").html("").html(data.dlCount+ "次");
             // $("#nowXtYhCountId").html("").html(data.nowXtYhCount);
+           // alert("---- "+ JSON.stringify(data.systemMap.computername));
+            $("#yhm").html("").html(data.systemMap.username);
+            $("#dz").html("").html(data.systemMap.address);
+            $("#clq").html("").html(data.systemMap.processorIdentifier);
+            $("#clqjg").html("").html(data.systemMap.processorArchitecture);
+            $("#clqsl").html("").html(data.systemMap.numberOfProcessors);
+            $("#czxt").html("").html(data.systemMap.os);
+            $("#jsjm").html("").html(data.systemMap.computername);
+            $("#ykzq").html("").html(data.systemMap.logonserver);
+
 
         },
         error: function (XMLHttpRequest,textStatus) {
