@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- 配置类的别名 -->
+<typeAliases>
+    <typeAlias alias="User" type="com.jd.model.User" />
+    <typeAlias alias="New" type="com.jd.model.New" />
+</typeAliases>
+
+<!--配置映射器 -->
+   <mappers>
+   		<mapper resource="resources/mapper/UserMapper.xml"/>
+   		<mapper resource="resources/mapper/NewMapper.xml"/>
+   </mappers>
+
+</configuration>
+

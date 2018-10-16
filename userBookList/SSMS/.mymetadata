@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="SSMS"
+  id="myeclipse.1474610437940"
+  context-root="/SSMS"
+  j2ee-spec="6.0"
+  archive="SSMS.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
